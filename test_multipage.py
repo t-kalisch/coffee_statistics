@@ -11,7 +11,7 @@ from pages import data_upload # import your pages here
 app = MultiPage()
 
 # Title of the main page
-display = Image.open('Logo.png')
+#display = Image.open('Logo.png')
 display = np.array(display)
 # st.image(display, width = 400)
 # st.title("Data Storyteller Application")
