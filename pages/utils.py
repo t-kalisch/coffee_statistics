@@ -1,3 +1,4 @@
 import streamlit as st
 
-st.write("Utils loaded")
+def app():
+  st.write("Utils loaded")
