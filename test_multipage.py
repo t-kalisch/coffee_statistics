@@ -1,40 +1,30 @@
-"""
-This file is the framework for generating multiple Streamlit applications 
-through an object oriented framework. 
-"""
-
-# Import necessary libraries 
+import os
 import streamlit as st
+import numpy as np
+from PIL import  Image
 
-# Define the multipage class to manage the multiple apps in our program 
-class MultiPage: 
-    """Framework for combining multiple streamlit applications."""
+# Custom imports 
+from multipage import MultiPage
+from pages import data_upload, machine_learning, metadata, data_visualize, redundant # import your pages here
 
-    def __init__(self) -> None:
-        """Constructor class to generate a list which will store all our applications as an instance variable."""
-        self.pages = []
-    
-    def add_page(self, title, func) -> None: 
-        """Class Method to Add pages to the project
-        Args:
-            title ([str]): The title of page which we are adding to the list of apps 
-            
-            func: Python function to render this page in Streamlit
-        """
+# Create an instance of the app 
+app = MultiPage()
 
-        self.pages.append({
-          
-                "title": title, 
-                "function": func
-            })
+# Title of the main page
+display = Image.open('Logo.png')
+display = np.array(display)
+# st.image(display, width = 400)
+# st.title("Data Storyteller Application")
+col1, col2 = st.beta_columns(2)
+col1.image(display, width = 400)
+col2.title("Data Storyteller Application")
 
-    def run(self):
-        # Drodown to select the page to run  
-        page = st.sidebar.selectbox(
-            'App Navigation', 
-            self.pages, 
-            format_func=lambda page: page['title']
-        )
+# Add all your application here
+app.add_page("Upload Data", data_upload.app)
+app.add_page("Change Metadata", metadata.app)
+app.add_page("Machine Learning", machine_learning.app)
+app.add_page("Data Analysis",data_visualize.app)
+app.add_page("Y-Parameter Optimization",redundant.app)
 
-        # run the app function 
-        page['function']()
+# The main app
+app.run()
