@@ -20,7 +20,7 @@ col1, col2 = st.beta_columns(2)
 col2.title("Data Storyteller Application")
 
 # Add all your application here
-app.add_page("Login", Login.app)
+app.add_page("Login", login.app)
 app.add_page("Test1", test1.app)
 app.add_page("Test2", test2.app)
 
