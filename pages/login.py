@@ -20,7 +20,7 @@ def app():
     login = st.checkbox("Login", help="You will be logged in while the checkbox is ticked")
 
     if login:
-    for i in range(len(user_data)):
-        if user == user_data[i][0] and user_pw == user_data[i][1]:
-            admin_status=user_data[i][2]
-            logged_in=True
+        for i in range(len(user_data)):
+            if user == user_data[i][0] and user_pw == user_data[i][1]:
+                admin_status=user_data[i][2]
+                logged_in=True
