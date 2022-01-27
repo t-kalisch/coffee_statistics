@@ -19,7 +19,8 @@ st.title("Data Storyteller Application")
 
 # Add all your application here
 app.add_page("Login", login.app)
-app.add_page("Test1", test1.app)
+if logged_in = True:
+  app.add_page("Change password", test1.app)
 app.add_page("Test2", test2.app)
 
 
