@@ -1,21 +1,40 @@
+"""
+This file is the framework for generating multiple Streamlit applications 
+through an object oriented framework. 
+"""
+
+# Import necessary libraries 
 import streamlit as st
 
-# Custom imports 
-from multipage import MultiPage
-from pages import data_upload, machine_learning, metadata, data_visualize, redundant, inference # import your pages here
+# Define the multipage class to manage the multiple apps in our program 
+class MultiPage: 
+    """Framework for combining multiple streamlit applications."""
 
-# Create an instance of the app 
-app = MultiPage()
+    def __init__(self) -> None:
+        """Constructor class to generate a list which will store all our applications as an instance variable."""
+        self.pages = []
+    
+    def add_page(self, title, func) -> None: 
+        """Class Method to Add pages to the project
+        Args:
+            title ([str]): The title of page which we are adding to the list of apps 
+            
+            func: Python function to render this page in Streamlit
+        """
 
-# Title of the main page
-st.title("Data Storyteller Application")
+        self.pages.append({
+          
+                "title": title, 
+                "function": func
+            })
 
-# Add all your applications (pages) here
-app.add_page("Upload Data", data_upload.app)
-app.add_page("Change Metadata", metadata.app)
-app.add_page("Machine Learning", machine_learning.app)
-app.add_page("Data Analysis",data_visualize.app)
-app.add_page("Y-Parameter Optimization",redundant.app)
+    def run(self):
+        # Drodown to select the page to run  
+        page = st.sidebar.selectbox(
+            'App Navigation', 
+            self.pages, 
+            format_func=lambda page: page['title']
+        )
 
-# The main app
-app.run()
+        # run the app function 
+        page['function']()
