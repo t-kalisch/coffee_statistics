@@ -5,7 +5,7 @@ from PIL import  Image
 
 # Custom imports 
 from app import MultiPage
-from pages import login, test1, test2 # import your pages here
+from pages import login, change_password, test2 # import your pages here
 
 # Create an instance of the app 
 app = MultiPage()
@@ -19,8 +19,8 @@ st.title("Data Storyteller Application")
 
 # Add all your application here
 app.add_page("Login", login.app)
-if logged_in = True:
-  app.add_page("Change password", test1.app)
+if logged_in == True:
+  app.add_page("Change password", chaange_password.app)
 app.add_page("Test2", test2.app)
 
 
