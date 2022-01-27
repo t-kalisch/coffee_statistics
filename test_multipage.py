@@ -14,10 +14,8 @@ app = MultiPage()
 #display = Image.open('Logo.png')
 #display = np.array(display)
 # st.image(display, width = 400)
-# st.title("Data Storyteller Application")
-col1, col2 = st.columns(2)
-#col1.image(display, width = 400)
-col2.title("Data Storyteller Application")
+
+st.title("Data Storyteller Application")
 
 # Add all your application here
 app.add_page("Login", login.app)
