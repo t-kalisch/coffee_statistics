@@ -24,4 +24,5 @@ def app():
             if user == user_data[i][0] and user_pw == user_data[i][1]:
                 admin_status=user_data[i][2]
                 logged_in=True
+                st.write("Successfully logged in!")
     return logged_in
