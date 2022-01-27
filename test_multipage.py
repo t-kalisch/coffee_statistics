@@ -5,7 +5,7 @@ from PIL import  Image
 
 # Custom imports 
 from app import MultiPage
-from pages import data_upload, test1, test2 # import your pages here
+from pages import login, test1, test2 # import your pages here
 
 # Create an instance of the app 
 app = MultiPage()
@@ -20,7 +20,7 @@ col1, col2 = st.beta_columns(2)
 col2.title("Data Storyteller Application")
 
 # Add all your application here
-app.add_page("Upload Data", data_upload.app)
+app.add_page("Login", Login.app)
 app.add_page("Test1", test1.app)
 app.add_page("Test2", test2.app)
 
