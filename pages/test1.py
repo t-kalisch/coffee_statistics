@@ -1,3 +1,4 @@
 import streamlit as st
 
-st.write("Test1 successfully loaded")
+def app():
+  st.write("Test1 successfully loaded")
