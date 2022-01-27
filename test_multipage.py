@@ -12,7 +12,7 @@ app = MultiPage()
 
 # Title of the main page
 #display = Image.open('Logo.png')
-display = np.array(display)
+#display = np.array(display)
 # st.image(display, width = 400)
 # st.title("Data Storyteller Application")
 col1, col2 = st.beta_columns(2)
