@@ -1,9 +1,9 @@
 import streamlit as st
-import datetime
-import extra_streamlit_components as stx
+
 
 def app():
-
+  import datetime
+  import extra_streamlit_components as stx
 
 
   st.write("# Cookie Manager")
