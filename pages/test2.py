@@ -1,6 +1,6 @@
 import streamlit as st
 import datetime
-
+import extra_streamlit_components as stx
 
 def app():
 
