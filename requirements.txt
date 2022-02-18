@@ -4,3 +4,5 @@ streamlit
 matplotlib
 seaborn
 numpy
+datetime
+extra_streamlit_components
