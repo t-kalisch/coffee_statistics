@@ -180,4 +180,4 @@ elif st.session_state.admin == "1":
   col1.button("Add coffee", on_click=add_coffee_to_break_check, args=(id_ext, coffee_name, st.session_state.user_name))
   df=pd.DataFrame(last_breaks,columns=['Extended ID','Date','Drinkers','Coffees'])
   col3.markdown("Last 10 breaks")
-  col3.dataframe(df, width=600, height=500)
+  col3.dataframe(df, width=600, height=400)
