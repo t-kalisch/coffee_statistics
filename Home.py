@@ -103,13 +103,14 @@ def logout_check():
 
 if st.session_state.logged_in == "true":
     st.title("Logged in as {}".format(st.session_state.user_name))
-
+    col1, col2 = st.columns([1,3])
+    col1.write("You now have access to the coffee list.
     if st.session_state.admin == "1":
-        st.write("  Status: Administrator")
+        col2.write("  Status: Administrator")
     elif st.session_state.admin == "2":
-        st.write("  Status: guest")
+        col2.write("  Status: guest")
     elif st.session_state.admin == "0":
-        st.write("  Member status: User") 
+        col2.write("  Member status: User") 
     logout = st.button("Logout", help="Log out here", on_click=logout_check)
 
 else:
