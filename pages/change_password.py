@@ -1,7 +1,7 @@
 import streamlit as st
 
 if st.session_state.admin != "1":
-st.subheader("**:adult:** Change username")
+    st.subheader("**:adult:** Change username")
     st.markdown("Please enter your current username, password and new username.")
     col1,col2,col3 = st.columns([0.5,1,0.7])
     curr_user = col2.text_input("Username", placeholder = "Username")
