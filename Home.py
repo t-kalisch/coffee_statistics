@@ -110,22 +110,17 @@ if st.session_state.logged_in == "true":
         st.write("  Status: guest")
     elif st.session_state.admin == "0":
         st.write("  Member status: User") 
-        
-    #if logout:
-    #    logout_check()
+    logout = st.button("Logout", help="Log out here", on_click=logout_check)
+
 else:
     st.title("Welcome to the future of coffee drinking **:coffee:**")
     st.write("In order to get access to the visualised data you need to be logged in with your username and password.")
 
-col1,col2,col3 = st.columns([1,1,2])
-user = col1.text_input(label="", placeholder="Username", key="user")
-user_pw = col2.text_input(label="", type="password", placeholder="Password", key="user_pw")
-
-if logged_in == "true":
-    logout = col1.button("Logout", help="Log out here", on_click=logout_check)
-else:
+    col1,col2,col3 = st.columns([1,1,2])
+    user = col1.text_input(label="", placeholder="Username", key="user")
+    user_pw = col2.text_input(label="", type="password", placeholder="Password", key="user_pw")
     login = col1.button("Login", help="Log in here", on_click=check_login, args=(user, user_pw))
-remember = col2.checkbox("Remember me", help="Keep me logged in (uses cookies)")              
+    remember = col2.checkbox("Remember me", help="Keep me logged in (uses cookies)")              
   
     
 #st.write(st.session_state.logged_in)
