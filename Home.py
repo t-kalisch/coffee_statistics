@@ -59,6 +59,7 @@ def check_login(user, user_pw):                         #login check
                 login_check = True
                 admin_status=user_data[i][2]
     if login_check == True:
+        st.success("You have successfully logged into the coffee list!")
         st.session_state.logged_in = "true"
         st.session_state.user_name = user
         st.session_state.admin = str(admin_status)
@@ -125,7 +126,9 @@ else:
     login = col1.button("Login", help="Log in here", on_click=check_login, args=(user, user_pw))
 remember = col2.checkbox("Remember me", help="Keep me logged in (uses cookies)")              
   
-    
+if st.session_state.attempt == "true":
+    if st.session_state.logged_in == "false":
+        st.warning("Wrong username/password.")
     
 st.write(st.session_state.logged_in)
 st.write(st.session_state.user_name)
