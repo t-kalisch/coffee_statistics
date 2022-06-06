@@ -3,6 +3,135 @@ from common_functions import *
 import datetime
 from datetime import date
 
+#--------------------------------------- submit a complete coffee break ----------------------------------------------
+def submit_break(persons,coffees,date_br):					# submitting break into database
+	db = init_connection()
+	cursor = db.cursor(buffered=True)
+	names = get_members()
+	
+	persons_comp=[]
+	coffees_comp=[]
+	persons_str = ""
+	coffees_str = ""
+	valid_break = False
+	for i in range(len(persons)):
+		if coffees[i] != "" and persons[i] != "":
+			persons_comp.append(persons[i])
+			coffees_comp.append(coffees[i])
+			valid_break = True
+	if valid_break == False:
+		st.error("No valid break")
+	else:
+		if date_br[0] == "" and date_br[1] == "" and date_br[2] == "":
+			date_br[0] = datetime.date.today().day
+			date_br[1] = datetime.date.today().month
+			date_br[2] = datetime.date.today().year
+		else:
+			date_str=date_br[0]+"-"+date_br[1]+"-"+date_br[2]+" 0:00"
+			if(datetime.datetime.now() < datetime.datetime.strptime(date_str, "%d-%m-%Y %H:%M")):
+				st.error("Invalid date entered!")
+				return
+		id_ext = str(date_br[2])
+		if int(date_br[1]) < 10:
+			id_ext += "0"
+		id_ext += str(int(date_br[1]))
+		if int(date_br[2]) < 10:
+			id_ext += "0"
+		id_ext += str(int(date_br[0]))
+		
+		cursor.execute("SELECT count(id_ext) FROM breaks WHERE id_ext like '"+id_ext+"%'")    #searching for breaks of the same day as enterd break
+		ids=cursor.fetchall()	
+		if ids[0][0] == 0:
+			id_ext += "01"
+		else:
+			if ids[0][0] < 9:
+				id_ext += "0"
+			id_ext += str(ids[0][0]+1)
+		st.write(id_ext)
+		cursor.execute("insert into breaks (id_ext, day, month, year) values (%s, %s, %s, %s)", (id_ext, date_br[0], date_br[1], date_br[2]))
+		cursor.execute("insert into break_sizes (id_ext, size) values (%s, %s)", (id_ext, len(persons_comp)))
+		for i in range(len(persons_comp)):
+			cursor.execute("select count(*) from members where name = '"+persons_comp[i]+"'")
+			tmp = cursor.fetchone()
+			if tmp[0] == 0:
+				cursor.execute("insert into members (name) values ('"+str(persons[i].upper())+"')")                                             #adding person to members table
+				cursor.execute("alter table holidays add "+persons[i].upper()+" int")                                                    #adding person to holidays table
+				cursor.execute("create table if not exists mbr_"+persons[i].upper()+" (id_ext char(10), n_coffees int, primary key(id_ext), CONSTRAINT fk_member_"+persons[i].upper()+"_break_ID_ext FOREIGN KEY(id_ext) REFERENCES breaks(id_ext) ON DELETE CASCADE)")     #creating a table for each individual person
+				db.commit()
+				update_database(datetime.datetime.today().month)
+			if i == 0:
+				persons_str += persons_comp[i].upper()
+				coffees_str += coffees_comp[i]
+			else:
+				persons_str += "-"
+				coffees_str += "-"
+				persons_str += persons_comp[i].upper()
+				coffees_str += coffees_comp[i]
+			cursor.execute("insert into mbr_"+persons_comp[i].upper()+" (id_ext, n_coffees) values (%s, %s)", (id_ext, coffees_comp[i]))
+		cursor.execute("insert into drinkers (id_ext, persons, coffees) values (%s, %s, %s)", (id_ext, persons_str, coffees_str))
+		st.success("Your coffee break has been saved (Persons: "+persons_str+", Coffees: "+coffees_str+")")
+	db.commit()
+	db.close
+				
+#---------------------------------- add coffee to existing coffee break ---------------------------------------------------
+def add_coffee_to_break(id_ext, name, user):
+	db = init_connection()
+	cursor = db.cursor(buffered=True)
+	names = get_members()
+	if name == "":
+		name = user
+	cursor.execute("select persons, coffees from drinkers where id_ext = '"+id_ext+"'")
+	drinker_data=list(cursor.fetchall()[0])
+	if drinker_data == []:
+		st.warning("Invalid extended ID")
+		return
+	else:
+		user_exists = False
+		for i in range(len(names)):
+			if name.upper() == names[i]:
+				user_exists = True
+				cursor.execute("select n_coffees from mbr_"+name.upper()+" where id_ext = '"+id_ext+"'")
+				tmp = cursor.fetchall()
+				if tmp == []:
+					cursor.execute("insert into mbr_"+name.upper()+" (id_ext, n_coffees) values (%s, %s)", (id_ext, 1))
+					drinker_data[0] = str(drinker_data[0])+"-"+name.upper()
+					drinker_data[1] = str(drinker_data[1])+"-1"
+					cursor.execute("update drinkers set persons = '"+drinker_data[0]+"', coffees = '"+drinker_data[1]+"' where id_ext = '"+id_ext+"'")
+					st.success("Added "+name.upper()+" into break "+id_ext+".")
+				else:
+					cursor.execute("update mbr_"+name.upper()+" set n_coffees = "+str(tmp[0][0]+1)+" where id_ext = '"+id_ext+"'")
+					persons = drinker_data[0].split("-")
+					coffees = drinker_data[1].split("-")
+					for j in range(len(persons)):
+						if persons[j] == name:
+							coffees[j] = int(coffees[j]) + 1
+						if j == 0:
+							coffees_str = str(coffees[j])
+						else:
+							coffees_str = coffees_str+"-"+str(coffees[j])
+
+					cursor.execute("update drinkers set persons = '"+drinker_data[0]+"', coffees = '"+coffees_str+"' where id_ext = '"+id_ext+"'")
+					st.success("Added a coffee for "+name.upper()+" into break "+id_ext+".")
+		if user_exists == False:
+			cursor.execute("insert into members (name) values ('"+name.upper()+"')")                                             #adding person to members table
+			cursor.execute("alter table holidays add "+name.upper()+" varchar(6)")                                                    #adding person to holidays table
+			cursor.execute("create table if not exists mbr_"+name.upper()+" (id_ext char(10), n_coffees int, primary key(id_ext), CONSTRAINT fk_member_"+name.upper()+"_break_ID_ext FOREIGN KEY(id_ext) REFERENCES breaks(id_ext) ON DELETE CASCADE)")     #creating a table for each individual person
+			update_database(datetime.datetime.today().month)
+			cursor.execute("insert into mbr_"+name.upper()+" (id_ext, n_coffees) values (%s, %s)", (id_ext, 1))
+			drinker_data[0][0] = drinker_data[0][1]+"-"+name.upper()
+			drinker_data[0][1] = drinker_data[0][1]+"-1"
+			cursor.execute("update drinkers set persons = '"+drinker_data[0][0]+"', coffees = '"+drinker_data[0][1]+"' where id_ext = '"+id_ext+"'")
+			st.success("Added "+name.upper()+" to the database and into break "+id_ext+".")
+	db.commit()
+	db.close()
+
+
+
+########################################################################################################################################################################
+#####################################################    MAIN    #######################################################################################################
+########################################################################################################################################################################
+
+
 st.subheader("**:coffee:** Submit a coffee break")
 if st.session_state.admin != "1":
   st.warning("You do not have the permissions to submit a coffee or break. Please contact a system administrator for further information.")
