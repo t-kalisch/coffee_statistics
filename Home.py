@@ -127,10 +127,7 @@ else:
     login = col1.button("Login", help="Log in here", on_click=check_login, args=(user, user_pw))
 remember = col2.checkbox("Remember me", help="Keep me logged in (uses cookies)")              
   
-#if st.session_state.attempt == "true":
-#    if st.session_state.logged_in == "false":
-#        st.warning("Wrong username/password.")
     
-st.write(st.session_state.logged_in)
-st.write(st.session_state.user_name)
-st.write(st.session_state.admin)
+#st.write(st.session_state.logged_in)
+#st.write(st.session_state.user_name)
+#st.write(st.session_state.admin)
