@@ -16,5 +16,5 @@ col3.subheader(str(simple_data[4][0])+" cups of coffee")
 col4.subheader(str(simple_data[5][0])+" data sets")
 col4.subheader(str(simple_data[6][0])+" diagrams")
 
-if st.session_state.logged_in != "true:
+if st.session_state.logged_in != "true":
   st.warning("You do not have the permission to submit a coffee or break. Please contact a system administrator for further information.")
