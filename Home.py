@@ -118,7 +118,7 @@ else:
 col1,col2,col3 = st.columns([1,1,2])
 user = col1.text_input(label="", placeholder="Username", key="user")
 user_pw = col2.text_input(label="", type="password", placeholder="Password", key="user_pw")
-col1,col2=st.columns([1,1.65])
+
 if logged_in == "true":
     logout = col1.button("Logout", help="Log out here", on_click=logout_check)
 else:
