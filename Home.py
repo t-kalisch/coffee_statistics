@@ -103,7 +103,7 @@ def logout_check():
 
 if st.session_state.logged_in == "true":
     st.title("Logged in as {}".format(st.session_state.user_name))
-    col1, col2 = st.columns([1,3])
+    col1, col2 = st.columns([1,2.5])
     col1.write("You now have access to the coffee list.")
     if st.session_state.admin == "1":
         col2.write("  Status: Administrator")
