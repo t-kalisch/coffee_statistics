@@ -1,5 +1,5 @@
 import streamlit as st
-st.set_page_config(page_title="Coffee list",page_icon="chart_with_upwards_trend",layout="wide")
+st.set_page_config(page_title="Coffee list",page_icon="coffee",layout="wide")
 from collections import namedtuple
 import math
 import pandas as pd
