@@ -1,6 +1,8 @@
 import streamlit as st
 from common_functions import *
 import pandas as pd
+st.set_page_config(page_title="Coffee list",page_icon="coffee",layout="wide")
+
 
     #---------------------- deleting a break by knowing id_ext ----------------
 def clear_one_break(del_id, test):
