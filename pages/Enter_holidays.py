@@ -8,6 +8,46 @@ import math
 import re
 import mysql.connector as mysql
 
+
+#----------------------- holiday input ----------------------------------------
+def submit_holidays(name, month_inp, year_inp, days_inp):
+    db = init_connection()
+    cursor = db.cursor(buffered=True)
+    cursor.execute("create table if not exists holidays (id int auto_increment, month int, work_days int, primary key(id))")            #creating holidays table
+    
+    if int(month_inp) > 12 or int(year_inp) < 2020:
+        st.error("Invalid date: The date you entered does not exist or lies before the age of the coffee list!")
+    else:
+        if int(month_inp) < 10:
+            month_id = int(year_inp+"0"+month_inp)
+        else:
+            month_id = int(year_inp+month_inp)
+    
+        cursor.execute("SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='coffee_list' AND TABLE_NAME='holidays' AND column_name='"+name.upper()+"'")     #check if name already exists
+        tmp = cursor.fetchall()
+        if tmp[0][0] == 0:
+            cursor.execute("alter table holidays add "+name.upper()+" int")     #adding name if doesn't exist yet
+
+        month_id_all = get_months(datetime.date(2020,11,1))[1]
+        for i in range(len(month_id_all)):
+            cursor.execute("select count(*) from holidays where month like "+str(month_id_all[i]))
+            tmp = cursor.fetchall()
+            if tmp[0][0] == 0:
+                cursor.execute("insert into holidays (month, work_days) values (%s, %s)", (month_id_all[i], work_days[i]))
+
+        cursor.execute("select "+name.upper()+" from holidays where month = "+str(month_id))
+        tmp=cursor.fetchall()
+        if tmp[0][0] == None:
+            cursor.execute("update holidays set "+name.upper()+" = "+str(int(days_inp))+" where month like "+str(month_id))
+        else:
+            cursor.execute("update holidays set "+name.upper()+" = "+str(int(days_inp)+tmp[0][0])+" where month like "+str(month_id))
+        st.success("The holidays have successfully been saved.")
+
+    db.commit()
+    db.close()
+
+
+
 # @st.cache
 st.subheader("**:calendar:** Enter holidays")
 if st.session_state.admin == "1":
@@ -64,40 +104,5 @@ else:
     df=pd.DataFrame(holidays_person,columns=columns)
     st.dataframe(df, width=1000, height=1000)
 
-#----------------------- holiday input ----------------------------------------
-def submit_holidays(name, month_inp, year_inp, days_inp):
-    db = init_connection()
-    cursor = db.cursor(buffered=True)
-    cursor.execute("create table if not exists holidays (id int auto_increment, month int, work_days int, primary key(id))")            #creating holidays table
-    
-    if int(month_inp) > 12 or int(year_inp) < 2020:
-        st.error("Invalid date: The date you entered does not exist or lies before the age of the coffee list!")
-    else:
-        if int(month_inp) < 10:
-            month_id = int(year_inp+"0"+month_inp)
-        else:
-            month_id = int(year_inp+month_inp)
-    
-        cursor.execute("SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='coffee_list' AND TABLE_NAME='holidays' AND column_name='"+name.upper()+"'")     #check if name already exists
-        tmp = cursor.fetchall()
-        if tmp[0][0] == 0:
-            cursor.execute("alter table holidays add "+name.upper()+" int")     #adding name if doesn't exist yet
 
-        month_id_all = get_months(datetime.date(2020,11,1))[1]
-        for i in range(len(month_id_all)):
-            cursor.execute("select count(*) from holidays where month like "+str(month_id_all[i]))
-            tmp = cursor.fetchall()
-            if tmp[0][0] == 0:
-                cursor.execute("insert into holidays (month, work_days) values (%s, %s)", (month_id_all[i], work_days[i]))
-
-        cursor.execute("select "+name.upper()+" from holidays where month = "+str(month_id))
-        tmp=cursor.fetchall()
-        if tmp[0][0] == None:
-            cursor.execute("update holidays set "+name.upper()+" = "+str(int(days_inp))+" where month like "+str(month_id))
-        else:
-            cursor.execute("update holidays set "+name.upper()+" = "+str(int(days_inp)+tmp[0][0])+" where month like "+str(month_id))
-        st.success("The holidays have successfully been saved.")
-
-    db.commit()
-    db.close()
     
