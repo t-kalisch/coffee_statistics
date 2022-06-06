@@ -96,6 +96,23 @@ def logout_check():
 ########################################################################################################################################################################
 #####################################################    MAIN    #######################################################################################################
 ########################################################################################################################################################################        
+if st.session_state.logged_in == "true":
+    st.title("Logged in as {}".format(st.session_state.user_name))
+    if st.session_state.admin == "1":
+        col2.write("  Status: Administrator")
+    elif st.session_state.admin == "2":
+        col2.write("  Status: guest")
+    elif st.session_state.admin == "0":
+        col2.write("  Member status: User") 
+        
+    #if logout:
+    #    logout_check()
+else:
+    st.title("Welcome to the future of coffee drinking **:coffee:**")
+    st.write("In order to get access to the visualised data you need to be logged in with your username and password.")
+
+
+
 col1,col2 = st.columns([1,1.65])
 user = col1.text_input(label="", placeholder="Username", key="user")
 user_pw = col2.text_input(label="", type="password", placeholder="Password", key="user_pw")
