@@ -101,7 +101,7 @@ if st.session_state.admin == "1":
     df=pd.DataFrame(all_holidays,columns=columns)
     st.dataframe(df, width=1000, height=1000)
 
-else:
+elif st.session_state.admin == "0":
     col1, col2, col3 = st.columns([0.5,1,2])
     month = col1.text_input("Month", placeholder=datetime.date.today().month)
     year = col2.text_input("Year", placeholder=datetime.date.today().year)
@@ -128,5 +128,6 @@ else:
     df=pd.DataFrame(holidays_person,columns=columns)
     st.dataframe(df, width=1000, height=1000)
 
-
+else:
+    st.warning("You do not have the permissions to submit holidays. Please contact a system administrator for further information.")
     
