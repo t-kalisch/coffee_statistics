@@ -115,7 +115,7 @@ else:
     st.title("Welcome to the future of coffee drinking **:coffee:**")
     st.write("In order to get access to the visualised data you need to be logged in with your username and password.")
 
-    col1,col2,col3 = st.columns([1,1,2])
+col1,col2,col3 = st.columns([1,1,2])
 user = col1.text_input(label="", placeholder="Username", key="user")
 user_pw = col2.text_input(label="", type="password", placeholder="Password", key="user_pw")
 col1,col2=st.columns([1,1.65])
