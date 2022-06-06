@@ -3,6 +3,13 @@ from common_functions import *
 import datetime
 from datetime import date
 
+#------------------------------- check whether break ID was entered or not
+def add_coffee_to_break_check(id_ext, coffee_name, logged_in_user):
+    if id_ext=="":
+        id_ext = last_breaks[len(last_breaks)-1][0]
+    add_coffee_to_break(id_ext, coffee_name, logged_in_user)
+
+
 #--------------------------------------- submit a complete coffee break ----------------------------------------------
 def submit_break(persons,coffees,date_br):					# submitting break into database
 	db = init_connection()
