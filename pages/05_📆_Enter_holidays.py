@@ -8,6 +8,8 @@ import math
 import re
 from common_functions import *
 import mysql.connector as mysql
+st.set_page_config(page_title="Coffee list",page_icon="coffee",layout="wide")
+
 
 
 #----------------------- holiday input ----------------------------------------
