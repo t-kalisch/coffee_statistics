@@ -6,7 +6,7 @@ import datetime
 from datetime import date
 import math
 import re
-import common_functions
+from common_functions import *
 import mysql.connector as mysql
 
 
