@@ -91,7 +91,7 @@ def logout_check():
     st.session_state.attempt="false"
     st.session_state.logged_in = "false"
     st.session_state.user_name = None
-    st.session_state.admin = "0"
+    st.session_state.admin = None
     logged_in = "false"
         
 
