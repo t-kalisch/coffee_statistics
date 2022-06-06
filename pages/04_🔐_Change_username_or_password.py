@@ -22,8 +22,8 @@ def change_profile_data(user_old, user, user_pw, admin_status):
 ########################################################################################################################################################################
 #####################################################    MAIN    #######################################################################################################
 ########################################################################################################################################################################
-st.subheader("**:closed_lock_with_key:** Change the profile of a member")
 if st.session_state.admin == "1":
+    st.subheader("**:closed_lock_with_key:** Change the profile of a member")
     st.markdown("You can enter a new username and password for a member, or change their member status.")
     st.markdown("Guest password: "+get_guest_pw())
     col1,col2,col3 = st.columns([0.5,1,0.7])
@@ -59,9 +59,7 @@ if st.session_state.admin == "1":
                     done = change_profile_data(change_user, username_new, pw_new, user_status)
             if done == False:
                 st.warning("Incorrect password")
-
-		
-		
+	
 elif st.session_state.admin == "0":
     st.subheader("**:adult:** Change username")
     st.markdown("Please enter your current username, password and new username.")
