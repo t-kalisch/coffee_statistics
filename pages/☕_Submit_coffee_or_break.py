@@ -1,6 +1,7 @@
 import streamlit as st
 from common_functions import *
-from datetime import *
+import datetime
+from datetime import date
 
 st.subheader("**:coffee:** Submit a coffee break")
 if st.session_state.admin != "1":
