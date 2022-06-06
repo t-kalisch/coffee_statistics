@@ -124,4 +124,9 @@ if logged_in == "true":
 else:
     login = col1.button("Login", help="Log in here", on_click=check_login, args=(user, user_pw))
 remember = st.checkbox("Remember me", help="Keep me logged in (uses cookies)")              
-        
+  
+    
+    
+st.write(st.session_state.logged_in)
+st.write(st.session_state.user_name)
+st.write(st.session_state.admin)
