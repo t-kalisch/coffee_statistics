@@ -5,7 +5,7 @@ from pages import utils
 
 # @st.cache
 st.subheader("**:calendar:** Enter holidays")
-if admin_status == "1":
+if st.session_state.admin == "1":
     col1, col2, col3, col4 = st.columns([0.5,1,1,1])
     month = col1.text_input("Month", placeholder=datetime.date.today().month)
     year = col2.text_input("Year", placeholder=datetime.date.today().year)
