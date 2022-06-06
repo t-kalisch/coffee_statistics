@@ -47,6 +47,27 @@ def submit_holidays(name, month_inp, year_inp, days_inp):
     db.close()
 
 
+#--------------------------- getting all holidays ------------------------------
+#@st.cache
+def get_all_holidays(timestamp):
+	db = init_connection()
+	cursor = db.cursor(buffered=True)
+	cursor.execute("select * from holidays")
+	tmp=cursor.fetchall()
+	
+	holidays=[]
+	for i in range(len(tmp)):
+		temp=[]
+		for j in range(len(tmp[i])-1):
+			if tmp[i][j+1] == None:
+				temp.append(0)
+			else:
+				temp.append(int(tmp[i][j+1]))
+		holidays.append(temp)
+	db.close()
+	return holidays
+
+    
 
 # @st.cache
 st.subheader("**:calendar:** Enter holidays")
