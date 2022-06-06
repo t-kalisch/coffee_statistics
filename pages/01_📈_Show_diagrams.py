@@ -21,4 +21,4 @@ col4.subheader(str(simple_data[6][0])+" diagrams")
 st.write("-" * 34)
 
 if st.session_state.logged_in != "true":
-  st.warning("You do not have the permission to submit a coffee or break. Please contact a system administrator for further information.")
+  st.warning("You need to be logged in to get access to the visualised data.")
