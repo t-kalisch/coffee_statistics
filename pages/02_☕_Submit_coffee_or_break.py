@@ -3,6 +3,7 @@ from common_functions import *
 import datetime
 from datetime import date
 import pandas as pd
+st.set_page_config(page_title="Coffee list",page_icon="coffee",layout="wide")
 
 
 #--------------------------------------- submit a complete coffee break ----------------------------------------------
