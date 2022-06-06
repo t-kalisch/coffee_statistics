@@ -81,7 +81,7 @@ def submit_break(persons,coffees,date_br):					# submitting break into database
 def add_coffee_to_break_check(id_ext, coffee_name, logged_in_user):
     if id_ext=="":
         id_ext = last_breaks[len(last_breaks)-1][0]
-    add_coffee_to_break(id_ext, coffee_name, st.session_state.user_name)		
+    add_coffee_to_break(id_ext, coffee_name, logged_in_user)		
 
 #---------------------------------- add coffee to existing coffee break ---------------------------------------------------
 def add_coffee_to_break(id_ext, name, user):
