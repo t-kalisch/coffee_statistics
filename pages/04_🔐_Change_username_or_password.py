@@ -1,5 +1,7 @@
 import streamlit as st
 from common_functions import *
+st.set_page_config(page_title="Coffee list",page_icon="coffee",layout="wide")
+
 
     #------------------- Changing a user's profile data --------------------------------------
 def change_profile_data(user_old, user, user_pw, admin_status):
