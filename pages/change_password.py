@@ -18,7 +18,7 @@ if st.session_state.admin == "1":
     new_user = col2.text_input("Please enter your password", type = 'password', placeholder = "Password")
     user_change = col2.button("Confirm")
 
-col2.write("=" * 34)
+st.write("-" * 34)
 st.subheader("**:closed_lock_with_key:** Change password")
 if st.session_state.admin != "1":
     st.markdown("You can change your password here.")
