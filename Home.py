@@ -10,6 +10,7 @@ import plotly
 import plotly.express as px
 import mysql.connector as mysql
 import plotly.graph_objects as go
+import extra_streamlit_components as stx
 from common_functions import *
 
 @st.cache(allow_output_mutation=True, suppress_st_warning = True)
