@@ -9,10 +9,8 @@ from datetime import date
 import plotly
 import plotly.express as px
 import mysql.connector as mysql
-import extra_streamlit_components as stx
 import plotly.graph_objects as go
-from data_collection import *
-#from calculations import *
+from common_functions import *
 
 @st.cache(allow_output_mutation=True, suppress_st_warning = True)
 def get_manager():
@@ -44,6 +42,8 @@ logged_in=st.session_state.logged_in
 logged_in_user=st.session_state.user_name
 admin_status=st.session_state.admin
 
+
+#---------------------------- login function
 #@st.cache(suppress_st_warning=True)
 def check_login(user, user_pw):                         #login check
     if user == "guest":
@@ -79,6 +79,30 @@ def check_login(user, user_pw):                         #login check
         #cookie_manager.set("logged_in", False, expires_at=datetime.datetime(year=2030, month=1, day=1), key="logged_in_false")
         #cookie_manager.delete("user")
         logged_in = "false"
+ 
+#---------------------------- logout function
+#@st.cache(suppress_st_warning=True)       
+def logout_check():
+    cookie_manager.set("logged_in", "false", expires_at=datetime.datetime(year=2030, month=1, day=1), key="logout")
+    cookie_manager.set("status", None, expires_at=datetime.datetime(year=2030, month=1, day=1), key="del_admin_status")
+    cookie_manager.set("user", None, expires_at=datetime.datetime(year=2030, month=1, day=1), key="logged_in_user")
+    st.session_state.attempt="false"
+    st.session_state.logged_in = "false"
+    st.session_state.user_name = None
+    st.session_state.admin = "0"
+    logged_in = "false"
         
 
+########################################################################################################################################################################
+#####################################################    MAIN    #######################################################################################################
+########################################################################################################################################################################        
+col1,col2 = st.columns([1,1.65])
+user = col1.text_input(label="", placeholder="Username", key="user")
+user_pw = col2.text_input(label="", type="password", placeholder="Password", key="user_pw")
+col1,col2=st.columns([1,1.65])
+if logged_in == "true":
+    logout = col1.button("Logout", help="Log out here", on_click=logout_check)
+else:
+    login = col1.button("Login", help="Log in here", on_click=check_login, args=(user, user_pw))
+remember = st.checkbox("Remember me", help="Keep me logged in (uses cookies)")              
         
