@@ -144,7 +144,7 @@ def add_coffee_to_break(id_ext, name, user):
 
 st.subheader("**:coffee:** Submit a coffee break")
 if st.session_state.admin != "1":
-  st.warning("You do not have the permissions to submit a coffee or break. Please contact a system administrator for further information.")
+  st.warning("You do not have the permission to submit a coffee or break. Please contact a system administrator for further information.")
 
 elif st.session_state.admin == "1":
   
