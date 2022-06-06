@@ -123,7 +123,7 @@ if logged_in == "true":
     logout = col1.button("Logout", help="Log out here", on_click=logout_check)
 else:
     login = col1.button("Login", help="Log in here", on_click=check_login, args=(user, user_pw))
-remember = st.checkbox("Remember me", help="Keep me logged in (uses cookies)")              
+remember = col2.checkbox("Remember me", help="Keep me logged in (uses cookies)")              
   
     
     
