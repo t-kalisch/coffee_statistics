@@ -21,7 +21,7 @@ cookie_manager = get_manager()
 cookie_manager.get_all()
 
 user_data=get_user_data()
-simple_data=get_simple_data()
+
 
 if 'logged_in' not in st.session_state:
     st.session_state.logged_in=cookie_manager.get(cookie="logged_in")
