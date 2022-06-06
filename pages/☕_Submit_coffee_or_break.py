@@ -3,11 +3,6 @@ from common_functions import *
 import datetime
 from datetime import date
 
-#------------------------------- check whether break ID was entered or not
-def add_coffee_to_break_check(id_ext, coffee_name, logged_in_user):
-    if id_ext=="":
-        id_ext = last_breaks[len(last_breaks)-1][0]
-    add_coffee_to_break(id_ext, coffee_name, logged_in_user)
 
 
 #--------------------------------------- submit a complete coffee break ----------------------------------------------
@@ -80,6 +75,14 @@ def submit_break(persons,coffees,date_br):					# submitting break into database
 	db.commit()
 	db.close
 				
+		
+
+#------------------------------- check whether break ID was entered or not
+def add_coffee_to_break_check(id_ext, coffee_name, logged_in_user):
+    if id_ext=="":
+        id_ext = last_breaks[len(last_breaks)-1][0]
+    add_coffee_to_break(id_ext, coffee_name, st.session_state.user_name)		
+
 #---------------------------------- add coffee to existing coffee break ---------------------------------------------------
 def add_coffee_to_break(id_ext, name, user):
 	db = init_connection()
@@ -174,7 +177,7 @@ elif st.session_state.admin == "1":
   col1, col2, col3 = st.columns([1,1,3])
   id_ext = col1.text_input("Extended ID", placeholder=last_breaks[len(last_breaks)-1][0])
   coffee_name = col2.text_input("Username", placeholder="User")
-  col1.button("Add coffee", on_click=add_coffee_to_break_check, args=(id_ext, coffee_name, logged_in_user))
+  col1.button("Add coffee", on_click=add_coffee_to_break_check, args=(id_ext, coffee_name, st.session_state.user_name))
   df=pd.DataFrame(last_breaks,columns=['Extended ID','Date','Drinkers','Coffees'])
   col3.markdown("Last 10 breaks")
   col3.dataframe(df, width=600, height=500)
