@@ -97,3 +97,22 @@ elif st.session_state.admin == "1":
   col1.write("-" * 34)
   del_person = col1.text_input("Delete for person", placeholder="Username")
   col1.button("Delete coffee from break", on_click=delete_one_coffee_check, args=(del_id,del_person))
+
+
+#------- footer ----------------
+footer="""<style>
+.footer {
+position: fixed;
+left: 0;
+bottom: 0;
+width: 100%;
+background-color: white;
+color:  grey;
+text-align: center;
+}
+</style>
+<div class="footer">
+<p>Developed by P. C. Brehm and T. Kalisch. Web design by T. Kalisch <a style='display: block; text-align: center</a></p>
+</div>
+"""
+st.markdown(footer,unsafe_allow_html=True)
