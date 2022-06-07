@@ -153,7 +153,7 @@ else:
         col2.plotly_chart(fig4, use_container_width=True)
         
     #-------------------------------------------------------------------------------------------------------------- expectation values and MAD (scatter chart and bar chart)
-    if expectation_data:
+    if expectation_data or all_diagrams:
         act_func=get_active_func()
         st.subheader("Prediction Data (active functional: "+act_func+")")
         col7,col8 = st.columns([1,1])
@@ -222,7 +222,7 @@ else:
 
         
     #-------------------------------------------------------------------------------------------------------------- weekly coffees and breaks (line chart)
-    if c_b_weekly:
+    if c_b_weekly or all_diagrams:
         st.subheader("Weekly breaks and coffees")
         columns=['Breaks','Coffees']
         weekly_data = get_weekly_coffees_breaks(names)
@@ -246,7 +246,7 @@ else:
 
 
     #-------------------------------------------------------------------------------------------------------------- absolute and relative correlations (bubble charts)
-    if correlation:
+    if correlation or all_diagrams:
         st.subheader("Correlation diagrams")
         col3, col4 = st.columns([1,1])                        #setting up two columns for narrower charts        
         corr_tot=get_correlation(names)
@@ -294,7 +294,7 @@ else:
         col4.plotly_chart(fig6, use_container_width=True)
         
    #-------------------------------------------------------------------------------------------------------------- percentages of breaks (line + bar charts)
-    if break_percentage:
+    if break_percentage or all_diagrams:
         st.subheader("Percentages of breaks")
         col5,col6 = st.columns([2,1])
 
@@ -318,7 +318,7 @@ else:
         col6.plotly_chart(fig8, use_container_width=True)
     
     #-------------------------------------------------------------------------------------------------------------- social score (line chart + bar chart)
-    if soc_sc:
+    if soc_sc or all_diagrams:
         st.subheader("Social Score")
         col7,col8 = st.columns([2,1])
     
@@ -346,7 +346,7 @@ else:
         
         
     #-------------------------------------------------------------------------------------------------------------- coffees per work day (line chart + bar chart)
-    if coffees_pwd:
+    if coffees_pwd or all_diagrams:
         st.subheader("Coffees per work day")
         col7,col8 = st.columns([2,1])
         
@@ -371,7 +371,7 @@ else:
     
     
     #-------------------------------------------------------------------------------------------------------------- cumulated coffees monthly (line chart)
-    if coffees_cumulated:
+    if coffees_cumulated or all_diagrams:
         st.subheader("Cumulated coffees")
         
         cumulated_coffees = get_cumulated_coffees(names, month_id_all)
