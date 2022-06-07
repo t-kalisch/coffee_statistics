@@ -79,7 +79,7 @@ else:
 
         
         
-    st.write("-" * 34)
+
     #-------------------------------------------------------------------------------------------------------------- monthly coffees, per person + total (line + bar chart)
     if coffees_monthly or all_diagrams:
         st.subheader("Coffees per month") 
