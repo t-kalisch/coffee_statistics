@@ -128,17 +128,6 @@ with st.sidebar:
     imprint = '<p style="font-family:sans-serif; color:Grey; font-size: 12px;">Made by P. C. Brehm and T. Kalisch. Web design by T. Kalisch</p>'
     #st.markdown(imprint, unsafe_allow_html=True)
 footer="""<style>
-a:link , a:visited{
-color: blue;
-background-color: transparent;
-text-decoration: underline;
-}
-
-a:hover,  a:active {
-color: red;
-background-color: transparent;
-text-decoration: underline;
-}
 
 .footer {
 position: fixed;
