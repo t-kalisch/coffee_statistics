@@ -124,8 +124,7 @@ else:
     remember = col2.checkbox("Remember me", help="Keep me logged in (uses cookies)")              
   
     
-with st.sidebar:
-    imprint = '<p style="font-family:sans-serif; color:Grey; font-size: 12px;">Made by P. C. Brehm and T. Kalisch</p>'
-    st.markdown(imprint, unsafe_allow_html=True)
-    imprint2 = '<p style="color:Grey; font-size: 12px;">Web design by T. Kalisch</p>'
-    st.markdown(imprint2, unsafe_allow_html=True)
+
+imprint = '<p style="font-family:sans-serif; color:Grey; font-size: 12px;">Made by P. C. Brehm and T. Kalisch. Web design by T. Kalisch</p>'
+st.markdown(imprint, unsafe_allow_html=True)
+
