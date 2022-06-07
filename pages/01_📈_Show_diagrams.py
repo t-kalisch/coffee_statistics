@@ -52,8 +52,8 @@ if st.session_state.logged_in != "true":
 
   all_func = get_functionals()
 
-  with st.sidebar:
-      act_func = get_active_func()
+    with st.sidebar:
+        act_func = get_active_func()
         if st.session_state.admin == "1":
             for i in range(len(all_func)):
                 if all_func[i] == act_func:
