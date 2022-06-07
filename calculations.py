@@ -9,12 +9,12 @@ from plotly import *
 import plotly.express as px
 from common_functions import *
 
-db = init_connection()
+
 
 #----------------------------------------- getting monthly coffees from database --------------------------------------
 #@st.cache(allow_output_mutation=True)
 def get_monthly_coffees(names, month_id):
-	#db = init_connection()
+	db = init_connection()
 	cursor = db.cursor(buffered=True)
 	cursor.execute("select * from monthly_coffees")
 	tmp=cursor.fetchall()
@@ -33,7 +33,7 @@ def get_monthly_coffees(names, month_id):
 		
 	monthly_coffees_all.append(monthly_coffees)
 	monthly_coffees_all.append(total_monthly_coffees)
-	#db.close()
+	db.close()
 	return monthly_coffees_all
 
 
