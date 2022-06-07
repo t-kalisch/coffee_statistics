@@ -42,6 +42,7 @@ def get_monthly_coffees(names, month_id):
 
 #-------------------------- getting total coffees from database
 def get_total_coffees(names):
+    db = init_connection()
     cursor = db.cursor(buffered=True)
     coffees=[]
     for i in range(len(names)):
