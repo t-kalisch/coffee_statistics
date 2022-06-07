@@ -51,7 +51,7 @@ if st.session_state.logged_in != "true":
     st.warning("You need to be logged in to get access to the visualised data.")
 
     all_func = get_functionals()
-
+else:
     with st.sidebar:
         act_func = get_active_func()
         if st.session_state.admin == "1":
@@ -63,8 +63,9 @@ if st.session_state.logged_in != "true":
             act_func_l=[]
             act_func_l.append(act_func)
             func_selected = st.selectbox("Active functional", act_func_l, 0)
-
+            
         st.title("Available diagrams:")
+        all_diagrams = st.checkbox("Show all")
         coffees_monthly = st.checkbox("Monthly coffees")
         coffees_total = st.checkbox("Total coffees / Monthly ratios")
         expectation_data = st.checkbox("Expectation values / Prize history")
@@ -75,4 +76,4 @@ if st.session_state.logged_in != "true":
         coffees_pwd = st.checkbox("Coffees per work day")
         coffees_cumulated = st.checkbox("Cumulated coffees")  
   
-  
+st.write(st.session_state.logged_in)  
