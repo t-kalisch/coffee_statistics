@@ -152,3 +152,71 @@ else:
         fig4.update_traces(hovertemplate='%{y}<br>%{x} %')
         col2.plotly_chart(fig4, use_container_width=True)
         
+    #-------------------------------------------------------------------------------------------------------------- expectation values and MAD (scatter chart and bar chart)
+    if expectation_data:
+        act_func=get_active_func()
+        st.subheader("Prediction Data (active functional: "+act_func+")")
+        col7,col8 = st.columns([1,1])
+        
+        exp_values = get_expectation_values(names, month_id_all, func_selected)
+        stdev = get_stdev(names, month_id_all)
+        
+        max_values=[]
+        for i in range(len(names)):
+            if exp_values[i] < 0:
+                exp_values[i] = 0
+            max_values.append(exp_values[i]+stdev[i])
+        
+        mad_total = get_mad(names, month_id_all)
+        
+        df = pd.DataFrame(exp_values, columns={'Number of coffees'}, index=names)                #expectation values with standard deviation
+        df["e"] = stdev
+
+        info = act_func
+        fig8 = px.scatter(df, x=names, y='Number of coffees', error_y='e', title="Expect. val.  ± σ for "+months_all[len(months_all)-1], labels={"x":"", "y":"Number of coffees", "variable":"drinkers"}, text="Number of coffees")
+        fig8.update_layout(title_font_size=24, showlegend=False)
+        fig8.update_traces(marker = dict(symbol = 'line-ew-open'), hovertemplate='%{x}: %{y}', textposition='middle right')
+        fig8.update_yaxes(range=[0,max(max_values)+2])
+        col7.plotly_chart(fig8, use_container_width=True)
+        
+        columns=['Functional','MAD']
+        df = pd.DataFrame(mad_total, columns=columns)
+        
+        fig8 = px.bar(df, x='Functional', y='MAD', title="Mean absolute deviations", labels={"x":"Functional", "count":"MAD"}, text='MAD', text_auto=True).update_xaxes(categoryorder="total ascending")
+        fig8.update_layout(title_font_size=24, showlegend=False)
+        fig8.update_traces(hovertemplate='%{x}<br>MAD = %{y}')
+        col8.plotly_chart(fig8, use_container_width=True)
+        
+        
+        
+        #-------------------------------------------------------------------------------------------------------------- coffee prize history (scatter + bar chart)
+        st.subheader("Prize history")
+        col1, col2 = st.columns([2,1])
+        prizes = get_prizes(names, month_id_dly, act_func)
+        
+        tickval_num=[]
+        total_prizes=[]
+        for i in range(len(names)):
+            tickval_num.append(i)
+            total=0
+            for j in range(len(prizes)):
+                if prizes[j][1] == i:
+                    total += 1
+            total_prizes.append(total)
+
+        columns=['Month','Persons','Coffee prizes','sizes']
+        df = pd.DataFrame(prizes, columns=columns)
+
+        fig2 = px.scatter(df, x='Month', y='Persons', title="Coffee prize history ("+act_func+")", labels={"variable":"", "index":"", "value":""}, size='sizes', color='Coffee prizes', color_discrete_sequence=['gold','black','red'])      #plotting social score
+        fig2.update_layout(title_font_size=24, yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), hovermode="x unified", xaxis=dict(tickmode = 'array', tickvals = month_id_dly, ticktext = months_dly), legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+        fig2.update_traces(hovertemplate='%{y}')
+        col1.plotly_chart(fig2, use_container_width=True)
+
+
+        df = pd.DataFrame(total_prizes, columns={'Number of prizes'}, index=names)                #total number of prizes
+
+        fig8 = px.bar(df, x='Number of prizes', y=names, title="Total number of prizes", labels={"y":"", "count":"Social score", "variable":"drinkers"}, text='Number of prizes', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
+        fig8.update_layout(title_font_size=24, showlegend=False)
+        fig8.update_traces(hovertemplate='%{y}: %{x}')
+        fig8.update_xaxes(showticklabels=False)
+        col2.plotly_chart(fig8, use_container_width=True)
