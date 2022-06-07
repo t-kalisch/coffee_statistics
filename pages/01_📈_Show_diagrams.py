@@ -111,3 +111,43 @@ else:
         fig2.update_layout(title_font_size=24)
         fig2.update_traces(hovertemplate='%{x}<br>%{y} coffees')
         st.plotly_chart(fig2, use_container_width=True) 
+
+        
+    #-------------------------------------------------------------------------------------------------------------- total coffees (pie chart)
+    if coffees_total or all_diagrams:
+        col1, col2 = st.columns([1,1])
+        col1.subheader("Total coffees")
+
+        total_coffees = get_total_coffees(names)
+        
+        temp=[]
+        for i in range(len(total_coffees)):
+            temp1=[]
+            temp1.append(names)
+            temp1.append(total_coffees[i])
+            temp.append(temp1)
+        df = pd.DataFrame(temp, columns={"names","total"}, index=names)              #total coffees pie chart
+
+        #fig3 = px.pie(df, names = names, values = total_coffees)
+        fig3 = go.Figure(go.Pie(labels = names, values = total_coffees, sort=False, hole=.4))
+        fig3.update_layout(title_font_size=24)
+        col1.plotly_chart(fig3, use_container_width=True)
+
+        
+    #-------------------------------------------------------------------------------------------------------------- monthly ratios (stacked bar chart)
+        col2.subheader("Monthly ratios")
+
+        monthly_ratios=get_monthly_ratio(names, month_id_all)
+
+        months_inv=[]
+        monthly_ratios_inv=[]
+        for i in range(len(months_all)):
+            months_inv.append(months_all[len(months_all)-i-1])
+            monthly_ratios_inv.append(monthly_ratios[len(monthly_ratios)-i-1])
+
+        df_stack=pd.DataFrame(monthly_ratios_inv, columns = names, index = months_inv)
+        fig4 = px.bar(df_stack, x=names, y = months_inv, barmode = 'relative', labels={"y":"", "value":"Percentage", "variable":"drinker"})#, text='value', text_auto=True)
+        fig4.update_layout(title_font_size=24, showlegend=False)
+        fig4.update_traces(hovertemplate='%{y}<br>%{x} %')
+        col2.plotly_chart(fig4, use_container_width=True)
+        
