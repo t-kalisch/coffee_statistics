@@ -124,6 +124,4 @@ else:
     remember = col2.checkbox("Remember me", help="Keep me logged in (uses cookies)")              
   
     
-#st.write(st.session_state.logged_in)
-#st.write(st.session_state.user_name)
-#st.write(st.session_state.admin)
+
