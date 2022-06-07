@@ -48,9 +48,9 @@ col4.subheader(str(simple_data[6][0])+" diagrams")
 st.write("-" * 34)
 
 if st.session_state.logged_in != "true":
-  st.warning("You need to be logged in to get access to the visualised data.")
+    st.warning("You need to be logged in to get access to the visualised data.")
 
-  all_func = get_functionals()
+    all_func = get_functionals()
 
     with st.sidebar:
         act_func = get_active_func()
