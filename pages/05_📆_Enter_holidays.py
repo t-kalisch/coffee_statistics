@@ -133,3 +133,21 @@ elif st.session_state.admin == "0":
 else:
     st.warning("You do not have the permissions to submit holidays. Please contact a system administrator for further information.")
     
+
+	#------- footer ----------------
+footer="""<style>
+.footer {
+position: fixed;
+left: 0;
+bottom: 0;
+width: 100%;
+background-color: white;
+color:  grey;
+text-align: center;
+}
+</style>
+<div class="footer">
+<p>Developed by P. C. Brehm and T. Kalisch. Web design by T. Kalisch <a style='display: block; text-align: center</a></p>
+</div>
+"""
+st.markdown(footer,unsafe_allow_html=True)
