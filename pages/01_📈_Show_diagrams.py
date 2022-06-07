@@ -4,6 +4,7 @@ from common_functions import *
 import datetime
 from datetime import date
 from calculations import *
+import plotly.graph_objects as go
 
   #------------------------ getting functionals from database ------------------
 def get_functionals():
