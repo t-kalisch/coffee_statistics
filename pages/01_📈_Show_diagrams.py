@@ -3,7 +3,7 @@ st.set_page_config(page_title="Coffee list",page_icon="coffee",layout="wide")
 from common_functions import *
 import datetime
 from datetime import date
-
+from calculations import *
 
   #------------------------ getting functionals from database ------------------
 def get_functionals():
@@ -76,5 +76,32 @@ else:
         soc_sc = st.checkbox("Social score")
         coffees_pwd = st.checkbox("Coffees per work day")
         coffees_cumulated = st.checkbox("Cumulated coffees")  
-  
-st.write(st.session_state.logged_in)  
+
+        
+        
+    st.write("-" * 34)
+    #-------------------------------------------------------------------------------------------------------------- monthly coffees, per person + total (line + bar chart)
+    if coffees_monthly or all_diagrams:
+        st.subheader("Coffees per month") 
+        
+        monthly_coffees_all = get_monthly_coffees(names, month_id_all)
+        df = pd.DataFrame(monthly_coffees_all[0], columns=names, index=months_all)    #coffees per month per person
+
+        fig1 = px.line(df, title="Number of coffees per month per person", labels={"variable":"", "index":"", "value":"Number of coffees"})
+        fig1.update_traces(hovertemplate='%{y}')
+        fig1.update_layout(title_font_size=24, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+        st.plotly_chart(fig1, use_container_width=True)
+
+        temp1=[]
+        for i in range(len(months_all)):
+             temp=[]
+             temp.append(months_all[i])
+             temp.append(monthly_coffees_all[1][i])
+             temp1.append(temp)
+        
+        columns=['months','total']
+        df = pd.DataFrame(temp1, columns=columns)              #total coffees per month)
+        fig2 = px.bar(df, y="total", x="months", title="Total number of coffees per month", labels={"months":"", "total":"Number of coffees"}, text_auto=True)
+        fig2.update_layout(title_font_size=24)
+        fig2.update_traces(hovertemplate='%{x}<br>%{y} coffees')
+        st.plotly_chart(fig2, use_container_width=True) 
