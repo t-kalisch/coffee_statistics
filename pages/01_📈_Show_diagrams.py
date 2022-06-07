@@ -79,7 +79,12 @@ else:
 
         
     names = get_members()
-    
+    month_info=get_months(datetime.date(2021,3,8))
+    months_dly=month_info[0]
+    month_id_dly=month_info[1]
+    month_info=get_months(datetime.date(2020,11,1))
+    months_all=month_info[0]
+    month_id_all=month_info[1]
     
     #-------------------------------------------------------------------------------------------------------------- monthly coffees, per person + total (line + bar chart)
     if coffees_monthly or all_diagrams:
