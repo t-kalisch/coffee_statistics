@@ -11,16 +11,6 @@ from common_functions import *
 
 db = init_connection()
 
-
-
-def get_guest_pw():
-	db = init_connection()
-	cursor = db.cursor(buffered=True)
-	cursor.execute("select guest_pw from update_status")
-	pw=cursor.fetchall()[0][0]
-	db.close()
-	return pw
-
 #----------------------------------------- getting monthly coffees from database --------------------------------------
 #@st.cache(allow_output_mutation=True)
 def get_monthly_coffees(names, month_id):
