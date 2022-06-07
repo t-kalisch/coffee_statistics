@@ -7,17 +7,10 @@ from datetime import date
 import pandas as pd
 from plotly import *
 import plotly.express as px
-#from paramiko import SSHClient
-#import paramiko
+from common_functions import *
 
-#@st.cache(allow_output_mutation=True, hash_funcs={"_thread.RLock": lambda _: None})
-def init_connection():
-    return mysql.connect(**st.secrets["mysql"])
+db = init_connection()
 
-
-
-def db_logout():
-    db.close()
 
 
 def get_guest_pw():
@@ -28,68 +21,10 @@ def get_guest_pw():
 	db.close()
 	return pw
 
-def get_user_data():
-	db = init_connection()
-	cursor = db.cursor(buffered=True)
-	cursor.execute("select name, password, admin from members")
-	user_data=cursor.fetchall()
-	db.close()
-	return user_data
-
-
-def get_simple_data():							# getting simple data from database
-	db = init_connection()
-	cursor = db.cursor(buffered=True)
-	cursor.execute("select value from simple_data")
-	simple_data=cursor.fetchall()
-
-	db.close()
-	return simple_data
-	
-
-#@st.cache(suppress_st_warning=True)
-def write_simple_data():
-	db = init_connection()
-	cursor = db.cursor(buffered=True)
-	cursor.execute("create table if not exists simple_data (id int auto_increment, parameter varchar(10), value int, primary key(id))")		#setting up table
-	cursor.execute("select * from simple_data")
-	if cursor.fetchall() == []:
-		cursor.execute("insert into simple_data (parameter) values ('drinkers')")
-		cursor.execute("insert into simple_data (parameter) values ('act_dr')")
-		cursor.execute("insert into simple_data (parameter) values ('months')")
-		cursor.execute("insert into simple_data (parameter) values ('breaks')")
-		cursor.execute("insert into simple_data (parameter) values ('cups')")
-		cursor.execute("insert into simple_data (parameter, value) values ('data_sets', 9000)")
-		cursor.execute("insert into simple_data (parameter, value) values ('diagrams', 18)")
-	
-	names = get_members()
-	month_id = get_months(datetime.date(2020,11,1))[1]
-	coffees = get_monthly_coffees(names, month_id)								#calculating simple data from different tables
-	cursor.execute("select count(*) from breaks")
-	breaks = cursor.fetchall()
-	cups = 0
-	for i in range(len(month_id)):
-		cups += coffees[1][i]
-	act_dr = 0
-	for i in range(len(names)):
-		if coffees[0][len(month_id)-3][i] > 0 and coffees[0][len(month_id)-2][i] > 0:
-			act_dr += 1
-
-	data_sets = len(names)*8+12
-	cursor.execute("update simple_data set value = "+str(len(names))+" where parameter = 'drinkers'")	#updating simple_data table
-	cursor.execute("update simple_data set value = "+str(act_dr)+" where parameter = 'act_dr'")
-	cursor.execute("update simple_data set value = "+str(len(month_id))+" where parameter = 'months'")
-	cursor.execute("update simple_data set value = "+str(breaks[0][0])+" where parameter = 'breaks'")
-	cursor.execute("update simple_data set value = "+str(cups)+" where parameter = 'cups'")
-	cursor.execute("update simple_data set value = "+str(data_sets)+" where parameter = 'data_sets'")
-	db.commit()
-	db.close()
-
-
 #----------------------------------------- getting monthly coffees from database --------------------------------------
 #@st.cache(allow_output_mutation=True)
 def get_monthly_coffees(names, month_id):
-	db = init_connection()
+	#db = init_connection()
 	cursor = db.cursor(buffered=True)
 	cursor.execute("select * from monthly_coffees")
 	tmp=cursor.fetchall()
@@ -108,70 +43,15 @@ def get_monthly_coffees(names, month_id):
 		
 	monthly_coffees_all.append(monthly_coffees)
 	monthly_coffees_all.append(total_monthly_coffees)
-	db.close()
+	#db.close()
 	return monthly_coffees_all
 
 
-#----------------------------------------- wrtiting monthly coffees into database --------------------------------------
-def write_monthly_coffees(names, month_id, update):
-    db = init_connection()
-    cursor = db.cursor(buffered=True)
-    all_coffees=[]
-    cursor.execute("create table if not exists monthly_coffees (id int auto_increment, name varchar(3), primary key(id))")
 
-    for i in range(len(names)):                                              #writing total cofees per month into coffees
-        cursor.execute("select count(name) from monthly_coffees where name = '"+names[i]+"'")
-        tmp = cursor.fetchall()
-        if tmp[0][0] == 0:
-            cursor.execute("insert into monthly_coffees (name) values ('"+names[i]+"')")
-
-        
-        coffees=[]
-        for j in range(len(month_id)):
-            total=0
-
-            cursor.execute("select n_coffees from mbr_"+names[i]+" where id_ext like '"+str(month_id[j])+"%'")
-            tmp=cursor.fetchall()
-            tmp=list(tmp)
-        
-            for k in range(len(tmp)):
-                total=total+tmp[k][0]
-            coffees.append(total)
-            if i < 6:                                                       #input from old breaks
-                if j < 5:
-                    cursor.execute("select "+names[i].upper()+" from old_breaks where id_ext like'"+str(month_id[j])+"%'")
-                    old_coffees=cursor.fetchall()
-                    old_coffees=list(old_coffees)
-                    coffees[j]=coffees[j]+old_coffees[0][0]
-        all_coffees.append(coffees)
-
-    if update == "full":
-        for i in range(len(month_id)):
-            cursor.execute("SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='coffee_list' AND TABLE_NAME='monthly_coffees' AND column_name='"+month_id[i]+"'") #check if name is already in table
-            tmp = cursor.fetchall()
-
-            if tmp[0][0] == 0:
-                cursor.execute("alter table monthly_coffees add `"+month_id[i]+"` int")                     #creating month column if month is not in table
-            for j in range(len(names)):
-                cursor.execute("update monthly_coffees set `"+month_id[i]+"` = "+str(all_coffees[j][i])+" where name = '"+names[j]+"'")    #always updating last two months
-    elif update == "simple":
-        for i in range(2):
-            cursor.execute("SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='coffee_list' AND TABLE_NAME='monthly_coffees' AND column_name='"+month_id[len(month_id)-2+1]+"'") #check if name is already in table
-            tmp = cursor.fetchall()
-
-            if tmp[0][0] == 0:
-                cursor.execute("alter table monthly_coffees add `"+month_id[len(month_id)-2+1]+"` int")                     #creating month column if month is not in table
-            for j in range(len(names)):
-                cursor.execute("update monthly_coffees set `"+month_id[i]+"` = "+str(all_coffees[j][i])+" where name = '"+names[j]+"'")    #always updating last two months
-
-    db.commit()
-    db.close()
-    return all_coffees
 
 
 #-------------------------- getting total coffees from database
 def get_total_coffees(names):
-    db = init_connection()
     cursor = db.cursor(buffered=True)
     coffees=[]
     for i in range(len(names)):
@@ -1486,56 +1366,6 @@ def check_update_status():
         print("Database up to date")
     db.close()
 
-#--------------------------- manual button press for simple update ------------
-#def manual_update_simple(sample1,sample2):
-#    #ssh_server = init_ssh()
-#    client = paramiko.SSHClient()
-#    client.load_system_host_keys()
-#    #client.load_host_keys('~/.ssh/known_hosts')
-#    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-#    #client.connect(**st.secrets["ssh-server"])
-#    client.connect('212.227.72.95', username='root', password='4aZq5A4Di!')
 
 
-#    st.write("Sending your command")
-#    # Check in connection is made previously
-#    if (client):
-#        stdin, stdout, stderr = client.exec_command('./mysql_scripts/test_script.sh')
-#        while not stdout.channel.exit_status_ready():
-#            # Print stdout data when available
-#            if stdout.channel.recv_ready():
-#                # Retrieve the first 1024 bytes
-#                alldata = stdout.channel.recv(2048)
-#                while stdout.channel.recv_ready():
-#                    # Retrieve the next 1024 bytes
-#                    alldata += stdout.channel.recv(2048)
-
-#                # Print as string with utf8 encoding
-#                st.write(str(alldata, "utf8"))
-#                st.write("Done")
-			     
-#        stdin.close()
-#        stdout.close()
-#        stderr.close()
-#
-#    else:
-#        print("Connection not opened.")
-
-
-    #(stdin, stdout, stderr) = client.exec_command('(/usr/bin/python3 /~/../home/simple_update_dyn_func.py)')
-    #client.exec_command('echo `date` > test.out')
-    #(stdin, stdout, stderr) = client.exec_command('./mysql_scripts/test_script.sh)')
-    #print("Done")
-    #client.close()
-    #st.write("Connection closed.")
-
-
-
-
-#calc_polynomial_functional(get_members(), get_months(datetime.date(2020,11,1))[1])
-
-#-------------------------------------------------------------------------------------------------------------------------------------------------------------
-#check_update_status()        #------------------------------------------------------- updating database to current day ---------------------------------------
-#-------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
+db.close()
