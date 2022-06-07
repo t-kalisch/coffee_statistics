@@ -78,8 +78,9 @@ else:
         coffees_cumulated = st.checkbox("Cumulated coffees")  
 
         
-        
-
+    names = get_members()
+    
+    
     #-------------------------------------------------------------------------------------------------------------- monthly coffees, per person + total (line + bar chart)
     if coffees_monthly or all_diagrams:
         st.subheader("Coffees per month") 
