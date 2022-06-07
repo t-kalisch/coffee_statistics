@@ -50,8 +50,9 @@ st.write("-" * 34)
 if st.session_state.logged_in != "true":
     st.warning("You need to be logged in to get access to the visualised data.")
 
-    all_func = get_functionals()
+    
 else:
+    all_func = get_functionals()
     with st.sidebar:
         act_func = get_active_func()
         if st.session_state.admin == "1":
