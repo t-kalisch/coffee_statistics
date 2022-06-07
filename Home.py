@@ -12,6 +12,7 @@ import mysql.connector as mysql
 import plotly.graph_objects as go
 import extra_streamlit_components as stx
 from common_functions import *
+from PIL import Image
 
 @st.cache(allow_output_mutation=True, suppress_st_warning = True)
 def get_manager():
@@ -122,7 +123,9 @@ else:
     user_pw = col2.text_input(label="", type="password", placeholder="Password", key="user_pw")
     login = col1.button("Login", help="Log in here", on_click=check_login, args=(user, user_pw))
     remember = col2.checkbox("Remember me", help="Keep me logged in (uses cookies)")              
-  
+
+image = Image.open('cheers.jpg')
+st.image(image, caption=None, width=None, use_column_width=None, clamp=False, channels="RGB", output_format="auto")
     
 #------- footer ----------------
 footer="""<style>
