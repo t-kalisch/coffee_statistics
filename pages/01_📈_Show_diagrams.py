@@ -345,5 +345,40 @@ else:
         col8.plotly_chart(fig8, use_container_width=True)          
         
         
+    #-------------------------------------------------------------------------------------------------------------- coffees per work day (line chart + bar chart)
+    if coffees_pwd:
+        st.subheader("Coffees per work day")
+        col7,col8 = st.columns([2,1])
         
+        total_cpwd = get_coffees_per_work_day(names, month_id_all)
+        total = total_cpwd[0]
+        coffees_per_work_day = total_cpwd[1]
+        
+        df = pd.DataFrame(coffees_per_work_day, columns = names, index = months_all)
+    
+        fig9 = px.line(df, title="Monthly coffees per work day", labels={"variable":"", "index":"", "value":"Number of coffees"})      #plotting monthly coffees
+        fig9.update_layout(title_font_size=24, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+        fig9.update_traces(hovertemplate='%{x}<br>%{y}')
+        col7.plotly_chart(fig9, use_container_width=True)
+
+
+        df = pd.DataFrame(total, columns={'Number of coffees'}, index=names)                #total percentages
+
+        fig11 = px.bar(df, x='Number of coffees', y=names, title="Total coffees per work day", labels={"y":"", "count":"Number of coffees", "variable":"drinkers"}, text='Number of coffees', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
+        fig11.update_layout(title_font_size=24, showlegend=False)
+        fig11.update_traces(hovertemplate='%{y}: %{x}')
+        col8.plotly_chart(fig11, use_container_width=True)
+    
+    
+    #-------------------------------------------------------------------------------------------------------------- cumulated coffees monthly (line chart)
+    if coffees_cumulated:
+        st.subheader("Cumulated coffees")
+        
+        cumulated_coffees = get_cumulated_coffees(names, month_id_all)
+        df = pd.DataFrame(cumulated_coffees, columns=names, index=months_all)
+        
+        fig10 = px.line(df, title="Number of coffees per month per person", labels={"variable":"", "index":"", "value":"Number of coffees"})
+        fig10.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+        fig10.update_traces(hovertemplate='%{x}<br> %{y}')
+        st.plotly_chart(fig10, use_container_width=True)        
         
