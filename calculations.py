@@ -1358,4 +1358,3 @@ def check_update_status():
 
 
 
-db.close()
