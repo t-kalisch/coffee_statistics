@@ -245,54 +245,6 @@ def get_tot_br_p_m(month_id):
     db.close()
     return total_breaks
 
-
-#----------------------------- writing the percentage of total breaks per month and in total per person ------------------------
-def write_perc_breaks(names, month_id, update):
-    db = init_connection()
-    cursor = db.cursor(buffered=True)
-    tot_breaks_pm = get_tot_br_p_m(month_id)
-    #cursor.execute("drop table if exists percentage_breaks")
-    cursor.execute("create table if not exists percentage_breaks (id int auto_increment, month varchar(6), primary key(id))")
-
-    for i in range(len(names)):                                              #writing total cofees per month into coffees
-        cursor.execute("SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='coffee_list' AND TABLE_NAME='percentage_breaks' AND column_name='"+names[i]+"'") #check if name is already in table
-        tmp = cursor.fetchall()
-        if tmp[0][0] == 0:
-            cursor.execute("alter table percentage_breaks add "+names[i]+" varchar(5)")
-
-    #cursor.execute("insert into percentage_breaks (month) values ('total')")
-   
-    percentage = []
-    if update =="full":                                                                 #updating whole table
-        for i in range(len(month_id)):  #writing total cofees per month into coffees
-            cursor.execute("select count(*) from percentage_breaks where month = "+month_id[i])
-            tmp = cursor.fetchall()
-            if tmp[0][0] == 0:
-                cursor.execute("insert into percentage_breaks (month) values ("+month_id[i]+")")
-            for j in range(len(names)):
-                cursor.execute("select count(id_ext) from mbr_"+names[j]+" where id_ext like '"+str(month_id[i])+"%'")
-                tmp=cursor.fetchall()
-                cursor.execute("update percentage_breaks set "+names[j]+" = "+str(round(100*tmp[0][0]/tot_breaks_pm[i],1))+" where month like '"+str(month_id[i])+"'")
-    elif update == "simple":                                                            #updating only last two months
-        for i in range(2):  #writing total cofees per month into coffees
-            cursor.execute("select count(*) from percentage_breaks where month = "+month_id[len(month_id)-2+i])
-            tmp = cursor.fetchall()
-            if tmp[0][0] == 0:
-                cursor.execute("insert into percentage_breaks (month) values ("+month_id[len(month_id)-2+i]+")")
-            for j in range(len(names)):
-                cursor.execute("select count(id_ext) from mbr_"+names[j]+" where id_ext like '"+str(month_id[len(month_id)-2+i])+"%'")
-                tmp=cursor.fetchall()
-                cursor.execute("update percentage_breaks set "+names[j]+" = "+str(round(100*tmp[0][0]/tot_breaks_pm[len(month_id)-2+i],1))+" where month like '"+str(month_id[len(month_id)-2+i])+"'")
-
-    total_breaks = get_total_breaks(names)
-    total = total_breaks[len(total_breaks)-1]
-
-    for i in range(len(names)):
-        cursor.execute("update percentage_breaks set "+names[i]+" = "+str(round(100*total_breaks[i]/total,1))+" where month like 'total'")
-        
-    db.commit()
-    db.close()
-
 #---------------------------- calculating monthly and total coffees per work day ------------------------
 def get_coffees_per_work_day(names, month_id):  
     db = init_connection()
@@ -367,160 +319,6 @@ def get_break_sizes_per_month(names, month_id):
     return break_sizes
 
 
-#----------------------------- calculating social scores -----------------------------------------------
-def write_social_score(names, month_id, update):
-    db = init_connection()
-    cursor = db.cursor(buffered=True)
-
-    cursor.execute("create table if not exists social_score (id int auto_increment, month varchar(6), primary key(id))")
-    cursor.execute("select count(*) from social_score where month = 'total'")
-    if cursor.fetchall()[0][0] == 0:
-        cursor.execute("insert into social_score (month) values ('total')")
-
-    for i in range(len(names)):
-        cursor.execute("SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='coffee_list' AND TABLE_NAME='social_score' AND column_name='"+names[i]+"'") #check if name is already in table
-        tmp=cursor.fetchall()
-        if tmp[0][0] == 0:
-            cursor.execute("alter table social_score add "+names[i]+" varchar(6)")
-
-    cursor.execute("SELECT max(id_ext) FROM breaks")  #getting month names from beginning to current
-    temp=cursor.fetchone()
-    temp=list(temp)
-    last_date=datetime.date(int(temp[0][0:4]),int(temp[0][4:6]),int(temp[0][6:8]))
-    if update == "full":
-        start_date = datetime.date(2021,3,8)
-    elif update == "simple":
-        start_year = str(month_id[len(month_id)-2])[0:4]
-        start_month = str(month_id[len(month_id)-2])[5:6]
-        start_date=datetime.date(int(start_year), int(start_month), 1)
-
-    if start_date > last_date:
-        raise ValueError(f"Start date {start_date} is not before end date {last_date}")
-    else:
-        curr_date = start_date
-        year = curr_date.year
-        month = curr_date.month
-        day = curr_date.day
-        delta_days = (last_date-start_date).days
-        var_daily=[]
-
-        for i in range(delta_days+1):
-            temp=[]
-            id_day = str(curr_date.year)
-            if curr_date.month < 10:
-                id_day = id_day + "0" + str(curr_date.month)
-            else:
-                id_day = id_day + str(curr_date.month)
-            if curr_date.day < 10:
-                id_day = id_day + "0" + str(curr_date.day)
-            else:
-                id_day = id_day + str(curr_date.day)
-            curr_date=curr_date+datetime.timedelta(days=1)
-            temp.append(id_day)
-            print(id_day)
-            var_total = 0
-            for j in range(len(names)):
-                cursor.execute("select count(*) from mbr_"+names[j]+" where id_ext like '"+str(id_day)+"%'")       
-                tmp = cursor.fetchall()
-
-                if tmp[0][0] > 0:
-                    var_total += 1                                      #total number of people who drank coffee per day
-                    
-            for j in range(len(names)):
-                var = 0
-                for k in range(len(names)):                             #permutations of every person for every person who drank coffee per day
-                    if j != k:
-                        cursor.execute("select count(*) from mbr_"+names[j]+" inner join mbr_"+names[k]+" on mbr_"+names[j]+".id_ext = mbr_"+names[k]+".id_ext where mbr_"+names[j]+".id_ext like '"+str(id_day)+"%'")
-                        tmp = cursor.fetchall()
-
-                        if tmp[0][0] > 0:
-                            var += 1
-                
-                if var_total == 0 or var == 0:
-                    var = 0
-                else:
-                    var = (var+1)/(var_total)                                     #ratio of variation
-                temp.append(var)
-            var_daily.append(temp)
-
-        cursor.execute("select * from percentage_breaks")                           #getting all necessary parameters for social score
-        percentage = cursor.fetchall()
-        corrections = holiday_corrections(names, month_id)
-        break_sizes = get_break_sizes_per_month(names, month_id)
-
-        if update == "full":                                                                                 #updating everything
-            var_monthly=[]
-            soc_score = []
-            for i in range(len(month_id)):
-                cursor.execute("select count(*) from social_score where month = "+str(month_id[i]))
-                tmp=cursor.fetchall()
-                if tmp[0][0] == 0:
-                    cursor.execute("insert into social_score (month) values ('"+str(month_id[i])+"')")
-                temp3=[]
-                for j in range(len(names)):
-                    temp=0
-                    temp1=0
-
-                    for k in range(len(var_daily)):
-                        if (var_daily[k][0])[0:6] == month_id[i]:
-                            temp=temp + var_daily[k][j+1]
-                            temp1 += 1
-                    if temp1 == 0:
-                        soc_sc = 0
-                    else:
-                        temp2=float(percentage[i+1][j+2])*break_sizes[i][j]*(temp/temp1)*corrections[i][j]       #calculating social score per person per month
-                    temp3.append(temp2)
-                    cursor.execute("update social_score set "+names[j]+" = "+str(round(temp2,2))+" where month like '"+month_id[i]+"'")
-                soc_score.append(temp3)
-                print(soc_score)
-            total=[]
-            for i in range(len(names)):
-                temp = 0
-                for j in range(len(month_id)):
-                    temp = temp + soc_score[j][i]                                                                            #calculating total social score
-                total.append(temp)            
-                
-        elif update == "simple":                                                                             #updating only last 2 months
-            for i in range(2):
-                cursor.execute("select count(*) from social_score where month = "+str(month_id[len(month_id)-2+i]))
-                tmp=cursor.fetchall()
-                if tmp[0][0] == 0:
-                    cursor.execute("insert into social_score (month) values ('"+str(month_id[len(month_id)-2+i])+"')")
-
-                for j in range(len(names)):
-                    temp=0
-                    temp1=0
-                    for k in range(len(var_daily)):
-                        if (var_daily[k][0])[0:6] == month_id[len(month_id)-2+i]:
-                            temp=temp + var_daily[k][j+1]
-                            temp1 += 1
-
-                    if temp1 == 0:
-                        soc_sc = 0
-                    else:
-                        soc_sc = float(percentage[len(month_id)-1+i][j+2])*break_sizes[len(month_id)-2+i][j]*(temp/temp1)*corrections[len(month_id)-2+i][j]       #calculating social score per person per month
- 
-                    cursor.execute("update social_score set "+names[j]+" = "+str(round(soc_sc,2))+" where month like '"+month_id[len(month_id)-2+i]+"'")
-            db.commit()
-            
-            cursor.execute("select * from social_score")
-            tmp=cursor.fetchall()
-            
-            total=[]
-            for i in range(len(names)):
-                temp = 0
-                for j in range(len(tmp)-1):
-                    temp = temp + float(tmp[j+1][i+2])                                                                            #calculating total social score
-                total.append(temp)
-        max_value = max(total)
-        for i in range(len(names)):
-            total[i] = round(100*total[i]/max_value,1)                                                                      #normalising on max value
-            cursor.execute("update social_score set "+names[i]+" = "+str(round(total[i],2))+" where month = 'total'")
-
-    db.commit()
-    db.close()
-
-
 #-------------------------------------- calculating social scores -------------------------------------------------
 def get_social_score(names, month_id):
     db = init_connection()
@@ -574,7 +372,7 @@ def holiday_corrections(names, month_id):
         correction_factors.append(temp1)
     return correction_factors
 
-
+#-------------------------- calculating the cumulated coffees from database -------------------------------
 def get_cumulated_coffees(names, month_id):
     all_coffees=get_monthly_coffees(names, month_id)[0]         #getting monthly coffees
 
@@ -592,105 +390,6 @@ def get_cumulated_coffees(names, month_id):
     
     return coffees_cumulated
 
-
-
-
-#----------------------------------------- getting all members from database ---------------------------------------
-#@st.cache
-def get_members():
-    db = init_connection()
-    cursor = db.cursor(buffered=True)
-
-    names=[]
-
-    cursor.execute("select name from members")              #getting all members tables
-    mbrs=cursor.fetchall()
-    mbrs=list(mbrs)
-    for i in range(len(mbrs)):
-        names.append(mbrs[i][0])
-    db.close()
-    return names
-
-
-
-#----------------------------- getting last 10 breaks from database ---------------------------------
-#@st.cache
-def get_last_breaks(last_break):
-	db = init_connection()
-	cursor = db.cursor(buffered=True)
-	cursor.execute("select * from breaks order by id_ext desc limit "+str(last_break))
-	breaks=cursor.fetchall()
-	cursor.execute("select * from drinkers order by id_ext desc limit "+str(last_break))
-	drinkers=cursor.fetchall()
-
-	last_breaks=[]
-	for i in range(len(breaks)):
-		temp=[]
-		date=str(breaks[len(breaks)-i-1][2])+"."+str(breaks[len(breaks)-i-1][3])+"."+str(breaks[len(breaks)-i-1][4])
-		temp.append(breaks[len(breaks)-i-1][1])
-		temp.append(date)
-		temp.append(drinkers[len(drinkers)-i-1][2])
-		temp.append(drinkers[len(drinkers)-i-1][3])
-		last_breaks.append(temp)
-	db.close()
-	return last_breaks
-
-
-#------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-#----------------------------- getting all months from start date to now ---------------------------------
-#@st.cache
-def get_months(first_date):
-    db = init_connection()
-    cursor = db.cursor(buffered=True)
-    
-    month_info=[]
-    months=[]
-    month_id=[]
-
-    cursor.execute("SELECT max(id_ext) FROM breaks")        #getting month names from beginning to current
-    temp=cursor.fetchone()
-    temp=list(temp)
-
-    last_date=datetime.date(int(temp[0][0:4]),int(temp[0][4:6]),int(temp[0][6:8]))
-    for month in months_between(first_date,last_date):
-    #for i in range(months_between(first_date,last_date)):
-        if(month.month<10):
-            month_id.append(str(month.year)+"0"+str(month.month))
-        else:
-            month_id.append(str(month.year)+str(month.month))
-        months.append(month.strftime("%B")[0:3]+" '"+month.strftime("%Y")[2:4])
-    month_info.append(months)
-    month_info.append(month_id)
-    
-    db.close()
-    return month_info
-    
-
-def months_between(start_date, end_date):                   #method to get months between two dates
-    if start_date > end_date:
-        raise ValueError(f"Start date {start_date} is not before end date {end_date}")
-    else:
-        year = start_date.year
-        month = start_date.month
-	
-        #counter=0
-        while (year, month) <= (end_date.year, end_date.month):
-            yield datetime.date(year, month, 1)
-            # Move to the next month.  If we're at the end of the year, wrap around
-            # to the start of the next.
-            #
-            # Example: Nov 2017
-            #       -> Dec 2017 (month += 1)
-            #       -> Jan 2018 (end of year, month = 1, year += 1)
-            #
-            if month == 12:
-                month = 1
-                year += 1
-            else:
-                month += 1
-            #counter += 1
-    #return counter
 
 #------------------------- getting work days per month per person ------------------------
 #@st.cache
@@ -713,20 +412,6 @@ def get_work_days(names, month_id):
     db.close()
     return workdays
 
-#------------------------ getting functionals from database ------------------
-def get_functionals():
-    db = init_connection()
-    cursor = db.cursor(buffered=True)
-
-    cursor.execute("select name from func_param")
-    tmp=cursor.fetchall()
-
-    func_names=[]
-    for i in range(len(tmp)):
-        func_names.append(tmp[i][0])
-    db.close()
-    return sorted(func_names, key=str.lower)
-
 #------------------------- getting all functional parameters -------------------
 def get_parameters():
     db = init_connection()
@@ -743,16 +428,6 @@ def get_parameters():
         parameters.append(temp)
     db.close()
     return parameters
-
-#------------------------- getting active functional from database -------------------
-def get_active_func():
-    db = init_connection()
-    cursor = db.cursor(buffered=True)
-
-    cursor.execute("select active_func from update_status")
-    func = cursor.fetchall()
-    db.close()
-    return func[0][0]
 
 #-------------------------- calculating standard deviation of deviations etc ---------------------------------
 def variance(data, ddof=0):
@@ -810,22 +485,3 @@ def get_all_holidays(timestamp):
 		holidays.append(temp)
 	db.close()
 	return holidays
-
-
-#--------------------------- checking if database is up to date ----------------
-def check_update_status():
-    db = init_connection()
-    cursor = db.cursor(buffered=True)
-    cursor.execute("select update_date from update_status")
-    tmp = cursor.fetchall()
-
-    if datetime.date.today() > tmp[0][0]:
-        print("Database not up to date")
-        update_database(tmp[0][0].month)
-        
-    else:
-        print("Database up to date")
-    db.close()
-
-
-
