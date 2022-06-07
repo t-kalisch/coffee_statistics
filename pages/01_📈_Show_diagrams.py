@@ -293,7 +293,56 @@ else:
         fig6.update_xaxes(side="top")
         col4.plotly_chart(fig6, use_container_width=True)
         
+   #-------------------------------------------------------------------------------------------------------------- percentages of breaks (line + bar charts)
+    if break_percentage:
+        st.subheader("Percentages of breaks")
+        col5,col6 = st.columns([2,1])
+
+        percentages=get_perc_breaks(names, month_id_dly)
+        percentage_total=percentages[0]
+        percentage=[]
+        for i in range(len(percentages)-1):
+            percentage.append(percentages[i+1])
         
+        df = pd.DataFrame(percentage, columns=names, index=months_dly)
+        fig7 = px.line(df, title="Monthly percentages of breaks", labels={"variable":"", "index":"", "value":"Percentage"})
+        fig7.update_layout(title_font_size=24, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+        fig7.update_traces(hovertemplate='%{x}<br>%{y} %')
+        col5.plotly_chart(fig7, use_container_width=True)
+
+        df = pd.DataFrame(percentage_total, columns={'percentage'}, index=names)
+
+        fig8 = px.bar(df, x='percentage', y=names, title="Total percentages of breaks", labels={"y":"", "count":"Percentage", "variable":"drinkers"}, text='percentage', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
+        fig8.update_layout(title_font_size=24, showlegend=False)
+        fig8.update_traces(hovertemplate='%{y}: %{x} %')
+        col6.plotly_chart(fig8, use_container_width=True)
+    
+    #-------------------------------------------------------------------------------------------------------------- social score (line chart + bar chart)
+    if soc_sc:
+        st.subheader("Social Score")
+        col7,col8 = st.columns([2,1])
+    
+        socialscore_total = get_social_score(names, month_id_dly)
+        total = socialscore_total[0]
+        socialscore=[]
+        #for i in range(len(socialscore_total[1])):
+        #    socialscore.append(socialscore_total[1][i])
+        
+        df = pd.DataFrame(socialscore_total[1], columns=names, index=months_dly)                 #data frame for social score
+
+        fig2 = px.line(df, title="Monthly social scores", labels={"variable":"", "index":"", "value":"Social score / a.u."})      #plotting social score
+        fig2.update_layout(title_font_size=24, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+        fig2.update_traces(hovertemplate='%{x}<br>%{y}')
+        fig2.update_yaxes(showticklabels=False)
+        col7.plotly_chart(fig2, use_container_width=True)
+
+        df = pd.DataFrame(total, columns={'Social score'}, index=names)                #total social score
+
+        fig8 = px.bar(df, x='Social score', y=names, title="Total social score", labels={"y":"", "count":"Social score", "variable":"drinkers"}, text='Social score', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
+        fig8.update_layout(title_font_size=24, showlegend=False)
+        fig8.update_traces(hovertemplate='%{y}: %{x} %')
+        fig8.update_xaxes(showticklabels=False,range=[0,100])
+        col8.plotly_chart(fig8, use_container_width=True)          
         
         
         
