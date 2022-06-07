@@ -382,3 +382,20 @@ else:
         fig10.update_traces(hovertemplate='%{x}<br> %{y}')
         st.plotly_chart(fig10, use_container_width=True)        
         
+#------- footer ----------------
+footer="""<style>
+.footer {
+position: fixed;
+left: 0;
+bottom: 0;
+width: 100%;
+background-color: white;
+color:  grey;
+text-align: right;
+}
+</style>
+<div class="footer">
+<p>Developed by P. C. Brehm and T. Kalisch. Web design by T. Kalisch <a style='display: block; text-align: center</a></p>
+</div>
+"""
+st.markdown(footer,unsafe_allow_html=True)
