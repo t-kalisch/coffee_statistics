@@ -50,7 +50,7 @@ def submit_break(persons,coffees,date_br):					# submitting break into database
 			if ids[0][0] < 9:
 				id_ext += "0"
 			id_ext += str(ids[0][0]+1)
-		st.write(id_ext)
+
 		cursor.execute("insert into breaks (id_ext, day, month, year) values (%s, %s, %s, %s)", (id_ext, date_br[0], date_br[1], date_br[2]))
 		cursor.execute("insert into break_sizes (id_ext, size) values (%s, %s)", (id_ext, len(persons_comp)))
 		for i in range(len(persons_comp)):
