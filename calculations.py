@@ -51,39 +51,6 @@ def get_total_coffees(names):
     return coffees
 
 
-#-------------------------- writing total coffees into database
-def write_total_coffees(names):
-    db = init_connection()
-    cursor = db.cursor(buffered=True)
-
-
-    cursor.execute("create table if not exists total_coffees (id int auto_increment, name varchar(3), coffees int, primary key(id))")
-    for i in range(len(names)):
-        cursor.execute("select count(*) from total_coffees where name like '"+names[i]+"'")     #does the name alreaedy exists?
-        tmp = cursor.fetchall()
-
-        if tmp[0][0] == 0:
-            cursor.execute("insert into total_coffees (name) values ('"+names[i]+"')")           #creating name if it doesn't exist
-
-        total=0
-        cursor.execute("select n_coffees from mbr_"+names[i])       #getting new data if update status not up to date
-        tmp=cursor.fetchall()
-        total=0
-        for j in range(len(tmp)):
-            total=total+tmp[j][0]
-        if i < 6:
-            cursor.execute("select "+names[i]+" from old_breaks")       #inserting old coffees from before March 8, 2021
-            tmp = cursor.fetchall()
-
-            for j in range(len(tmp)):
-                total=total+tmp[j][0]
-
-        cursor.execute("update total_coffees set coffees = "+str(total)+" where name = '"+names[i]+"'")
-
-    db.commit()
-    db.commit()
-
-
 #--------------------------- calculating monthly ratios from database -----------------------------
 def get_monthly_ratio(names, month_id):
     db = init_connection()
