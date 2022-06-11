@@ -41,18 +41,17 @@ else:
         pw_new = col2.text_input("New password", type = "password", placeholder = "Password")
         status=-1
         if change_user != "":
-	for i in range(len(user_data)):
-	    if user_data[i][0] == change_user:
-	    if user_data[i][2] == 1:
-		status=1
-		status_str="Admin"
-	    else:
-		status=0
-		status_str="User"
-	col1,col2 = st.columns([0.5,1.7])
+            for i in range(len(user_data)):
+	            if user_data[i][0] == change_user:
+	                if user_data[i][2] == 1:
+		                status=1
+		                status_str="Admin"
+                    else:
+		                status=0
+		                status_str="User"
+	    col1,col2 = st.columns([0.5,1.7])
         if status == -1:user_data = get_user_data()
-
-    if st.session_state.admin == "1":
+            
         st.subheader("**:closed_lock_with_key:** Change the profile of a member")
         st.markdown("You can enter a new username and password for a member, or change their member status.")
         st.markdown("Guest password: "+get_guest_pw())
