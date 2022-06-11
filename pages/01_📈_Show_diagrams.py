@@ -217,8 +217,8 @@ else:
                   temp=[]
                   temp.append(names[i])
                   temp.append(prizes_search[j])
+                  total=0
                   for k in range(len(prizes)):
-                      total=0
                       if prizes[k][1] == i and prizes[k][2] == prizes_search[j]:
                               total += 1
                   temp.append(total)
