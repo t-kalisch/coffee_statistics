@@ -213,7 +213,7 @@ else:
               hs=0
               gn=0
               temp=[]
-              temp.append(names(i))
+              temp.append(names[i])
               for j in range(len(prizes)):
                   if prizes[j][1] == i:
                       if prizes[j][2] == "Kaffeemeister":
