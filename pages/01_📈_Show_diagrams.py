@@ -225,10 +225,10 @@ else:
                   if j == 2:
                     sum = (int(total_prizes[len(total_prizes)-2][2]+total_prizes[len(total_prizes)-1][2]+total))
                     temp.append(sum)
-                    total_prizes[len(total_prizes)-2][3] = sum
-                    total_prizes[len(total_prizes)-1][3] = sum
+                    #total_prizes[len(total_prizes)-2][3] = sum
+                    #total_prizes[len(total_prizes)-1][3] = sum
                   else:
-                    temp.append(-1)
+                    temp.append("")
                   total_prizes.append(temp)              
 
           columns=['Month','Persons','Coffee prizes','sizes']
@@ -251,7 +251,7 @@ else:
           columns=['person','prize','Number of prizes','total']
           df = pd.DataFrame(total_prizes, columns=columns)#, index=names)                #total number of prizes
           st.write(df)
-          fig8 = px.bar(df, x='Number of prizes', y='person', title="Total number of prizes", labels={"y":"", "count":"Social score", "variable":"drinkers"}, color="prize", color_discrete_sequence=['gold','black','red'], text='Number of prizes', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
+          fig8 = px.bar(df, x='Number of prizes', y='person', title="Total number of prizes", labels={"y":"", "count":"Social score", "variable":"drinkers"}, color="prize", color_discrete_sequence=['gold','black','red'], text='Number of prizes', text='total', orientation='h').update_yaxes(categoryorder="total ascending")
           fig8.update_layout(title_font_size=24, showlegend=False)
           fig8.update_traces(hovertemplate='%{Persons}: %{total}')
           fig8.update_xaxes(showticklabels=False)
