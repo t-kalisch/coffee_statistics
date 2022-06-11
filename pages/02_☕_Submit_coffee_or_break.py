@@ -141,11 +141,11 @@ def add_coffee_to_break(id_ext, name, user):
 ########################################################################################################################################################################
 #####################################################    MAIN    #######################################################################################################
 ########################################################################################################################################################################
+st.subheader("**:coffee:** Submit a coffee break")
 if 'logged_in' not in st.session_state or 'user_name' not in st.session_state or 'admin' not in st.session_state or 'attempt' not in st.session_state:
     st.warning("Warning! Your session is no longer active. Please return to home to restart it and regain access to all features.")
 else:
 
-	st.subheader("**:coffee:** Submit a coffee break")
 	if st.session_state.admin != "1":
 	  st.warning("You do not have the permission to submit a coffee or break. Please contact a system administrator for further information.")
 
