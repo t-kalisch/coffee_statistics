@@ -223,7 +223,12 @@ else:
                               total += 1
                   temp.append(total)
                   if j == 2:
-                    temp.append(total_prizes[len(total_prizes)-2][2]+total_prizes[len(total_prizes)-1][2]+total)
+                    sum = (int(total_prizes[len(total_prizes)-2][2]+total_prizes[len(total_prizes)-1][2]+total))
+                    temp.append(sum)
+                    total_prizes[len(total_prizes)-2][3] = sum
+                    total_prizes[len(total_prizes)-1][3] = sum
+                  else:
+                    temp.append(-1)
                   total_prizes.append(temp)              
 
           columns=['Month','Persons','Coffee prizes','sizes']
