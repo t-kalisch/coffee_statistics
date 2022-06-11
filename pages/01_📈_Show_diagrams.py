@@ -227,8 +227,8 @@ else:
                     temp.append(sum)
                     #total_prizes[len(total_prizes)-2][3] = sum
                     #total_prizes[len(total_prizes)-1][3] = sum
-                  else:
-                    temp.append("")
+                  #else:
+                    #temp.append("")
                   total_prizes.append(temp)              
 
           columns=['Month','Persons','Coffee prizes','sizes']
@@ -249,7 +249,7 @@ else:
           #col2.plotly_chart(fig8, use_container_width=True)
           
           columns=['person','prize','Number of prizes','total']
-          df = pd.DataFrame(total_prizes, columns=columns)#, index=names)                #total number of prizes
+          df = pd.DataFrame(total_prizes, columns=columns)                #total number of prizes
           st.write(df)
           fig8 = px.bar(df, x='Number of prizes', y='person', title="Total number of prizes", labels={"y":"", "count":"Social score", "variable":"drinkers"}, color="prize", color_discrete_sequence=['gold','black','red'], text='total', orientation='h').update_yaxes(categoryorder="total ascending")
           fig8.update_layout(title_font_size=24, showlegend=False)
