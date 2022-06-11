@@ -222,7 +222,7 @@ else:
                       if prizes[k][1] == i and prizes[k][2] == prizes_search[j]:
                               total += 1
                   temp.append(total)
-                  if j = 2:
+                  if j == 2:
                     temp.append(total_prizes[len(total_prizes)-2][2]+total_prizes[len(total_prizes)-1][2]+total)
                   total_prizes.append(temp)              
 
@@ -245,7 +245,7 @@ else:
           
           columns=['person','prize','Number of prizes','total']
           df = pd.DataFrame(total_prizes, columns=columns)#, index=names)                #total number of prizes
-          
+          st.write(df)
           fig8 = px.bar(df, x='Number of prizes', y='person', title="Total number of prizes", labels={"y":"", "count":"Social score", "variable":"drinkers"}, color="prize", color_discrete_sequence=['gold','black','red'], text='Number of prizes', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
           fig8.update_layout(title_font_size=24, showlegend=False)
           fig8.update_traces(hovertemplate='%{Persons}: %{total}')
