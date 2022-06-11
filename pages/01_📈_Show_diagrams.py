@@ -228,11 +228,11 @@ else:
                     #total_prizes[len(total_prizes)-2][3] = sum
                     #total_prizes[len(total_prizes)-1][3] = sum
                   total_prizes.append(temp)
-                  if total_prizes[len(total_prizes)-1][2] == 0:
-                      if total_prizes[len(total_prizes)-2][2] == 0:
-                          total_prizes[len(total_prizes)-3][3] = total_prizes[len(total_prizes)-1][3]
-                      else:
-                          total_prizes[len(total_prizes)-2][3] = total_prizes[len(total_prizes)-1][3]
+                  #if total_prizes[len(total_prizes)-1][2] == 0:
+                  #    if total_prizes[len(total_prizes)-2][2] == 0:
+                  #        total_prizes[len(total_prizes)-3][3] = total_prizes[len(total_prizes)-1][3]
+                  #    else:
+                  #        total_prizes[len(total_prizes)-2][3] = total_prizes[len(total_prizes)-1][3]
 
           columns=['Month','Persons','Coffee prizes','sizes']
           df = pd.DataFrame(prizes, columns=columns)
