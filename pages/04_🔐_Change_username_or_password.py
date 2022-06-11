@@ -53,6 +53,7 @@ if st.session_state.admin == "1":
     if status == -1:
         col1.selectbox ("Change member status", (""), 0)
     else: 
+	st.write(status)
         user_status = col1.selectbox ("Change member status", ("User", "Admin"), status)
     st.write("-" * 34)
     col1,col2 = st.columns([0.5,0.5])
