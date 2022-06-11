@@ -96,10 +96,10 @@ if st.session_state.admin == "1":
         else:
             done=False
             for i in range(len(user_data)):
-            if st.session_state.user_name == user_data[i][0] and admin_pw == user_data[i][1]:
-                done = change_profile_data(change_user, username_new, pw_new, user_status)
-            if done == False:
-            st.warning("Incorrect password")
+                if st.session_state.user_name == user_data[i][0] and admin_pw == user_data[i][1]:
+                    done = change_profile_data(change_user, username_new, pw_new, user_status)
+                if done == False:
+                    st.warning("Incorrect password")
 
 elif st.session_state.admin == "0":
     st.subheader("**:adult:** Change username")
