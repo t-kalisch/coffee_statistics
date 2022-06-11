@@ -81,22 +81,26 @@ def delete_one_coffee(id_ext, name):
 ########################################################################################################################################################################
 #####################################################    MAIN    #######################################################################################################
 ########################################################################################################################################################################
-st.subheader("**:x:** Delete a coffee break")
-if st.session_state.admin != "1":
-  st.warning("You do not have the permission to delete a coffee or break. Please contact a system administrator for further information.")
+if 'logged_in' not in st.session_state or 'user_name' not in st.session_state or 'admin' not in st.session_state or 'attempt' not in st.session_state:
+    st.warning("Warning! Your session is no longer active. Please return to home to restart it and regain access to all features.")
+else:
 
-elif st.session_state.admin == "1":
-  st.markdown("Please enter the extended ID of the break you want to delete.")
-  last_breaks=get_last_breaks(10)
-  col1,col2,col3 = st.columns([1,0.5,3])
-  del_id = col1.text_input("Extended ID of break", placeholder=last_breaks[len(last_breaks)-1][0])
-  df=pd.DataFrame(last_breaks,columns=['Extended ID','Date','Drinkers','Coffees'])
-  col3.markdown("Last 10 breaks")
-  col3.dataframe(df, width=600, height=400)
-  delete = col1.button("Delete break", on_click=clear_one_break, args=(del_id,""))
-  col1.write("-" * 34)
-  del_person = col1.text_input("Delete for person", placeholder="Username")
-  col1.button("Delete coffee from break", on_click=delete_one_coffee_check, args=(del_id,del_person))
+	st.subheader("**:x:** Delete a coffee break")
+	if st.session_state.admin != "1":
+	  st.warning("You do not have the permission to delete a coffee or break. Please contact a system administrator for further information.")
+
+	elif st.session_state.admin == "1":
+	  st.markdown("Please enter the extended ID of the break you want to delete.")
+	  last_breaks=get_last_breaks(10)
+	  col1,col2,col3 = st.columns([1,0.5,3])
+	  del_id = col1.text_input("Extended ID of break", placeholder=last_breaks[len(last_breaks)-1][0])
+	  df=pd.DataFrame(last_breaks,columns=['Extended ID','Date','Drinkers','Coffees'])
+	  col3.markdown("Last 10 breaks")
+	  col3.dataframe(df, width=600, height=400)
+	  delete = col1.button("Delete break", on_click=clear_one_break, args=(del_id,""))
+	  col1.write("-" * 34)
+	  del_person = col1.text_input("Delete for person", placeholder="Username")
+	  col1.button("Delete coffee from break", on_click=delete_one_coffee_check, args=(del_id,del_person))
 
 
 #------- footer ----------------
