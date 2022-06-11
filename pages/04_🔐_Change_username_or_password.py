@@ -26,7 +26,7 @@ def change_profile_data(user_old, user, user_pw, admin_status):
 ########################################################################################################################################################################
 if 'logged_in' not in st.session_state or 'user_name' not in st.session_state or 'admin' not in st.session_state or 'attempt' not in st.session_state:
     st.subheader("**:closed_lock_with_key:** Change profile data")
-    st.warning("Warning! Your session is no longer active. Please return to home to restart it and regain access to all features.")
+    st.warning("Warning! Your session was terminated due to inactivity. Please return to home to restart it and regain access to all features.")
 else:
 
     user_data = get_user_data()
