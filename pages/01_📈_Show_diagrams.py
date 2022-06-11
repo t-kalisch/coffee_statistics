@@ -37,7 +37,7 @@ def get_active_func():
 ########################################################################################################################################################################
 st.header("**:chart_with_upwards_trend:** Visualised data")
 if 'logged_in' not in st.session_state or 'user_name' not in st.session_state or 'admin' not in st.session_state or 'attempt' not in st.session_state:
-    st.warning("Warning! Your session is no longer active. Please return to home to restart it and regain access to all features.")
+    st.warning("Warning! Your session was terminated due to inactivity. Please return to home to restart it and regain access to all features.")
 else:
   
   simple_data=get_simple_data()
