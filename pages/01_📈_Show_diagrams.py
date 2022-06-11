@@ -206,7 +206,7 @@ else:
 #                  if prizes[j][1] == i:
 #                      total += 1
 #              total_prizes.append(total)
-          prizes_search=['Kaffeemeister','Hotshot','Genosse']
+          prizes_search=["Kaffeemeister","Hotshot","Genosse"]
           for i in range(len(names)):
               tickval_num.append(i)
               km=0
