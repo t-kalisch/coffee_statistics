@@ -222,6 +222,8 @@ else:
                       if prizes[k][1] == i and prizes[k][2] == prizes_search[j]:
                               total += 1
                   temp.append(total)
+                  if j = 2:
+                    temp.append(total_prizes[len(total_prizes)-2][2]+total_prizes[len(total_prizes)-1][2]+total)
                   total_prizes.append(temp)              
 
           columns=['Month','Persons','Coffee prizes','sizes']
