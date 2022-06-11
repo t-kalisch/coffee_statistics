@@ -63,12 +63,12 @@ if st.session_state.admin == "1":
     if change_user != "":
         for i in range(len(user_data)):
             if user_data[i][0] == change_user:
-            if user_data[i][2] == 1:
-                status=1
-                status_str="Admin"
-            else:
-                status=0
-                status_str="User"
+                if user_data[i][2] == 1:
+                    status=1
+                    status_str="Admin"
+                else:
+                    status=0
+                    status_str="User"
     col1,col2 = st.columns([0.5,1.7])
     if status == -1:
         col1.selectbox ("Change member status", (""), 0)
