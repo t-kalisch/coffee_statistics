@@ -206,26 +206,23 @@ else:
 #                  if prizes[j][1] == i:
 #                      total += 1
 #              total_prizes.append(total)
-
+          prizes_search=['Kaffeemeister','Hotshot','Genosse']
           for i in range(len(names)):
               tickval_num.append(i)
               km=0
               hs=0
               gn=0
               temp=[]
-              for j in range(len(prizes)):
-                  if prizes[j][1] == i:
-                      if prizes[j][2] == "Kaffeemeister":
-                          km += 1
-                      elif prizes[j][2] == "Hotshot":
-                          hs  += 1
-                      elif prizes[j][2] == "Genosse":
-                          gn += 1
-              temp.append(km)
-              temp.append(hs)
-              temp.append(gn)
-              temp.append(km+hs+gn)
-              total_prizes.append(temp)              
+              for j in range(3):
+                  temp=[]
+                  temp.append(names[i])
+                  temp.append(prizes_search[j])
+                  for k in range(len(prizes)):
+                      total=0
+                      if prizes[k][1] == i and prizes[k][2] == prizes_search[j]:
+                              total += 1
+                  temp.append(total)
+                  total_prizes.append(temp)              
 
           columns=['Month','Persons','Coffee prizes','sizes']
           df = pd.DataFrame(prizes, columns=columns)
@@ -243,10 +240,10 @@ else:
           #fig8.update_traces(hovertemplate='%{y}: %{x}')
           #fig8.update_xaxes(showticklabels=False)
           #col2.plotly_chart(fig8, use_container_width=True)
-          columns=['Kaffeemeister','Hotshot','Genosse','total']
+          columns=['Persons','Kaffeemeister','Hotshot','Genosse','total']
           df = pd.DataFrame(total_prizes, columns=columns, index=names)                #total number of prizes
           st.write(df)
-          fig8 = px.bar(df, total='Number of prizes', y=names, title="Total number of prizes", labels={"y":"", "count":"Social score", "variable":"drinkers"}, text='Number of prizes', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
+          fig8 = px.bar(df, x='Number of prizes', y=names, title="Total number of prizes", color=' labels={"y":"", "count":"Social score", "variable":"drinkers"}, text='Number of prizes', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
           fig8.update_layout(title_font_size=24, showlegend=False)
           fig8.update_traces(hovertemplate='%{Persons}: %{total}')
           fig8.update_xaxes(showticklabels=False)
