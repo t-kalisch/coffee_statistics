@@ -41,15 +41,15 @@ else:
         pw_new = col2.text_input("New password", type = "password", placeholder = "Password")
         status=-1
         if change_user != "":
-        for i in range(len(user_data)):
-            if user_data[i][0] == change_user:
-            if user_data[i][2] == 1:
-                status=1
-                status_str="Admin"
-            else:
-                status=0
-                status_str="User"
-        col1,col2 = st.columns([0.5,1.7])
+	for i in range(len(user_data)):
+	    if user_data[i][0] == change_user:
+	    if user_data[i][2] == 1:
+		status=1
+		status_str="Admin"
+	    else:
+		status=0
+		status_str="User"
+	col1,col2 = st.columns([0.5,1.7])
         if status == -1:user_data = get_user_data()
 
     if st.session_state.admin == "1":
@@ -62,45 +62,45 @@ else:
         pw_new = col2.text_input("New password", type = "password", placeholder = "Password")
         status=-1
         if change_user != "":
-        for i in range(len(user_data)):
-            if user_data[i][0] == change_user:
-            if user_data[i][2] == 1:
-                status=1
-                status_str="Admin"
-            else:
-                status=0
-                status_str="User"
+            for i in range(len(user_data)):
+                if user_data[i][0] == change_user:
+                if user_data[i][2] == 1:
+                    status=1
+                    status_str="Admin"
+                else:
+                    status=0
+                    status_str="User"
         col1,col2 = st.columns([0.5,1.7])
         if status == -1:
-        col1.selectbox ("Change member status", (""), 0)
+            col1.selectbox ("Change member status", (""), 0)
         else: 
-        user_status = col1.selectbox ("Change member status", ("User", "Admin"), status)
+            user_status = col1.selectbox ("Change member status", ("User", "Admin"), status)
         st.write("-" * 34)
         col1,col2 = st.columns([0.5,0.5])
         admin_pw = col1.text_input("Please enter your password to confirm", type = 'password', placeholder = "Password")
         confirm = col1.button("Confirm")
         if confirm:
-        if status == -1:
-            st.error("Wrong username entered")
-        else:
-            done=False
-        col1.selectbox ("Change member status", (""), 0)
+            if status == -1:
+                st.error("Wrong username entered")
+            else:
+                done=False
+            col1.selectbox ("Change member status", (""), 0)
         else: 
-        user_status = col1.selectbox ("Change member status", ("User", "Admin"), status)
+            user_status = col1.selectbox ("Change member status", ("User", "Admin"), status)
         st.write("-" * 34)
         col1,col2 = st.columns([0.5,0.5])
         admin_pw = col1.text_input("Please enter your password to confirm", type = 'password', placeholder = "Password")
         confirm = col1.button("Confirm")
         if confirm:
-        if status == -1:
-            st.error("Wrong username entered")
-        else:
-            done=False
-            for i in range(len(user_data)):
-            if st.session_state.user_name == user_data[i][0] and admin_pw == user_data[i][1]:
-                done = change_profile_data(change_user, username_new, pw_new, user_status)
-            if done == False:
-            st.warning("Incorrect password")
+            if status == -1:
+                st.error("Wrong username entered")
+            else:
+                done=False
+                for i in range(len(user_data)):
+                if st.session_state.user_name == user_data[i][0] and admin_pw == user_data[i][1]:
+                    done = change_profile_data(change_user, username_new, pw_new, user_status)
+                if done == False:
+                st.warning("Incorrect password")
 
     elif st.session_state.admin == "0":
         st.subheader("**:adult:** Change username")
@@ -123,17 +123,17 @@ else:
         conf_pw = col2.text_input("Repeat the new password", type="password", placeholder = "Repeat password")
         pw_change = col2.button("Save new password")
         if pw_new != conf_pw:
-        st.error("The entered new passwords differ from each other")
+            st.error("The entered new passwords differ from each other")
         if pw_change:
-        if pw_new == "" or conf_pw == "":
-            st.error("You cannot enter an empty password")
-        else:
-            done=False
+            if pw_new == "" or conf_pw == "":
+                st.error("You cannot enter an empty password")
+            else:
+                done=False
             for i in range(len(user_data)):
             if st.session_state.user_name == user_data[i][0] and curr_pw == user_data[i][1]:
                 done = change_profile_data(st.session_state.user_name, "", pw_new, st.session_state.admin)
             if done == False:
-            st.warning("Incorrect password")
+                st.warning("Incorrect password")
 
     else:
         st.warning("You do not have the permission to change a username and/or password. Please contact a system administrator for further information.")
