@@ -81,11 +81,12 @@ def delete_one_coffee(id_ext, name):
 ########################################################################################################################################################################
 #####################################################    MAIN    #######################################################################################################
 ########################################################################################################################################################################
+st.subheader("**:x:** Delete a coffee break")
 if 'logged_in' not in st.session_state or 'user_name' not in st.session_state or 'admin' not in st.session_state or 'attempt' not in st.session_state:
     st.warning("Warning! Your session is no longer active. Please return to home to restart it and regain access to all features.")
 else:
 
-	st.subheader("**:x:** Delete a coffee break")
+	
 	if st.session_state.admin != "1":
 	  st.warning("You do not have the permission to delete a coffee or break. Please contact a system administrator for further information.")
 
