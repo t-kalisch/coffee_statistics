@@ -243,7 +243,7 @@ else:
           columns=['Persons','Kaffeemeister','Hotshot','Genosse','total']
           df = pd.DataFrame(total_prizes, columns=columns, index=names)                #total number of prizes
           st.write(df)
-          fig8 = px.bar(df, x='Number of prizes', y=names, title="Total number of prizes", color=' labels={"y":"", "count":"Social score", "variable":"drinkers"}, text='Number of prizes', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
+          fig8 = px.bar(df, x='Number of prizes', y=names, title="Total number of prizes", labels={"y":"", "count":"Social score", "variable":"drinkers"}, text='Number of prizes', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
           fig8.update_layout(title_font_size=24, showlegend=False)
           fig8.update_traces(hovertemplate='%{Persons}: %{total}')
           fig8.update_xaxes(showticklabels=False)
