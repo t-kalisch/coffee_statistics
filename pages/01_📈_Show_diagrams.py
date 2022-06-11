@@ -224,12 +224,13 @@ else:
                   temp.append(total)
                   if j == 2:
                     sum = (int(total_prizes[len(total_prizes)-2][2]+total_prizes[len(total_prizes)-1][2]+total))
-                    temp.append(sum)
                     if temp[2] == 0:
                         if total_prizes[len(total_prizes)-1][2] == 0:
-                            total_prizes[len(total_prizes)-2][3] = temp[3]
+                            total_prizes[len(total_prizes)-2][3] = sum
                         else:
-                            total_prizes[len(total_prizes)-1][3] = temp[3]
+                            total_prizes[len(total_prizes)-1][3] = sum
+                    else:
+                        temp.append(sum)
                   total_prizes.append(temp)
                   
 
