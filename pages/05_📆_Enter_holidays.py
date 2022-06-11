@@ -76,7 +76,7 @@ def get_all_holidays(timestamp):
 ########################################################################################################################################################################
 st.subheader("**:calendar:** Enter holidays")
 if 'logged_in' not in st.session_state or 'user_name' not in st.session_state or 'admin' not in st.session_state or 'attempt' not in st.session_state:
-    st.warning("Warning! Your session is no longer active. Please return to home to restart it and regain access to all features.")
+    st.warning("Warning! Your session was terminated due to inactivity. Please return to home to restart it and regain access to all features.")
 else:
 
     if st.session_state.admin == "1":
