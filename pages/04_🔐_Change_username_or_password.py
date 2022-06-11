@@ -41,7 +41,7 @@ else:
 	    pw_new = col2.text_input("New password", type = "password", placeholder = "Password")
 	    status=-1
 	    if change_user != "":
-		for i in range(len(user_data)):
+	        for i in range(len(user_data)):
 		    if user_data[i][0] == change_user:
 			if user_data[i][2] == 1:
 			    status=1
