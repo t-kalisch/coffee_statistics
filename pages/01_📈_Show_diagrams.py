@@ -199,13 +199,7 @@ else:
           
           tickval_num=[]
           total_prizes=[]
-#          for i in range(len(names)):
-#              tickval_num.append(i)
-#              total=0
-#              for j in range(len(prizes)):
-#                  if prizes[j][1] == i:
-#                      total += 1
-#              total_prizes.append(total)
+
           prizes_search=["Kaffeemeister","Hotshot","Genosse"]
           for i in range(len(names)):
               tickval_num.append(i)
@@ -242,19 +236,11 @@ else:
           fig2.update_traces(hovertemplate='%{y}')
           col1.plotly_chart(fig2, use_container_width=True)
 
-
-          #df = pd.DataFrame(total_prizes, columns={'Number of prizes'}, index=names)                #total number of prizes
-
-          #fig8 = px.bar(df, x='Number of prizes', y=names, title="Total number of prizes", labels={"y":"", "count":"Social score", "variable":"drinkers"}, text='Number of prizes', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
-          #fig8.update_layout(title_font_size=24, showlegend=False)
-          #fig8.update_traces(hovertemplate='%{y}: %{x}')
-          #fig8.update_xaxes(showticklabels=False)
-          #col2.plotly_chart(fig8, use_container_width=True)
           
-          columns=['person','prize','Number of prizes','total']
+          columns=['Persons','prize','Number of prizes','total']
           df = pd.DataFrame(total_prizes, columns=columns)                #total number of prizes
           
-          fig8 = px.bar(df, x='Number of prizes', y='person', title="Total number of prizes", labels={"y":"", "count":"Social score", "variable":"drinkers"}, color="prize", color_discrete_sequence=['gold','black','red'], text='total', orientation='h').update_yaxes(categoryorder="total ascending")
+          fig8 = px.bar(df, x='Number of prizes', y='Persons', title="Total number of prizes", labels={"y":"", "count":"Social score", "variable":"drinkers"}, color="prize", color_discrete_sequence=['gold','black','red'], text='total', orientation='h').update_yaxes(categoryorder="total ascending")
           fig8.update_layout(title_font_size=24, showlegend=False, hovermode="y unified")
           fig8.update_traces(hovertemplate='%{x}')
           fig8.update_xaxes(showticklabels=False)
