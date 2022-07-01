@@ -14,6 +14,7 @@ from common_functions import *
 #----------------------------------------- getting monthly coffees from database --------------------------------------
 #@st.cache(allow_output_mutation=True)
 def get_monthly_coffees(names, month_id):
+	st.write(month_id)
 	db = init_connection()
 	cursor = db.cursor(buffered=True)
 	cursor.execute("select * from monthly_coffees")
