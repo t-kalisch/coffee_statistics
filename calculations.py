@@ -62,7 +62,7 @@ def get_monthly_ratio(names, month_id):
     for i in range(len(month_id)):
         temp=[]
         for j in range(len(names)):
-	    if monthly_coffees[1][i] == 0:
+            if monthly_coffees[1][i] == 0:
 	        ratio=0
 	    else:
                 ratio=100*monthly_coffees[0][i][j]/monthly_coffees[1][i]
