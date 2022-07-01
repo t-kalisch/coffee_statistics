@@ -85,11 +85,12 @@ def get_months(first_date):
     months=[]
     month_id=[]
 
-    cursor.execute("SELECT max(id_ext) FROM breaks")        #getting month names from beginning to current
-    temp=cursor.fetchone()
-    temp=list(temp)
+    #cursor.execute("SELECT max(id_ext) FROM breaks")        #getting month names from beginning to current
+    #temp=cursor.fetchone()
+    #temp=list(temp)
 
-    last_date=datetime.date(int(temp[0][0:4]),int(temp[0][4:6]),int(temp[0][6:8]))
+    #last_date=datetime.date(int(temp[0][0:4]),int(temp[0][4:6]),int(temp[0][6:8]))
+    last_date = datetime.date.today()
     for month in months_between(first_date,last_date):
     #for i in range(months_between(first_date,last_date)):
         if(month.month<10):
