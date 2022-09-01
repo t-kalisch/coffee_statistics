@@ -93,7 +93,7 @@ else:
         else:
             if month == "" and year == "":
                 sub_hol = st.button("Submit holidays", help="Submit holidays for "+person_hol, on_click=submit_holidays, args=(person_hol,datetime.date.today().month,datetime.date.today().year,holidays))
-            else
+            else:
                 sub_hol = st.button("Submit holidays", help="Submit holidays for "+person_hol, on_click=submit_holidays, args=(person_hol,month,year,holidays))
 
         st.write("-" * 34)   
