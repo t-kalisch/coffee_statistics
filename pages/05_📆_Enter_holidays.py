@@ -86,14 +86,14 @@ else:
         person_hol = col3.text_input("Person", placeholder = "User")
         holidays = col4.text_input("Number of holidays", placeholder=0)
         if person_hol == "":
-	    if month == "" and year == "":
+            if month == "" and year == "":
                 sub_hol = st.button("Submit holidays", help="Submit holidays for yourself", on_click=submit_holidays, args=(st.session_state.user_name, datetime.date.today().month, datetime.date.today().year, holidays))
-	    else:
-	        sub_hol = st.button("Submit holidays", help="Submit holidays for yourself", on_click=submit_holidays, args=(st.session_state.user_name, month, year, holidays))
+            else:
+                sub_hol = st.button("Submit holidays", help="Submit holidays for yourself", on_click=submit_holidays, args=(st.session_state.user_name, month, year, holidays))
         else:
-	    if month == "" and year == "":
-	        sub_hol = st.button("Submit holidays", help="Submit holidays for "+person_hol, on_click=submit_holidays, args=(person_hol,datetime.date.today().month,datetime.date.today().year,holidays))
-	    else
+            if month == "" and year == "":
+                sub_hol = st.button("Submit holidays", help="Submit holidays for "+person_hol, on_click=submit_holidays, args=(person_hol,datetime.date.today().month,datetime.date.today().year,holidays))
+            else
                 sub_hol = st.button("Submit holidays", help="Submit holidays for "+person_hol, on_click=submit_holidays, args=(person_hol,month,year,holidays))
 
         st.write("-" * 34)   
