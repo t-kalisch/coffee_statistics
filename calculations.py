@@ -212,6 +212,23 @@ def get_correlation(names):
     return corr_all
 
 
+#----------------------------- getting time resolved correlation data ----------------------------------------
+def get_corr_time(names, month_id):
+    db = mysql.connect(user='PBTK', password='akstr!admin2', #connecting to mysql
+    host='212.227.72.95',
+    database='coffee_list')
+    cursor=db.cursor(buffered=True)
+
+    all_corr_data=[]
+    for i in range(len(names)):
+        cursor.execute("select * from corr_"+names[i])
+        tmp = cursor.fetchall()
+        all_corr_data.append(tmp)
+
+    db.close()
+    return all_corr_data                    #returns all data in 3D array of tuples: all_corr_data[names][month][name_to_correlate]
+
+
 
 #----------------------------- getting the percentage of total breaks per month and in total per person ------------------------
 def get_perc_breaks(names, month_id):
