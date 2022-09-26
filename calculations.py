@@ -243,7 +243,7 @@ def get_corr_time(names, month_id_start, month_id_end):
 	        
 	
 	
-    return all_corr_raw                    #returns all data in 3D array of tuples: all_corr_data[names][month][name_to_correlate]
+    return all_corr_data                    #returns all data in 3D array of tuples: all_corr_data[names][month][name_to_correlate]
 
 
 
