@@ -353,9 +353,9 @@ else:
                  temp_rel.append(i+1)
                  temp_abs.append(j+1)
                  temp_rel.append(j+1)
-                 #temp_abs.append(corr_abs_raw[len(names)-j-1][i])      #calculates absolute correlation
+                 temp_abs.append(corr_abs_raw[len(names)-j-1][i])      #calculates absolute correlation
                  #temp_rel.append(corr_rel_raw[len(names)-j-1][i])      #calculates relative correlation
-                 temp_abs.append(corr_abs_raw[i][len(names)-j-1])      #calculates absolute correlation
+                 #temp_abs.append(corr_abs_raw[i][len(names)-j-1])      #calculates absolute correlation
                  temp_rel.append(corr_rel_raw[i][len(names)-j-1])      #calculates relative correlation
                  temp2_abs.append(temp_abs)
                  temp2_rel.append(temp_rel)
