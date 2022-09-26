@@ -319,8 +319,8 @@ else:
           fig6.update_xaxes(side="top")
           col4.plotly_chart(fig6, use_container_width=True)
 
-          st.slider("Timespan for correlation",    int(month_id_dly[0]), int(month_id_dly[len(month_id_dly)-1]), (int(month_id_dly[0]), int(month_id_dly[len(month_id_dly)-1])))
-          
+          st.slider("Timespan for correlation", int(month_id_dly[0]), int(month_id_dly[len(month_id_dly)-1]), (int(month_id_dly[0]), int(month_id_dly[len(month_id_dly)-1])))
+          st.slider("Timespan for correlation", min_value=datetime.date(2021,3,1), max_value=datetime.date.today(), value=(datetime.date(2021, 3, 1), datetime.date.today()), format="MM/YYYY")
           
      #-------------------------------------------------------------------------------------------------------------- percentages of breaks (line + bar charts)
       if break_percentage or all_diagrams:
