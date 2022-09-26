@@ -213,7 +213,7 @@ def get_correlation(names):
 
 
 #----------------------------- getting time resolved correlation data ----------------------------------------
-def get_corr_time(names, month_id):
+def get_corr_time(names, month_id_start, month_id_end):
     db = mysql.connect(user='PBTK', password='akstr!admin2', #connecting to mysql
     host='212.227.72.95',
     database='coffee_list')
@@ -221,11 +221,12 @@ def get_corr_time(names, month_id):
 
     all_corr_data=[]
     for i in range(len(names)):
-        cursor.execute("select * from corr_"+names[i])
+        cursor.execute("select * from corr_"+names[i]+" where month >= "+month_id_start+" and month <= "+month_id_end)
         tmp = cursor.fetchall()
         all_corr_data.append(tmp)
 
     db.close()
+    print(all_corr_data)
     return all_corr_data                    #returns all data in 3D array of tuples: all_corr_data[names][month][name_to_correlate]
 
 
