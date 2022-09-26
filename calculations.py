@@ -238,7 +238,10 @@ def get_corr_time(names, month_id_start, month_id_end):
                 n_corr += tmp[k][j+2]
                 if j == 0:
                     n_tot_coffees += tmp[k][1]
-            rel_corr_data_person.append(round(100*n_corr/n_tot_coffees,1))
+            if n_tot_coffees == 0:
+                rel_corr_data_person.append(0)
+            else:
+                rel_corr_data_person.append(round(100*n_corr/n_tot_coffees,1))
             abs_corr_data_person.append(n_corr)
         abs_corr_data.append(abs_corr_data_person)
         rel_corr_data_temp.append(rel_corr_data_person)
