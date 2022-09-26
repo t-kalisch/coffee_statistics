@@ -223,6 +223,7 @@ def get_corr_time(names, month_id_start, month_id_end):
     all_corr_raw=[]
     abs_corr_data=[]
     rel_corr_data=[]
+    rel_corr_data_temp=[]
     for i in range(len(names)):
         cursor.execute("select * from corr_"+names[i]+" where month >= "+month_id_start+" and month <= "+month_id_end)
         tmp = cursor.fetchall()
@@ -232,7 +233,6 @@ def get_corr_time(names, month_id_start, month_id_end):
         
         for j in range(len(names)):
             n_corr = 0
-            n_corr_rel = 0
             
             for k in range(len(tmp)):
                 n_corr += tmp[k][j+2]
@@ -241,10 +241,14 @@ def get_corr_time(names, month_id_start, month_id_end):
             rel_corr_data_person.append(round(100*n_corr/n_tot_coffees,1))
             abs_corr_data_person.append(n_corr)
         abs_corr_data.append(abs_corr_data_person)
-        rel_corr_data.append(rel_corr_data_person)
+        rel_corr_data_temp.append(rel_corr_data_person)
 		
-
-        all_corr_raw.append(tmp)
+    for i in range(len(names)):
+        temp=[]
+        for j in range(len(names)):
+            temp.append(rel_corr_data_temp[j][i])
+        rel_corr_data.append(temp)
+        
     db.close()
 	        
 	
