@@ -226,14 +226,14 @@ def get_corr_time(names, month_id_start, month_id_end):
         cursor.execute("select * from corr_"+names[i]+" where month >= "+month_id_start+" and month <= "+month_id_end)
         tmp = cursor.fetchall()
         all_corr_data_person = []
-        return tmp
+        
         for j in range(len(names)):
             n_corr = 0
             n_corr_rel = 0
             n_tot_coffees = 0
             for k in range(len(tmp)):
-                #n_corr += int(tmp[i][k][j+2])
-                print(tmp[i][k])
+                n_corr += tmp[k][j+2]
+                
             all_corr_data_person.append(n_corr)
         all_corr_data.append(all_corr_data_person)
 		
