@@ -330,9 +330,9 @@ else:
               month_start += str(timespan[0].month)
           month_end = str(timespan[1].year)
           if timespan[1].month < 10:
-              month_start += "0"+str(timespan[1].month)
+              month_end += "0"+str(timespan[1].month)
           else:
-              month_start += str(timespan[1].month)
+              month_end += str(timespan[1].month)
           st.write(month_start, month_end)
           corr_tot_time = get_corr_time(names, month_start, month_end)
           
