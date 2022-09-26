@@ -220,6 +220,7 @@ def get_corr_time(names, month_id_start, month_id_end):
     cursor=db.cursor(buffered=True)
 
     n_months=0
+    all_corr_raw=[]
     all_corr_data=[]
     for i in range(len(names)):
         cursor.execute("select * from corr_"+names[i]+" where month >= "+month_id_start+" and month <= "+month_id_end)
