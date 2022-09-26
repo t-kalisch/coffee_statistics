@@ -226,7 +226,7 @@ def get_corr_time(names, month_id_start, month_id_end):
         cursor.execute("select * from corr_"+names[i]+" where month >= "+month_id_start+" and month <= "+month_id_end)
         tmp = cursor.fetchall()
         all_corr_data_person = []
-        print(tmp)
+        return tmp
         for j in range(len(names)):
             n_corr = 0
             n_corr_rel = 0
