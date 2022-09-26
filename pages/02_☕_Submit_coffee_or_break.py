@@ -107,6 +107,11 @@ def add_coffee_to_break(id_ext, name, user):
 					cursor.execute("insert into mbr_"+name.upper()+" (id_ext, n_coffees) values (%s, %s)", (id_ext, 1))
 					drinker_data[0] = str(drinker_data[0])+"-"+name.upper()
 					drinker_data[1] = str(drinker_data[1])+"-1"
+					
+					cursor.execute("select size from break_sizes where id_ext = '"+id_ext+"'")
+					tmp1 = cursor.fetchall()
+					cursor.execute("update break_sizes set size = "+str(int(tmp1[0][0])+1)+" where id_ext = '"+id_ext+"'")
+					
 					cursor.execute("update drinkers set persons = '"+drinker_data[0]+"', coffees = '"+drinker_data[1]+"' where id_ext = '"+id_ext+"'")
 					st.success("Added "+name.upper()+" into break "+id_ext+".")
 				else:
@@ -129,6 +134,9 @@ def add_coffee_to_break(id_ext, name, user):
 			cursor.execute("create table if not exists mbr_"+name.upper()+" (id_ext char(10), n_coffees int, primary key(id_ext), CONSTRAINT fk_member_"+name.upper()+"_break_ID_ext FOREIGN KEY(id_ext) REFERENCES breaks(id_ext) ON DELETE CASCADE)")     #creating a table for each individual person
 			update_database(datetime.datetime.today().month)
 			cursor.execute("insert into mbr_"+name.upper()+" (id_ext, n_coffees) values (%s, %s)", (id_ext, 1))
+			cursor.execute("select size from break_sizes where id_ext = '"+id_ext+"'")
+			tmp1 = cursor.fetchall()
+			cursor.execute("update break_sizes set size = "+str(int(tmp1[0][0])+1)+" where id_ext = '"+id_ext+"'")
 			drinker_data[0][0] = drinker_data[0][1]+"-"+name.upper()
 			drinker_data[0][1] = drinker_data[0][1]+"-1"
 			cursor.execute("update drinkers set persons = '"+drinker_data[0][0]+"', coffees = '"+drinker_data[0][1]+"' where id_ext = '"+id_ext+"'")
