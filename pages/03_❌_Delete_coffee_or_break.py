@@ -17,6 +17,7 @@ def clear_one_break(del_id, test):
 
         if del_break != []:
             cursor.execute("DELETE FROM breaks WHERE id_ext='"+del_id+"'")
+            cursor.execute("delete from break_sizes where id_ext ='"+del_id+"'")
             cursor.execute("update update_status set last_break = timestamp(subdate(current_date, 1))")
             st.success("Break "+del_id+" has successfully been deleted.")
         else:
@@ -49,6 +50,10 @@ def delete_one_coffee(id_ext, name):
 			cursor.execute("update mbr_"+name.upper()+" set n_coffees = "+str(coffees[i])+" where id_ext = '"+id_ext+"'")
 		if coffees[i] == 0:
 			cursor.execute("delete from mbr_"+name.upper()+" where id_ext = '"+id_ext+"'")
+			
+			cursor.execute("select size from break_sizes where id_ext = '"+id_ext+"'")
+			tmp1 = cursor.fetchall()
+			cursor.execute("update break_sizes set size = "+str(int(tmp1[0][0])-1)+" where id_ext = '"+id_ext+"'")
 
 	persons_new = ""
 	coffees_new = ""
@@ -64,6 +69,7 @@ def delete_one_coffee(id_ext, name):
 				coffees_new = coffees_new + "-" + str(coffees[i])
 	if persons_new == "":
 		cursor.execute("DELETE FROM breaks WHERE id_ext='"+id_ext+"'")
+		cursor.execute("delete from break_sizes where id_ext = '"+id_ext+"'")
 	else:
 		cursor.execute("update drinkers set persons = '"+persons_new+"' where id_ext = '"+id_ext+"'")
 		cursor.execute("update drinkers set coffees = '"+coffees_new+"' where id_ext = '"+id_ext+"'")
