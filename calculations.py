@@ -251,9 +251,11 @@ def get_corr_time(names, month_id_start, month_id_end):
         
     db.close()
 	        
+    corr_tot=[]
+    corr_tot.append(abs_corr_data)
+    corr_tot.append(rel_corr_data)
 	
-	
-    return rel_corr_data                    #returns all data in 3D array of tuples: all_corr_data[names][month][name_to_correlate]
+    return corr_tot                    #returns all data 
 
 
 
