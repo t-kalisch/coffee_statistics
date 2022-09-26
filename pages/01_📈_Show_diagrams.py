@@ -325,8 +325,8 @@ else:
           timespan = st.slider("Timespan for correlation", min_value=datetime.date(2021,3,1), max_value=datetime.date.today(), value=(datetime.date(2021, 3, 1), datetime.date.today()), format="MM/YYYY")
           month_start = timespan[0]
           month_end = timespan[1]
-          print(month_start, month_end)
-          corr_tot_time = get_corr_time(names, month_id_start, month_id_end)
+          st.write(month_start, month_end)
+          corr_tot_time = get_corr_time(names, month_start, month_end)
           
           
           
