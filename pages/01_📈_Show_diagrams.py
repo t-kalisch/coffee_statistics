@@ -335,7 +335,7 @@ else:
               month_end += str(timespan[1].month)
           st.write(month_start, month_end)
           corr_tot_time = get_corr_time(names, month_start, month_end)
-          
+          st.write(corr_tot_time)
           
           
           
