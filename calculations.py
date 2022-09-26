@@ -232,7 +232,7 @@ def get_corr_time(names, month_id_start, month_id_end):
             n_tot_coffees = 0
             for k in range(len(tmp)):
                 #n_corr += int(tmp[i][k][j+2])
-                pass
+                print(tmp[i][k][j+2])
             all_corr_data_person.append(n_corr)
         all_corr_data.append(all_corr_data_person)
 		
