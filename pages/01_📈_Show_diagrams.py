@@ -319,7 +319,7 @@ else:
           fig6.update_xaxes(side="top")
           col4.plotly_chart(fig6, use_container_width=True)
 
-          st.slider("Timespan for correlation",value=(month_id_dly[0], month_id_dly[len(month_id_dly)-1]))
+          st.slider("Timespan for correlation",value=(int(month_id_dly[0]), int(month_id_dly[len(month_id_dly)-1])))
           
           
      #-------------------------------------------------------------------------------------------------------------- percentages of breaks (line + bar charts)
