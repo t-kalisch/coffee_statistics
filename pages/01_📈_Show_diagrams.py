@@ -278,7 +278,7 @@ else:
           corr_tot=get_correlation(names)
           corr_abs_raw=corr_tot[0]
           corr_rel_raw=corr_tot[1]
-          print(corr_tot)
+          
           temp1=[]
           temp2_abs=[]
           temp2_rel=[]
@@ -333,11 +333,53 @@ else:
               month_end += "0"+str(timespan[1].month)
           else:
               month_end += str(timespan[1].month)
-          st.write(month_start, month_end)
+          
           corr_tot_time = get_corr_time(names, month_start, month_end)
           st.write(corr_tot_time)
           
+          corr_tot=get_correlation(names)
+          corr_abs_raw=corr_tot[0]
+          corr_rel_raw=corr_tot[1]
           
+          temp1=[]
+          temp2_abs=[]
+          temp2_rel=[]
+          tickval_num=[]
+          names_inv=[]
+          for i in range(len(names)):
+              tickval_num.append(i+1)
+              names_inv.append(names[len(names)-i-1])
+              for j in range(len(names)):
+                 temp_abs=[]
+                 temp_rel=[]
+                 temp_abs.append(i+1)
+                 temp_rel.append(i+1)
+                 temp_abs.append(j+1)
+                 temp_rel.append(j+1)
+                 #temp_abs.append(corr_abs_raw[len(names)-j-1][i])      #calculates absolute correlation
+                 #temp_rel.append(corr_rel_raw[len(names)-j-1][i])      #calculates relative correlation
+                 temp_abs.append(corr_abs_raw[i][len(names)-j-1])      #calculates absolute correlation
+                 temp_rel.append(corr_rel_raw[i][len(names)-j-1])      #calculates relative correlation
+                 temp2_abs.append(temp_abs)
+                 temp2_rel.append(temp_rel)
+          columns_corr_abs=['x-values','y-values','Coffees']
+          columns_corr_rel=['x-values','y-values','Percent']
+
+          df = pd.DataFrame(temp2_abs, columns=columns_corr_abs)
+          fig11 = px.scatter(df, x='x-values', y='y-values', size='Coffees', custom_data=['Coffees'], labels={"x-values":"", "y-values":""}, title="Absolute correlation", color='Coffees')
+          fig11.update_layout(title_font_size=24, showlegend=False, xaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names_inv))
+          #fig5.update_traces(hovertemplate="%{y} with %{x}:<br>%{customdata[0]} coffees")
+          fig11.update_traces(hovertemplate="%{y} drank %{customdata[0]} coffees with %{x}")
+          fig11.update_xaxes(side="top")
+          col3.plotly_chart(fig11, use_container_width=True)#              absolute correlation
+          #                                                  --------------------------------------------------
+          df = pd.DataFrame(temp2_rel, columns=columns_corr_rel)
+          fig12 = px.scatter(df, x='x-values', y='y-values', size='Percent', custom_data=['Percent'], labels={"x-values":"", "y-values":""}, title="Relative correlation", color='Percent')#, text='size')
+          fig12.update_layout(title_font_size=24, showlegend=False, xaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names_inv))
+          #fig6.update_traces(hovertemplate="%{x} with %{y}:<br>%{customdata[0]} %")
+          fig12.update_traces(hovertemplate="%{y} drank %{customdata[0]} % of<br>their coffees with %{x}")
+          fig12.update_xaxes(side="top")
+          col4.plotly_chart(fig12, use_container_width=True)
           
      #-------------------------------------------------------------------------------------------------------------- percentages of breaks (line + bar charts)
       if break_percentage or all_diagrams:
