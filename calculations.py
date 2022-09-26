@@ -219,14 +219,27 @@ def get_corr_time(names, month_id_start, month_id_end):
     database='coffee_list')
     cursor=db.cursor(buffered=True)
 
+    n_months=0
     all_corr_data=[]
     for i in range(len(names)):
         cursor.execute("select * from corr_"+names[i]+" where month >= "+month_id_start+" and month <= "+month_id_end)
         tmp = cursor.fetchall()
-        all_corr_data.append(tmp)
+	all_corr_data_person = []
+	for j in range(len(names)):
+	    n_corr = 0
+	    n_corr_rel = 0
+	    n_tot_coffees = 0
+	    for k in range(len(tmp)):
+	        n_corr += tmp[i][k][j+2]
+	    all_corr_data_person.append(n_corr)
+	all_corr_data.append(all_corr_data_person)
+		
 
+        all_corr_raw.append(tmp)
     db.close()
-    print(all_corr_data)
+	        
+	
+	
     return all_corr_data                    #returns all data in 3D array of tuples: all_corr_data[names][month][name_to_correlate]
 
 
