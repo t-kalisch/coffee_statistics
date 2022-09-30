@@ -10,7 +10,8 @@ def change_profile_data(user_old, user, user_pw, admin_status):
 	ssh = paramiko.SSHClient()
 	ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	ssh.connect(**st.secrets["ssh-server"])
-	stdin, stdout, stderr = ssh.exec_command('cd mysql_scripts')
+	stdin, stdout, stderr = ssh.exec_command('cd mysql_scripts; ls')
+	#stdin, stdout, stderr = 
 	lines = stdout.readlines()
 	st.write(lines)
 	shh.close()
