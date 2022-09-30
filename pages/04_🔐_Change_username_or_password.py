@@ -69,7 +69,7 @@ else:
                     if st.session_state.user_name == user_data[i][0] and admin_pw == user_data[i][1]:
                         done = change_profile_data(change_user, username_new, pw_new, user_status)
                 if done == "Done":
-                    st.success("The username/password/admin status have been changed")
+                    st.success("The username/password/status have been changed")
                 elif done == "False":
                     st.warning("Incorrect password")
                 elif done == "Exists":
