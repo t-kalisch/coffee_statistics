@@ -12,10 +12,10 @@ def init_connection():
 
 #---------------------------------------- initiates connection to ssh server -----------------------------------------
 #@st.cache(allow_output_mutation=True, hash_funcs={"_thread.RLock": lambda _: None})
-def init_connection_ssh():
-	ssh = paramiko.SSHClient()
-	ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-	return ssh.connect(**st.secrets["ssh-server"])
+#def init_connection_ssh():
+#	ssh = paramiko.SSHClient()
+#	ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+#	return ssh.connect(**st.secrets["ssh-server"])
 
  
 
