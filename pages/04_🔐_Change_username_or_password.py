@@ -20,7 +20,7 @@ def change_profile_data(user_old, user_new, pw_new, admin_status_new):
 	lines = stdout.readlines()
 	
 	st.write(lines)
-	if lines == "Done":
+	if lines[0] == "Done":
 		st.success("The username and/or password have been changed")
 		return done
 	elif lines == "Exists":
