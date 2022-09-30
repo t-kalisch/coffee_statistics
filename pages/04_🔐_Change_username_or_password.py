@@ -13,7 +13,14 @@ def change_profile_data(user_old, user_new, pw_new, admin_status_new):
 	stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 change_name.py "+user_old+" "+user_new+" '"+pw_new+"' "+admin_status_new)
  
 	lines = stdout.readlines()
-	st.write(lines)
+	if lines == "Done":
+		st.success("The username and/or password have been changed"
+	elif lines == "Exists":
+		st.error("The entered username already exists, please choose another!")
+	elif lines == "Same":
+		st.error("The new username cannot be the same as the old one!")
+	elif lines == "Empty":
+		st.warning("All input fields are empty, therefore nothing has been changed.") 
 	ssh.close()
 
 
