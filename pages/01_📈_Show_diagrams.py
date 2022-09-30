@@ -82,6 +82,8 @@ else:
           coffees_pwd = st.checkbox("Coffees per work day")
           coffees_cumulated = st.checkbox("Cumulated coffees")  
 
+          if st.session_state.admin == "1":
+              update = st.button("Update", help="Update database", on_click=update_database)
 
       names = get_members()
       month_info=get_months(datetime.date(2021,3,8))
