@@ -12,6 +12,7 @@ import mysql.connector as mysql
 import plotly.graph_objects as go
 import extra_streamlit_components as stx
 from common_functions import *
+from calculations import update_database
 from PIL import Image
 
 @st.cache(allow_output_mutation=True, suppress_st_warning = True)
@@ -113,6 +114,9 @@ if st.session_state.logged_in == "true":
     elif st.session_state.admin == "0":
         col2.write("  Member status: User") 
     logout = st.button("Logout", help="Log out here", on_click=logout_check)
+    with st.sidebar:
+          if st.session_state.admin == "1":
+              update = st.button("Update", help="Update database", on_click=update_database)
 
 else:
     st.title("Welcome to the future of coffee drinking **:coffee:**")
