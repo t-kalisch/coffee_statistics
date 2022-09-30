@@ -16,7 +16,7 @@ def change_profile_data(user_old, user_new, pw_new, admin_status_new):
 	elif admin_status_new == "Admin":
 		admin_status_new = "1"
 	
-	stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 change_name.py "+user_old+" "+user_new+" '"+pw_new+"' "+admin_status_new)
+	stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 change_name.py '"+user_old+"' '"+user_new+"' '"+pw_new+"' "+admin_status_new)
 	lines = stdout.readlines()
 	
 	st.write(lines)
