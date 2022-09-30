@@ -15,7 +15,6 @@ def init_connection():
 def init_connection_ssh():
 	ssh = paramiko.SSHClient()
 	ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-	#return ssh.connect("212.227.72.95", 22, "root", "4aZq5A4Di!")
 	return ssh.connect(**st.secrets["ssh-server"])
 
  
