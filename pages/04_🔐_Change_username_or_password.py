@@ -14,7 +14,7 @@ def change_profile_data(user_old, user_new, pw_new, admin_status_new):
  
 	lines = stdout.readlines()
 	if lines == "Done":
-		st.success("The username and/or password have been changed"
+		st.success("The username and/or password have been changed")
 	elif lines == "Exists":
 		st.error("The entered username already exists, please choose another!")
 	elif lines == "Same":
