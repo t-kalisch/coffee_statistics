@@ -6,12 +6,12 @@ st.set_page_config(page_title="Coffee list",page_icon="coffee",layout="wide")
 
 
     #------------------- Changing a user's profile data --------------------------------------
-def change_profile_data(user_old, user, user_pw, admin_status):
+def change_profile_data(user_old, user_new, pw_new, admin_status_new):
 	ssh = paramiko.SSHClient()
 	ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 	ssh.connect(**st.secrets["ssh-server"])
-	stdin, stdout, stderr = ssh.exec_command('cd ../home; ls')
-	#stdin, stdout, stderr = 
+	stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 change_name.py "+user_old+" "+user_new+" '"+pw_new+"' "+admin_status_new)
+ 
 	lines = stdout.readlines()
 	st.write(lines)
 	ssh.close()
