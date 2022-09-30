@@ -12,9 +12,9 @@ def change_profile_data(user_old, user_new, pw_new, admin_status_new):
 	ssh.connect(**st.secrets["ssh-server"])
 	
 	if admin_status_new == "User":
-		admin_status_new = 0
+		admin_status_new = "0"
 	elif admin_status_new == "Admin":
-		admin_status_new = 1
+		admin_status_new = "1"
 	
 	stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 change_name.py "+user_old+" "+user_new+" '"+pw_new+"' "+admin_status_new)
 	lines = stdout.readlines()
