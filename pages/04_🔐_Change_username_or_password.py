@@ -21,6 +21,7 @@ def change_profile_data(user_old, user_new, pw_new, admin_status_new):
 	ssh.close()
 	st.write(type(lines))
 	st.write(len(lines))
+	st.write(lines[-1])
 	return lines
 
 change_profile_data("","","","")
