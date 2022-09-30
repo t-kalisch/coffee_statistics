@@ -14,7 +14,7 @@ def change_profile_data(user_old, user, user_pw, admin_status):
 	#stdin, stdout, stderr = 
 	lines = stdout.readlines()
 	st.write(lines)
-	shh.close()
+	ssh.close()
 
 
 change_profile_data("","","","")
