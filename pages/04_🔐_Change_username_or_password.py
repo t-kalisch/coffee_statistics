@@ -13,6 +13,7 @@ def change_profile_data(user_old, user_new, pw_new, admin_status_new):
 	stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 change_name.py "+user_old+" "+user_new+" '"+pw_new+"' "+admin_status_new)
  
 	lines = stdout.readlines()
+	st.write(lines)
 	if lines == "Done":
 		st.success("The username and/or password have been changed")
 	elif lines == "Exists":
@@ -34,7 +35,7 @@ if 'logged_in' not in st.session_state or 'user_name' not in st.session_state or
 else:
 
     user_data = get_user_data()
-    st.write(user_data)
+    
     if st.session_state.admin == "1":
         st.subheader("**:closed_lock_with_key:** Change the profile of a member")
         st.markdown("You can enter a new username and password for a member, or change their member status.")
