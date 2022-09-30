@@ -18,20 +18,8 @@ def change_profile_data(user_old, user_new, pw_new, admin_status_new):
 	
 	stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 change_name.py '"+user_old+"' '"+user_new+"' '"+pw_new+"' "+admin_status_new)
 	lines = stdout.readlines()
-	print(lines)
-	st.write(lines)
-	if lines == "Done":
-		st.success("The username and/or password have been changed")
-		return done
-	elif lines == "Exists":
-		st.error("The entered username already exists, please choose another!")
-	elif lines == "Same":
-		st.error("The new username cannot be the same as the old one!")
-	elif lines == "Empty":
-		st.warning("All input fields are empty, therefore nothing has been changed.") 
 	ssh.close()
-	return
-
+	return lines
 
 change_profile_data("","","","")
 ########################################################################################################################################################################
@@ -75,12 +63,20 @@ else:
             if status == -1:
                 st.error("Wrong username entered")
             else:
-                done=False
+                done= "False"
                 for i in range(len(user_data)):
                     if st.session_state.user_name == user_data[i][0] and admin_pw == user_data[i][1]:
                         done = change_profile_data(change_user, username_new, pw_new, user_status)
-                if done == False:
+                if done == "Done":
+                    st.success("The username and/or password have been changed")
+                elif done == "False":
                     st.warning("Incorrect password")
+                elif done == "Exists":
+                    st.error("The entered username already exists, please choose another!")
+                elif done == "Same":
+                    st.error("The new username cannot be the same as the old one!")
+                elif done == "Empty":
+                    st.warning("All input fields are empty, therefore nothing has been changed.")
 
     elif st.session_state.admin == "0":
         st.subheader("**:adult:** Change username")
