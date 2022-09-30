@@ -20,7 +20,7 @@ def change_profile_data(user_old, user_new, pw_new, admin_status_new):
 	lines = stdout.readlines()
 	ssh.close()
 	st.write(type(lines))
-	st.write(lines[2:])
+	st.write(str(lines)[2:])
 
 	return lines
 
