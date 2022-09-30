@@ -5,22 +5,10 @@ st.set_page_config(page_title="Coffee list",page_icon="coffee",layout="wide")
 
     #------------------- Changing a user's profile data --------------------------------------
 def change_profile_data(user_old, user, user_pw, admin_status):
-	db = init_connection()
-	cursor = db.cursor(buffered=True)
-	if user != "":
-		user_old = user
-	if user_pw != "":
-		cursor.execute("update members set password = '"+user_pw+"' where name = '"+user_old+"'")
-	if admin_status != "":
-		if admin_status == "User":
-			cursor.execute("update members set admin = null where name = '"+user_old+"'")
-		elif admin_status == "Admin":
-			cursor.execute("update members set admin = 1 where name = '"+user_old+"'")
-	st.success("The requested profile data have successfully been changed")
-	db.commit()
-	db.close()
-	return True
-
+	ssh = init_connection_ssh()
+	stdin, stdout, stderr = ssh.exec_command("ls")
+	lines = stdout.readlines()
+change_profile_data("","","","")
 ########################################################################################################################################################################
 #####################################################    MAIN    #######################################################################################################
 ########################################################################################################################################################################
