@@ -1,6 +1,7 @@
 import streamlit as st
 from common_functions import *
 import paramiko
+from paramiko import SSHClient
 st.set_page_config(page_title="Coffee list",page_icon="coffee",layout="wide")
 
 
@@ -12,6 +13,8 @@ def change_profile_data(user_old, user, user_pw, admin_status):
 	lines = stdout.readlines()
 	st.write(lines)
 	shh.close()
+
+
 change_profile_data("","","","")
 ########################################################################################################################################################################
 #####################################################    MAIN    #######################################################################################################
