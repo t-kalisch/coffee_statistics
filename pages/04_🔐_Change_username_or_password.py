@@ -19,7 +19,7 @@ def change_profile_data(user_old, user_new, pw_new, admin_status_new):
 	stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 change_name.py '"+user_old+"' '"+user_new+"' '"+pw_new+"' "+admin_status_new)
 	lines = stdout.readlines()
 	ssh.close()
-	return lines[0]
+	return lines
 
 change_profile_data("","","","")
 ########################################################################################################################################################################
