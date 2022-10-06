@@ -265,9 +265,9 @@ else:
               temp.append(weekly_data[i][2])
               temp.append(weekly_data[i][3])
               weekly_br_c.append(temp)
-          
+          st.write(weekly_br_c)
           df = pd.DataFrame(weekly_br_c, columns=columns, index=weeks)              #weekly coffees/breaks
-
+          st.write(df)
           fig3 = px.line(df, title="Weekly data", labels={"variable":"", "index":"", "value":""})
           fig3.update_layout(title_font_size=24, hovermode="x unified", legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
           fig3.update_traces(hovertemplate='%{y}')
