@@ -76,7 +76,7 @@ else:
           coffees_monthly = st.checkbox("Monthly coffees")
           coffees_total = st.checkbox("Total coffees / Monthly ratios")
           expectation_data = st.checkbox("Expectation values / Prize history")
-          c_b_weekly = st.checkbox ("Weekly breaks and coffees")
+          c_b_weekly = st.checkbox ("Weekly data")
           correlation = st.checkbox("Correlation")
           break_percentage = st.checkbox("Percentages of breaks")
           soc_sc = st.checkbox("Social score")
