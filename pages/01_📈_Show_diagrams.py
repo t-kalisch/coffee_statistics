@@ -281,7 +281,7 @@ else:
           fig3_1 = make_subplots(specs=[[{"secondary_y": True}]])
           fig3_1.add_trace(go.Scatter(x=weeks, y=breaks, name="Breaks"),secondary_y=False,)
           fig3_1.add_trace(go.Scatter(x=weeks, y=coffees, name="Coffees"),secondary_y=False,)
-          fig3_1.add_trace(go.Scatter(x=weeks, y=avf_br_size, name="Average break size"),secondary_y=True,)
+          fig3_1.add_trace(go.Scatter(x=weeks, y=avg_br_size, name="Average break size"),secondary_y=True,)
           fig3_1.update_layout(title_text="Weekly data")
           fig3_1.update_xaxes(title_text="xaxis title")
           fig3_1.update_yaxes(title_text="<b>primary</b> test", secondary_y=False)
