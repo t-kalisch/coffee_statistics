@@ -252,7 +252,7 @@ else:
 
       #-------------------------------------------------------------------------------------------------------------- weekly coffees and breaks (line chart)
       if c_b_weekly or all_diagrams:
-          st.subheader("Weekly breaks and coffees")
+          st.subheader("Weekly breaks, coffees and average break sizes")
           columns=['Breaks','Coffees','Average break size']
           weekly_data = get_weekly_coffees_breaks(names)
           
