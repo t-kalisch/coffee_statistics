@@ -252,9 +252,9 @@ else:
       #-------------------------------------------------------------------------------------------------------------- weekly coffees and breaks (line chart)
       if c_b_weekly or all_diagrams:
           st.subheader("Weekly breaks and coffees")
-          columns=['Breaks','Coffees']
+          columns=['Breaks','Coffees','Average break sizes']
           weekly_data = get_weekly_coffees_breaks(names)
-          st.write(weekly_data)
+          
           weeks=[]
           weekly_br_c=[]
 
@@ -265,10 +265,10 @@ else:
               temp.append(weekly_data[i][2])
               temp.append(weekly_data[i][3])
               weekly_br_c.append(temp)
-          st.write(weekly_br_c)
+          
           df = pd.DataFrame(weekly_br_c, columns=columns, index=weeks)              #weekly coffees/breaks
 
-          fig3 = px.line(df, title="Weekly coffee breaks and coffees", labels={"variable":"", "index":"", "value":""})
+          fig3 = px.line(df, title="Weekly data", labels={"variable":"", "index":"", "value":""})
           fig3.update_layout(title_font_size=24, hovermode="x unified", legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
           fig3.update_traces(hovertemplate='%{y}')
           st.plotly_chart(fig3, use_container_width=True)
