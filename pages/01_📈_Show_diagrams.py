@@ -258,9 +258,13 @@ else:
           weeks=[]
           weekly_br_c=[]
           avg_br_size=[]
+          breaks=[]
+          coffees=[]  
           
           for i in range(len(weekly_data)):
               temp=[]
+              breaks.append(weekly_data[i][1])
+              coffees.append(weekly_data[i][2])
               weeks.append(weekly_data[i][0])
               temp.append(weekly_data[i][1])
               temp.append(weekly_data[i][2])
@@ -269,12 +273,21 @@ else:
           
           df = pd.DataFrame(weekly_br_c, columns=columns, index=weeks)              #weekly coffees/breaks
           
-          #fig3 = px.line(df, title="Weekly data", labels={"variable":"", "index":"", "value":""})
-          #fig3.update_layout(title_font_size=24, hovermode="x unified", legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
-          #fig3.update_traces(hovertemplate='%{y}')
+          fig3 = px.line(df, title="Weekly data", labels={"variable":"", "index":"", "value":""})
+          fig3.update_layout(title_font_size=24, hovermode="x unified", legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+          fig3.update_traces(hovertemplate='%{y}')
           #st.plotly_chart(fig3, use_container_width=True)
-          fig3 = make_subplots(specs=[[{"secondary_y": True}]])
-          fig.add_trace(px.line(df, name="yaxis data"),secondary_y=False)
+          fig3_1 = make_subplots(specs=[[{"secondary_y": True}]])
+          fig3_1.add_trace(go.Scatter(x=weeks, y=breaks, name="Breaks"),secondary_y=False,)
+          fig3_1.add_trace(go.Scatter(x=weeks, y=coffees, name="Coffees"),secondary_y=False,)
+          fig3_1.add_trace(go.Scatter(x=weeks, y=avf_br_size, name="Average break size"),secondary_y=True,)
+          fig3_1.update_layout(title_text="Weekly data")
+          fig3_1.update_xaxes(title_text="xaxis title")
+          fig3_1.update_yaxes(title_text="<b>primary</b> test", secondary_y=False)
+          fig3_1.update_yaxes(title_text="<b>secondary</b> test", secondary_y=True)
+
+          fig3_1.show()
+
 
       #-------------------------------------------------------------------------------------------------------------- absolute and relative correlations (bubble charts)
       if correlation or all_diagrams:
