@@ -257,22 +257,24 @@ else:
           
           weeks=[]
           weekly_br_c=[]
-
+          avg_br_size=[]
+          
           for i in range(len(weekly_data)):
               temp=[]
               weeks.append(weekly_data[i][0])
               temp.append(weekly_data[i][1])
               temp.append(weekly_data[i][2])
-              temp.append(float(weekly_data[i][3]))
+              avg_br_size.append(float(weekly_data[i][3]))
               weekly_br_c.append(temp)
-          st.write(weekly_br_c)
+          
           df = pd.DataFrame(weekly_br_c, columns=columns, index=weeks)              #weekly coffees/breaks
-          st.write(df)
-          fig3 = px.line(df, title="Weekly data", labels={"variable":"", "index":"", "value":""})
-          fig3.update_layout(title_font_size=24, hovermode="x unified", legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
-          fig3.update_traces(hovertemplate='%{y}')
-          st.plotly_chart(fig3, use_container_width=True)
-
+          
+          #fig3 = px.line(df, title="Weekly data", labels={"variable":"", "index":"", "value":""})
+          #fig3.update_layout(title_font_size=24, hovermode="x unified", legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+          #fig3.update_traces(hovertemplate='%{y}')
+          #st.plotly_chart(fig3, use_container_width=True)
+          fig3 = make_subplots(specs=[[{"secondary_y": True}]])
+          fig.add_trace(px.line(df, name="yaxis data"),secondary_y=False)
 
       #-------------------------------------------------------------------------------------------------------------- absolute and relative correlations (bubble charts)
       if correlation or all_diagrams:
