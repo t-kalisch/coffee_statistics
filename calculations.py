@@ -170,7 +170,7 @@ def get_weekly_coffees_breaks(names):
     cursor = db.cursor(buffered=True)
     weekly_data=[]
 
-    cursor.execute("select week_id, breaks, coffees from weekly_data")
+    cursor.execute("select week_id, breaks, coffees, avg_break_size from weekly_data")
     tmp = cursor.fetchall()
 
     for i in range(len(tmp)):
