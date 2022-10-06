@@ -5,6 +5,7 @@ import datetime
 from datetime import date
 from calculations import *
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
   #------------------------ getting functionals from database ------------------
 def get_functionals():
