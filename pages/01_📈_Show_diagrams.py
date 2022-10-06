@@ -268,6 +268,7 @@ else:
               weeks.append(weekly_data[i][0])
               temp.append(weekly_data[i][1])
               temp.append(weekly_data[i][2])
+              temp.append(weekly_data[i][3])
               avg_br_size.append(float(weekly_data[i][3]))
               weekly_br_c.append(temp)
           
