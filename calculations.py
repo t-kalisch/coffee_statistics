@@ -178,6 +178,7 @@ def get_weekly_coffees_breaks(names):
         temp.append(tmp[i][0])
         temp.append(tmp[i][1])
         temp.append(tmp[i][2])
+        temp.append(tmp[i][3])
         weekly_data.append(temp)
     db.close()
     return weekly_data
