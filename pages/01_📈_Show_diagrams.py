@@ -277,7 +277,7 @@ else:
           fig3 = px.line(df, title="Weekly data", labels={"variable":"", "index":"", "value":""})
           fig3.update_layout(title_font_size=24, hovermode="x unified", legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
           fig3.update_traces(hovertemplate='%{y}')
-          fig3['data'][3]['line']['color']='rgb(204, 204, 204)'
+          fig3['data'][0]['line']['color']='rgb(200, 200, 200)'
           st.plotly_chart(fig3, use_container_width=True)
           
           #fig3_1 = make_subplots(specs=[[{"secondary_y": True}]])
