@@ -254,7 +254,7 @@ else:
           st.subheader("Weekly breaks and coffees")
           columns=['Breaks','Coffees']
           weekly_data = get_weekly_coffees_breaks(names)
-
+          st.write(weekly_data)
           weeks=[]
           weekly_br_c=[]
 
@@ -263,8 +263,9 @@ else:
               weeks.append(weekly_data[i][0])
               temp.append(weekly_data[i][1])
               temp.append(weekly_data[i][2])
+              temp.append(weekly_data[i][3])
               weekly_br_c.append(temp)
-
+          st.write(weekly_br_c)
           df = pd.DataFrame(weekly_br_c, columns=columns, index=weeks)              #weekly coffees/breaks
 
           fig3 = px.line(df, title="Weekly coffee breaks and coffees", labels={"variable":"", "index":"", "value":""})
