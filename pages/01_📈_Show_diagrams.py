@@ -253,42 +253,42 @@ else:
       #-------------------------------------------------------------------------------------------------------------- weekly coffees and breaks (line chart)
       if c_b_weekly or all_diagrams:
           st.subheader("Weekly breaks and coffees")
-          columns=['Breaks','Coffees','Average break sizes']
+          columns=['Breaks','Coffees','Average break sizes]
           weekly_data = get_weekly_coffees_breaks(names)
           
           weeks=[]
           weekly_br_c=[]
           avg_br_size=[]
-          breaks=[]
-          coffees=[]  
+          #breaks=[]
+          #coffees=[]  
           
           for i in range(len(weekly_data)):
               temp=[]
-              breaks.append(weekly_data[i][1])
-              coffees.append(weekly_data[i][2])
+              #breaks.append(weekly_data[i][1])
+              #coffees.append(weekly_data[i][2])
+              #avg_br_size.append(float(weekly_data[i][3]))
               weeks.append(weekly_data[i][0])
               temp.append(weekly_data[i][1])
               temp.append(weekly_data[i][2])
               temp.append(float(weekly_data[i][3]))
-              avg_br_size.append(float(weekly_data[i][3]))
               weekly_br_c.append(temp)
           
           df = pd.DataFrame(weekly_br_c, columns=columns, index=weeks)              #weekly coffees/breaks
           fig3 = px.line(df, title="Weekly data", labels={"variable":"", "index":"", "value":""})
           fig3.update_layout(title_font_size=24, hovermode="x unified", legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
           fig3.update_traces(hovertemplate='%{y}')
+          fig3['data'][0]['line']['color']='rgb(204, 204, 204)'
           st.plotly_chart(fig3, use_container_width=True)
           
-          fig3_1 = make_subplots(specs=[[{"secondary_y": True}]])
-          fig3_1.add_trace(go.Scatter(x=weeks, y=breaks, name="Breaks"),secondary_y=False,)
-          fig3_1.add_trace(go.Scatter(x=weeks, y=coffees, name="Coffees"),secondary_y=False,)
-          fig3_1.add_trace(go.Scatter(x=weeks, y=avg_br_size, name="Average break size"),secondary_y=True,)
-          fig3_1.update_layout(title_text="Weekly data")
-          fig3_1.update_xaxes(title_text="xaxis title")
-          fig3_1.update_yaxes(title_text="<b>primary</b> test", secondary_y=False)
-          fig3_1.update_yaxes(title_text="<b>secondary</b> test", secondary_y=True)
-
-          st.plotly_chart(fig3_1, use_container_width=True)
+          #fig3_1 = make_subplots(specs=[[{"secondary_y": True}]])
+          #fig3_1.add_trace(go.Scatter(x=weeks, y=breaks, name="Breaks"),secondary_y=False,)
+          #fig3_1.add_trace(go.Scatter(x=weeks, y=coffees, name="Coffees"),secondary_y=False,)
+          #fig3_1.add_trace(go.Scatter(x=weeks, y=avg_br_size, name="Average break size"),secondary_y=True,)
+          #fig3_1.update_layout(title_text="Weekly data")
+          #fig3_1.update_xaxes(title_text="xaxis title")
+          #fig3_1.update_yaxes(title_text="<b>primary</b> test", secondary_y=False)
+          #fig3_1.update_yaxes(title_text="<b>secondary</b> test", secondary_y=True)
+          #st.plotly_chart(fig3_1, use_container_width=True)
 
 
       #-------------------------------------------------------------------------------------------------------------- absolute and relative correlations (bubble charts)
