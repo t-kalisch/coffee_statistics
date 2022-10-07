@@ -176,7 +176,8 @@ else:
 
           mad_total = get_mad(names, month_id_all)
 
-          df = pd.DataFrame(exp_values, columns={'Number of coffees'}, index=names)                #expectation values with standard deviation
+          columns=['Number of coffees']
+          df = pd.DataFrame(exp_values, columns=columns, index=names)                #expectation values with standard deviation
           df["e"] = stdev
 
           info = act_func
