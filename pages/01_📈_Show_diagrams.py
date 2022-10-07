@@ -134,6 +134,7 @@ else:
               temp1.append(names)
               temp1.append(total_coffees[i])
               temp.append(temp1)
+          st.write(temp)
           df = pd.DataFrame(temp, columns={"names","total"}, index=names)              #total coffees pie chart
 
           #fig3 = px.pie(df, names = names, values = total_coffees)
