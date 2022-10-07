@@ -401,7 +401,8 @@ else:
           fig7.update_traces(hovertemplate='%{x}<br>%{y} %')
           col5.plotly_chart(fig7, use_container_width=True)
 
-          df = pd.DataFrame(percentage_total, columns={'percentage'}, index=names)
+          columns=['percentage']
+          df = pd.DataFrame(percentage_total, columns=columns, index=names)
 
           fig8 = px.bar(df, x='percentage', y=names, title="Total percentages of breaks", labels={"y":"", "count":"Percentage", "variable":"drinkers"}, text='percentage', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
           fig8.update_layout(title_font_size=24, showlegend=False)
@@ -452,8 +453,8 @@ else:
           fig9.update_traces(hovertemplate='%{x}<br>%{y}')
           col7.plotly_chart(fig9, use_container_width=True)
 
-
-          df = pd.DataFrame(total, columns={'Number of coffees'}, index=names)                #total percentages
+          columns=['Number of coffees']
+          df = pd.DataFrame(total, columns=columns, index=names)                #total percentages
 
           fig11 = px.bar(df, x='Number of coffees', y=names, title="Total coffees per work day", labels={"y":"", "count":"Number of coffees", "variable":"drinkers"}, text='Number of coffees', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
           fig11.update_layout(title_font_size=24, showlegend=False)
