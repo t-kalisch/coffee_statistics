@@ -127,7 +127,7 @@ else:
           col1.subheader("Total coffees")
 
           total_coffees = get_total_coffees(names)
-          st.write(names)
+          st.write(total_coffees)
           temp=[]
           for i in range(len(total_coffees)):
               temp1=[]
