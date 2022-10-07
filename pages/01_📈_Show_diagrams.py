@@ -133,7 +133,7 @@ else:
               temp1=[]
               temp1.append(names)
               temp1.append(total_coffees[i])
-              st.write(temp1)
+              
               temp.append(temp1)
               
           df = pd.DataFrame(temp, columns={"names","total"}, index=names)              #total coffees pie chart
