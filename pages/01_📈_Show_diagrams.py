@@ -428,7 +428,8 @@ else:
           fig2.update_yaxes(showticklabels=False)
           col7.plotly_chart(fig2, use_container_width=True)
 
-          df = pd.DataFrame(total, columns={'Social score'}, index=names)                #total social score
+          columns=['Social score']
+          df = pd.DataFrame(total, columns=columns, index=names)                #total social score
 
           fig8 = px.bar(df, x='Social score', y=names, title="Total social score", labels={"y":"", "count":"Social score", "variable":"drinkers"}, text='Social score', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
           fig8.update_layout(title_font_size=24, showlegend=False)
