@@ -266,7 +266,10 @@ else:
               weeks.append(weekly_data[i][0])
               temp.append(weekly_data[i][1])
               temp.append(weekly_data[i][2])
-              temp.append(float(weekly_data[i][3]))
+              if weekly_data[i][3] == "":
+                  temp.append(float(0))
+              else:
+                  temp.append(float(weekly_data[i][3]))
               weekly_br_c.append(temp)
           
           df = pd.DataFrame(weekly_br_c, columns=columns, index=weeks)              #weekly coffees/breaks
