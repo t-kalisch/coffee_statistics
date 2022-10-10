@@ -109,6 +109,7 @@ else:
         monthly_coffees_all[0] = [ x.strip() for x in monthly_coffees_all[0].split('], [') ]
         for i in range(len(monthly_coffees_all[0])):
           monthly_coffees_all[0][i] = [ x.strip() for x in monthly_coffees_all[0][i].split(', ') ]
+        monthly_coffees_all[1] = [ x.strip() for x in monthly_coffees_all[1].split(', ') ]
         st.write(monthly_coffees_all)
         
         # coffees per month
