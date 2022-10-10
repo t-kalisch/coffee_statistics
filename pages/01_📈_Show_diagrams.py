@@ -100,7 +100,9 @@ else:
         ssh.connect(**st.secrets["ssh-server"])
         
         stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 get_all_data.py '"+func_selected+"' '"+"032021"+"' '"+"102022"+"'")
-        all_data = stdout.readlines()
+        all_data_str = stdout.readlines()
+        st.write(all_data_str)
+        all_data = list(all_data_str)
         st.write(all_data)
         
         # coffees per month
