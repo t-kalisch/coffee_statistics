@@ -93,13 +93,14 @@ else:
       months_all=month_info[0]
       month_id_all=month_info[1]
 
-      
+      #--------------------- show all diagrams ------------------------------ 
       if all_diagrams:
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         ssh.connect(**st.secrets["ssh-server"])
         
         stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 get_all_data.py '"+func_selected+"' '"+"032021"+"' '"+"102022"+"'")
+        st.write(stdout)
         all_data = stdout.readlines()
         st.write(all_data)
         
