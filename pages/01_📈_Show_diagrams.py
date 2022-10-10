@@ -100,7 +100,6 @@ else:
         ssh.connect(**st.secrets["ssh-server"])
         
         stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 get_all_data.py '"+func_selected+"' '"+"032021"+"' '"+"102022"+"'")
-        st.write(stdout)
         all_data = stdout.readlines()
         st.write(all_data)
         
