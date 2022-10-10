@@ -109,15 +109,14 @@ else:
         
         # coffees per month
         st.subheader("Coffees per month") 
-        monthly_coffees_all = [ x.strip() for x in all_data[0].strip('[]').split(']], [') ]
-        monthly_coffees_all[0] = [ x.strip() for x in monthly_coffees_all[0].split('], [') ]
-        monthly_coffees_all[1] = [ x.strip() for x in monthly_coffees_all[1].split(', ') ]
-        for i in range(len(monthly_coffees_all[0])):
-          monthly_coffees_all[0][i] = [ x.strip() for x in monthly_coffees_all[0][i].split(', ') ]
-          for j in range(len(monthly_coffees_all[0][i])):
-            monthly_coffees_all[0][i][j] = int(monthly_coffees_all[0][i][j])
-            monthly_coffees_all[1][j] = int(monthly_coffees_all[1][j])
-        
+        monthly_coffees_all = [ x.strip() for x in all_data[0].strip('[]').split(';') ]
+        for i in range(len(monthly_coffees_all)):
+          monthly_coffees_all[i] = [ x.strip() for x in monthly_coffees_all[i].split('_') ]
+          for j in range(len(monthly_coffees_all[i][j])):
+            monthly_coffees_all[i][j] = [ x.strip() for x in monthly_coffees_all[i].split(', ') ]
+
+
+        st.write(monthly_coffees)
         
         df = pd.DataFrame(monthly_coffees_all[0], columns=names, index=months_all)    #coffees per month per person
 
