@@ -95,7 +95,41 @@ else:
 
       
       if all_diagrams:
-        st.write("all diagrams")
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect(**st.secrets["ssh-server"])
+        
+        stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 get_all_data.py '"+func_selected+"' '"+"032021"+"' '"+"102022"+"'")
+        all_data = stdout.readlines()
+        st.write(all_data)
+        
+        # coffees per month
+        st.subheader("Coffees per month") 
+        monthly_coffees_all = all_data[0]
+        df = pd.DataFrame(monthly_coffees_all[0], columns=names, index=months_all)    #coffees per month per person
+
+        fig1 = px.line(df, title="Number of coffees per month per person", labels={"variable":"", "index":"", "value":"Number of coffees"})
+        fig1.update_traces(hovertemplate='%{y}')
+        fig1.update_layout(title_font_size=24, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+        st.plotly_chart(fig1, use_container_width=True)
+
+        temp1=[]
+        for i in range(len(months_all)):
+             temp=[]
+             temp.append(months_all[i])
+             temp.append(monthly_coffees_all[1][i])
+             temp1.append(temp)
+
+        columns=['months','total']
+        df = pd.DataFrame(temp1, columns=columns)              #total coffees per month)
+        fig2 = px.bar(df, y="total", x="months", title="Total number of coffees per month", labels={"months":"", "total":"Number of coffees"}, text_auto=True)
+        fig2.update_layout(title_font_size=24)
+        fig2.update_traces(hovertemplate='%{x}<br>%{y} coffees')
+        st.plotly_chart(fig2, use_container_width=True) 
+        
+        
+        
+        
       else:
         #-------------------------------------------------------------------------------------------------------------- monthly coffees, per person + total (line + bar chart)
         if coffees_monthly or all_diagrams:
