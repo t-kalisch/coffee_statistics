@@ -118,7 +118,7 @@ else:
             monthly_coffees_all[i][j] = [ x.strip() for x in monthly_coffees_all[i][j].strip(',').split(', ') ]
 
 
-        st.write(monthly_coffees)
+        st.write(monthly_coffees_all)
         
         df = pd.DataFrame(monthly_coffees_all[0], columns=names, index=months_all)    #coffees per month per person
 
