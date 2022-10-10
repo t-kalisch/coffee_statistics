@@ -71,6 +71,7 @@ else:
               func_selected = st.selectbox("Active functional", act_func_l, 0)
 
           st.title("Available diagrams:")
+          all_diagrams_new = st.checkbox("Show all new")
           all_diagrams = st.checkbox("Show all")
           coffees_monthly = st.checkbox("Monthly coffees")
           coffees_total = st.checkbox("Total coffees / Monthly ratios")
@@ -94,7 +95,7 @@ else:
       month_id_all=month_info[1]
 
       #--------------------- show all diagrams ------------------------------ 
-      if all_diagrams:
+      if all_diagrams_new:
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         ssh.connect(**st.secrets["ssh-server"])
