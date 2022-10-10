@@ -266,7 +266,7 @@ else:
               weeks.append(weekly_data[i][0])
               temp.append(weekly_data[i][1])
               temp.append(weekly_data[i][2])
-              if weekly_data[i][3] == "":
+              if weekly_data[i][3] == Null:
                   temp.append(float(0))
               else:
                   temp.append(float(weekly_data[i][3]))
