@@ -104,7 +104,7 @@ else:
         all_data_str = stdout.readlines()
         
         all_data = [ x.strip() for x in all_data_str[0].split('|') ]
-        #st.write(all_data)
+        st.write(all_data)
 
         
         # coffees per month
@@ -116,7 +116,7 @@ else:
             monthly_coffees_all[i] = [ x.strip() for x in monthly_coffees_all[i].strip('_').split('_') ]
           st.write(monthly_coffees_all)
           for j in range(len(monthly_coffees_all[i])):
-             if monthly_coffees_all[i][j].indexOf(',')
+             if monthly_coffees_all[i][j].indexOf(','):
                monthly_coffees_all[i][j] = [ x.strip() for x in monthly_coffees_all[i][j].strip(',').split(',') ]
 
 
