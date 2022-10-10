@@ -99,10 +99,8 @@ else:
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         ssh.connect(**st.secrets["ssh-server"])
         
-        #stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 get_all_data.py '"+func_selected+"' '"+"032021"+"' '"+"102022"+"'")
-        stdin, stdout, stderr = ssh.exec_command(execfile("cd ../home; python3 get_all_data.py '"+func_selected+"' '"+"032021"+"' '"+"102022"+"'", dict(), script_locals))
-        all_data_str = script_locals["all_data_array"]
-        #all_data_str = stdout.readlines()
+        stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 get_all_data.py '"+func_selected+"' '"+"032021"+"' '"+"102022"+"'")
+        all_data_str = stdout.readlines()
         st.write(all_data_str)
         all_data = [ x.strip() for x in all_data_str[0].strip('[]').split(', ') ]
         st.write(all_data)
