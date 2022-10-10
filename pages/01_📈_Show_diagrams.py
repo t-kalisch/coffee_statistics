@@ -112,11 +112,11 @@ else:
         monthly_coffees_all = [ x.strip() for x in all_data[0].strip(';').split(';') ]
         
         for i in range(len(monthly_coffees_all)):
-          if monthly_coffees_all[i].indexOf('_'):
+          if '_' in monthly_coffees_all[i]:
             monthly_coffees_all[i] = [ x.strip() for x in monthly_coffees_all[i].strip('_').split('_') ]
           st.write(monthly_coffees_all)
           for j in range(len(monthly_coffees_all[i])):
-             if monthly_coffees_all[i][j].indexOf(','):
+             if ',' in monthly_coffees_all[i][j]:
                monthly_coffees_all[i][j] = [ x.strip() for x in monthly_coffees_all[i][j].strip(',').split(',') ]
 
 
