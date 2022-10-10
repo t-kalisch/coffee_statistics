@@ -110,12 +110,12 @@ else:
         # coffees per month
         st.subheader("Coffees per month") 
         monthly_coffees_all = [ x.strip() for x in all_data[0].strip(';').split(';') ]
-        st.write(monthly_coffees_all)
+        
         for i in range(len(monthly_coffees_all)):
           monthly_coffees_all[i] = [ x.strip() for x in monthly_coffees_all[i].strip('_').split('_') ]
           st.write(monthly_coffees_all)
           for j in range(len(monthly_coffees_all[i])):
-            monthly_coffees_all[i][j] = [ x.strip() for x in monthly_coffees_all[i][j].strip(',').split(', ') ]
+            monthly_coffees_all[i][j] = [ x.strip() for x in monthly_coffees_all[i][j].strip(',').split(',') ]
 
 
         st.write(monthly_coffees_all)
