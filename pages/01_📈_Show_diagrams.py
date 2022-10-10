@@ -104,7 +104,7 @@ else:
         all_data_str = stdout.readlines()
         
         all_data = [ x.strip() for x in all_data_str[0].split('|') ]
-        
+        st.write(all_data)
 
         
         # coffees per month
