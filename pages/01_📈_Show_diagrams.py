@@ -112,7 +112,7 @@ else:
         monthly_coffees_all = [ x.strip() for x in all_data[0].strip('[]').split(';') ]
         for i in range(len(monthly_coffees_all)):
           monthly_coffees_all[i] = [ x.strip() for x in monthly_coffees_all[i].split('_') ]
-          for j in range(len(monthly_coffees_all[i][j])):
+          for j in range(len(monthly_coffees_all[i])):
             monthly_coffees_all[i][j] = [ x.strip() for x in monthly_coffees_all[i].split(', ') ]
 
 
