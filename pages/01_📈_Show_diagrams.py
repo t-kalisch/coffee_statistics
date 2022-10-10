@@ -102,7 +102,7 @@ else:
         stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 get_all_data.py '"+func_selected+"' '"+"032021"+"' '"+"102022"+"'")
         all_data_str = stdout.readlines()
         st.write(all_data_str)
-        all_data = list(all_data_str[0])
+        all_data = [ x.strip() for x in all_data_str.strip('[]').split(', ') ]
         st.write(all_data)
         
         # coffees per month
