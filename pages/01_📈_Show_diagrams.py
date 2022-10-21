@@ -71,7 +71,7 @@ else:
               func_selected = st.selectbox("Active functional", act_func_l, 0)
 
           st.title("Available diagrams:")
-          all_diagrams_new = st.checkbox("Show all new")
+          #all_diagrams_new = st.checkbox("Show all new")
           all_diagrams = st.checkbox("Show all")
           coffees_monthly = st.checkbox("Monthly coffees")
           coffees_total = st.checkbox("Total coffees / Monthly ratios")
@@ -95,442 +95,442 @@ else:
       month_id_all=month_info[1]
 
       #--------------------- show all diagrams ------------------------------ 
-      if all_diagrams_new:
-        ssh = paramiko.SSHClient()
-        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        ssh.connect(**st.secrets["ssh-server"])
-        
-        stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 get_all_data.py '"+func_selected+"' '"+"032021"+"' '"+"102022"+"'")
-        all_data_str = stdout.readlines()
-        
-        all_data = [ x.strip() for x in all_data_str[0].split('|') ]
-        st.write(all_data)
+      #if all_diagrams_new:
+      #  ssh = paramiko.SSHClient()
+      #  ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+      #  ssh.connect(**st.secrets["ssh-server"])
+      #  
+      #  stdin, stdout, stderr = ssh.exec_command("cd ../home; python3 get_all_data.py '"+func_selected+"' '"+"032021"+"' '"+"102022"+"'")
+      #  all_data_str = stdout.readlines()
+      #  
+      #  all_data = [ x.strip() for x in all_data_str[0].split('|') ]
+      #  st.write(all_data)
 
         
-        # coffees per month
-        st.subheader("Coffees per month") 
-        monthly_coffees_all = [ x.strip() for x in all_data[0].strip(';').split(';') ]
+      #  # coffees per month
+      #  st.subheader("Coffees per month") 
+      #  monthly_coffees_all = [ x.strip() for x in all_data[0].strip(';').split(';') ]
+      #  
+      #  for i in range(len(monthly_coffees_all)):
+      #    if '_' in monthly_coffees_all[i]:
+      #      monthly_coffees_all[i] = [ x.strip() for x in monthly_coffees_all[i].strip('_').split('_') ]
+      #    st.write(monthly_coffees_all)
+      #    for j in range(len(monthly_coffees_all[i])):
+      #       if ',' in monthly_coffees_all[i][j]:
+      #         monthly_coffees_all[i][j] = [ x.strip() for x in monthly_coffees_all[i][j].strip(',').split(',') ]
+
+
+      #  st.write(monthly_coffees_all)
         
-        for i in range(len(monthly_coffees_all)):
-          if '_' in monthly_coffees_all[i]:
-            monthly_coffees_all[i] = [ x.strip() for x in monthly_coffees_all[i].strip('_').split('_') ]
-          st.write(monthly_coffees_all)
-          for j in range(len(monthly_coffees_all[i])):
-             if ',' in monthly_coffees_all[i][j]:
-               monthly_coffees_all[i][j] = [ x.strip() for x in monthly_coffees_all[i][j].strip(',').split(',') ]
+      #  df = pd.DataFrame(monthly_coffees_all[0], columns=names, index=months_all)    #coffees per month per person
 
+      #  fig1 = px.line(df, title="Number of coffees per month per person", labels={"variable":"", "index":"", "value":"Number of coffees"})
+      #  fig1.update_traces(hovertemplate='%{y}')
+      #  fig1.update_layout(title_font_size=24, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+      #  st.plotly_chart(fig1, use_container_width=True)
 
-        st.write(monthly_coffees_all)
-        
-        df = pd.DataFrame(monthly_coffees_all[0], columns=names, index=months_all)    #coffees per month per person
+      #  temp1=[]
+      #  for i in range(len(months_all)):
+      #       temp=[]
+      #       temp.append(months_all[i])
+      #       temp.append(monthly_coffees_all[1][i])
+      #       temp1.append(temp)
 
-        fig1 = px.line(df, title="Number of coffees per month per person", labels={"variable":"", "index":"", "value":"Number of coffees"})
-        fig1.update_traces(hovertemplate='%{y}')
-        fig1.update_layout(title_font_size=24, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
-        st.plotly_chart(fig1, use_container_width=True)
-
-        temp1=[]
-        for i in range(len(months_all)):
-             temp=[]
-             temp.append(months_all[i])
-             temp.append(monthly_coffees_all[1][i])
-             temp1.append(temp)
-
-        columns=['months','total']
-        df = pd.DataFrame(temp1, columns=columns)              #total coffees per month)
-        fig2 = px.bar(df, y="total", x="months", title="Total number of coffees per month", labels={"months":"", "total":"Number of coffees"}, text_auto=True)
-        fig2.update_layout(title_font_size=24)
-        fig2.update_traces(hovertemplate='%{x}<br>%{y} coffees')
-        st.plotly_chart(fig2, use_container_width=True) 
-        
-        
+      #  columns=['months','total']
+      #  df = pd.DataFrame(temp1, columns=columns)              #total coffees per month)
+      #  fig2 = px.bar(df, y="total", x="months", title="Total number of coffees per month", labels={"months":"", "total":"Number of coffees"}, text_auto=True)
+      #  fig2.update_layout(title_font_size=24)
+      #  fig2.update_traces(hovertemplate='%{x}<br>%{y} coffees')
+      #  st.plotly_chart(fig2, use_container_width=True) 
         
         
-      else:
-        #-------------------------------------------------------------------------------------------------------------- monthly coffees, per person + total (line + bar chart)
-        if coffees_monthly or all_diagrams:
-            st.subheader("Coffees per month") 
-
-            monthly_coffees_all = get_monthly_coffees(names, month_id_all)
-            df = pd.DataFrame(monthly_coffees_all[0], columns=names, index=months_all)    #coffees per month per person
-
-            fig1 = px.line(df, title="Number of coffees per month per person", labels={"variable":"", "index":"", "value":"Number of coffees"})
-            fig1.update_traces(hovertemplate='%{y}')
-            fig1.update_layout(title_font_size=24, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
-            st.plotly_chart(fig1, use_container_width=True)
-
-            temp1=[]
-            for i in range(len(months_all)):
-                 temp=[]
-                 temp.append(months_all[i])
-                 temp.append(monthly_coffees_all[1][i])
-                 temp1.append(temp)
-
-            columns=['months','total']
-            df = pd.DataFrame(temp1, columns=columns)              #total coffees per month)
-            fig2 = px.bar(df, y="total", x="months", title="Total number of coffees per month", labels={"months":"", "total":"Number of coffees"}, text_auto=True)
-            fig2.update_layout(title_font_size=24)
-            fig2.update_traces(hovertemplate='%{x}<br>%{y} coffees')
-            st.plotly_chart(fig2, use_container_width=True) 
-
-
-        #-------------------------------------------------------------------------------------------------------------- total coffees (pie chart)
-        if coffees_total or all_diagrams:
-            col1, col2 = st.columns([1,1])
-            col1.subheader("Total coffees")
-
-            total_coffees = get_total_coffees(names)
-            temp=[]
-            for i in range(len(total_coffees)):
-                temp1=[]
-                temp1.append(names[i])
-                temp1.append(total_coffees[i])
-                temp.append(temp1)
-
-            columns=["names","total"]
-            df = pd.DataFrame(temp, columns=columns, index=names)              #total coffees pie chart
-
-            #fig3 = px.pie(df, names = names, values = total_coffees)
-            fig3 = go.Figure(go.Pie(labels = names, values = total_coffees, sort=False, hole=.4))
-            fig3.update_layout(title_font_size=24)
-            col1.plotly_chart(fig3, use_container_width=True)
-
-
-        #-------------------------------------------------------------------------------------------------------------- monthly ratios (stacked bar chart)
-            col2.subheader("Monthly ratios")
-
-            monthly_ratios=get_monthly_ratio(names, month_id_all)
-
-            months_inv=[]
-            monthly_ratios_inv=[]
-            for i in range(len(months_all)):
-                months_inv.append(months_all[len(months_all)-i-1])
-                monthly_ratios_inv.append(monthly_ratios[len(monthly_ratios)-i-1])
-
-            df_stack=pd.DataFrame(monthly_ratios_inv, columns = names, index = months_inv)
-            fig4 = px.bar(df_stack, x=names, y = months_inv, barmode = 'relative', labels={"y":"", "value":"Percentage", "variable":"drinker"})#, text='value', text_auto=True)
-            fig4.update_layout(title_font_size=24, showlegend=False)
-            fig4.update_traces(hovertemplate='%{y}<br>%{x} %')
-            col2.plotly_chart(fig4, use_container_width=True)
-
-        #-------------------------------------------------------------------------------------------------------------- expectation values and MAD (scatter chart and bar chart)
-        if expectation_data or all_diagrams:
-            act_func=get_active_func()
-            st.subheader("Prediction Data (active functional: "+act_func+")")
-            col7,col8 = st.columns([1,1])
-
-            exp_values = get_expectation_values(names, month_id_all, func_selected)
-            stdev = get_stdev(names, month_id_all)
-
-            max_values=[]
-            for i in range(len(names)):
-                if exp_values[i] < 0:
-                    exp_values[i] = 0
-                max_values.append(exp_values[i]+stdev[i])
-
-            mad_total = get_mad(names, month_id_all)
-
-            columns=['Number of coffees']
-            df = pd.DataFrame(exp_values, columns=columns, index=names)                #expectation values with standard deviation
-            df["e"] = stdev
-
-            info = act_func
-            fig8 = px.scatter(df, x=names, y='Number of coffees', error_y='e', title="Expect. values  ± σ for "+months_all[len(months_all)-1], labels={"x":"", "y":"Number of coffees", "variable":"drinkers"}, text="Number of coffees")
-            fig8.update_layout(title_font_size=24, showlegend=False)
-            fig8.update_traces(marker = dict(symbol = 'line-ew-open'), hovertemplate='%{x}: %{y}', textposition='middle right')
-            fig8.update_yaxes(range=[0,max(max_values)+2])
-            col7.plotly_chart(fig8, use_container_width=True)
-
-            columns=['Functional','MAD']
-            df = pd.DataFrame(mad_total, columns=columns)
-
-            fig8 = px.bar(df, x='Functional', y='MAD', title="Mean absolute deviations", labels={"x":"Functional", "count":"MAD"}, text='MAD', text_auto=True).update_xaxes(categoryorder="total ascending")
-            fig8.update_layout(title_font_size=24, showlegend=False)
-            fig8.update_traces(hovertemplate='%{x}<br>MAD = %{y}')
-            col8.plotly_chart(fig8, use_container_width=True)
-
-
-            #-------------------------------------------------------------------------------------------------------------- coffee prize history (scatter + bar chart)
-            st.subheader("Prize history")
-            col1, col2 = st.columns([2,1])
-            prizes = get_prizes(names, month_id_dly, act_func)
-
-            tickval_num=[]
-            total_prizes=[]
-
-            prizes_search=["Kaffeemeister","Hotshot","Genosse"]
-            for i in range(len(names)):
-                tickval_num.append(i)
-                km=0
-                hs=0
-                gn=0
-                temp=[]
-                for j in range(3):
-                    temp=[]
-                    temp.append(names[i])
-                    temp.append(prizes_search[j])
-                    total=0
-                    for k in range(len(prizes)):
-                        if prizes[k][1] == i and prizes[k][2] == prizes_search[j]:
-                                total += 1
-                    temp.append(total)
-                    if j == 2:
-                        sum = (int(total_prizes[len(total_prizes)-2][2]+total_prizes[len(total_prizes)-1][2]+total))
-                        if temp[2] == 0:
-                            if total_prizes[len(total_prizes)-1][2] == 0:
-                                total_prizes[len(total_prizes)-2].append(sum)
-                            else:
-                                total_prizes[len(total_prizes)-1].append(sum)
-                        else:
-                            temp.append(sum)
-                    total_prizes.append(temp)
-
-
-            columns=['Month','Persons','Coffee prizes','sizes']
-            df = pd.DataFrame(prizes, columns=columns)
-
-            fig2 = px.scatter(df, x='Month', y='Persons', title="Coffee prize history ("+act_func+")", labels={"variable":"", "index":"", "value":""}, size='sizes', color='Coffee prizes', color_discrete_sequence=['gold','black','red'])      #plotting social score
-            fig2.update_layout(title_font_size=24, yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), hovermode="x unified", xaxis=dict(tickmode = 'array', tickvals = month_id_dly, ticktext = months_dly), legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
-            fig2.update_traces(hovertemplate='%{y}')
-            col1.plotly_chart(fig2, use_container_width=True)
-
-
-            columns=['Persons','prize','Number of prizes','total']
-            df = pd.DataFrame(total_prizes, columns=columns)                #total number of prizes
-
-            fig8 = px.bar(df, x='Number of prizes', y='Persons', title="Total number of prizes", labels={"y":"", "count":"Social score", "variable":"drinkers"}, color="prize", color_discrete_sequence=['gold','black','red'], text='total', orientation='h').update_yaxes(categoryorder="total ascending")
-            fig8.update_layout(title_font_size=24, showlegend=False, hovermode="y unified")
-            fig8.update_traces(hovertemplate='%{x}')
-            fig8.update_xaxes(showticklabels=False)
-            col2.plotly_chart(fig8, use_container_width=True)
-
-
-        #-------------------------------------------------------------------------------------------------------------- weekly coffees and breaks (line chart)
-        if c_b_weekly or all_diagrams:
-            st.subheader("Weekly breaks, coffees and average break sizes")
-            columns=['Breaks','Coffees','Average break size']
-            weekly_data = get_weekly_coffees_breaks(names)
-
-            weeks=[]
-            weekly_br_c=[]
-            avg_br_size=[] 
-
-            for i in range(len(weekly_data)):
-                temp=[]
-                weeks.append(weekly_data[i][0])
-                temp.append(weekly_data[i][1])
-                temp.append(weekly_data[i][2])
-                #if weekly_data[i][3] == Null:
-                #    temp.append(float(0))
-                #else:
-                temp.append(float(weekly_data[i][3]))
-                weekly_br_c.append(temp)
-
-            df = pd.DataFrame(weekly_br_c, columns=columns, index=weeks)              #weekly coffees/breaks
-            fig3 = px.line(df, title="Weekly data", labels={"variable":"", "index":"", "value":""}, color_discrete_sequence=['#636EFA','#EF553B','grey'])
-            fig3.update_layout(title_font_size=24, hovermode="x unified", legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
-            fig3.update_traces(hovertemplate='%{y}')
-            st.plotly_chart(fig3, use_container_width=True)
-
-
-        #-------------------------------------------------------------------------------------------------------------- absolute and relative correlations (bubble charts)
-        if correlation or all_diagrams:
-            st.subheader("Correlation diagrams")
-           # col3, col4 = st.columns([1,1])                        #setting up two columns for narrower charts        
-           # corr_tot=get_correlation(names)
-           # corr_abs_raw=corr_tot[0]
-           # corr_rel_raw=corr_tot[1]
-           # 
-           # temp1=[]
-           # temp2_abs=[]
-           # temp2_rel=[]
-           # tickval_num=[]
-           # names_inv=[]
-           # for i in range(len(names)):
-           #     tickval_num.append(i+1)
-           #     names_inv.append(names[len(names)-i-1])
-           #     for j in range(len(names)):
-           #        temp_abs=[]
-           #        temp_rel=[]
-           #        temp_abs.append(i+1)
-           #        temp_rel.append(i+1)
-           #        temp_abs.append(j+1)
-           #        temp_rel.append(j+1)
-           #        #temp_abs.append(corr_abs_raw[len(names)-j-1][i])      #calculates absolute correlation
-           #        #temp_rel.append(corr_rel_raw[len(names)-j-1][i])      #calculates relative correlation
-           #        temp_abs.append(corr_abs_raw[i][len(names)-j-1])      #calculates absolute correlation
-           #        temp_rel.append(corr_rel_raw[i][len(names)-j-1])      #calculates relative correlation
-           #        temp2_abs.append(temp_abs)
-           #        temp2_rel.append(temp_rel)
-           # columns_corr_abs=['x-values','y-values','Coffees']
-           # columns_corr_rel=['x-values','y-values','Percent']
-
-           # df = pd.DataFrame(temp2_abs, columns=columns_corr_abs)
-           # fig5 = px.scatter(df, x='x-values', y='y-values', size='Coffees', custom_data=['Coffees'], labels={"x-values":"", "y-values":""}, title="Absolute correlation", color='Coffees')
-           # fig5.update_layout(title_font_size=24, showlegend=False, xaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names_inv))
-           # #fig5.update_traces(hovertemplate="%{y} with %{x}:<br>%{customdata[0]} coffees")
-           # fig5.update_traces(hovertemplate="%{y} drank %{customdata[0]} coffees with %{x}")
-           # fig5.update_xaxes(side="top")
-           # col3.plotly_chart(fig5, use_container_width=True)#              absolute correlation
-           # #                                                  --------------------------------------------------
-           # df = pd.DataFrame(temp2_rel, columns=columns_corr_rel)
-           # fig6 = px.scatter(df, x='x-values', y='y-values', size='Percent', custom_data=['Percent'], labels={"x-values":"", "y-values":""}, title="Relative correlation", color='Percent')#, text='size')
-           # fig6.update_layout(title_font_size=24, showlegend=False, xaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names_inv))
-           # #fig6.update_traces(hovertemplate="%{x} with %{y}:<br>%{customdata[0]} %")
-           # fig6.update_traces(hovertemplate="%{y} drank %{customdata[0]} % of<br>their coffees with %{x}")
-           # fig6.update_xaxes(side="top")
-           # col4.plotly_chart(fig6, use_container_width=True)
-
-
-            #--------------------------------- time resolved correlation data ------------------------------------
-
-            timespan = st.slider("Timespan for correlation", min_value=datetime.date(2021,3,1), max_value=datetime.date.today(), value=(datetime.date(2021, 3, 1), datetime.date.today()), format="MM/YYYY")
-            month_start = str(timespan[0].year)
-            if timespan[0].month < 10:
-                month_start += "0"+str(timespan[0].month)
-            else:
-                month_start += str(timespan[0].month)
-            month_end = str(timespan[1].year)
-            if timespan[1].month < 10:
-                month_end += "0"+str(timespan[1].month)
-            else:
-                month_end += str(timespan[1].month)
-
-            corr_tot_time = get_corr_time(names, month_start, month_end)
-            corr_abs_raw=corr_tot_time[0]
-            corr_rel_raw=corr_tot_time[1]
-
-            col3, col4 = st.columns([1,1])                        #setting up two columns for narrower charts
-            temp1=[]
-            temp2_abs=[]
-            temp2_rel=[]
-            tickval_num=[]
-            names_inv=[]
-            for i in range(len(names)):
-                tickval_num.append(i+1)
-                names_inv.append(names[len(names)-i-1])
-                for j in range(len(names)):
-                   temp_abs=[]
-                   temp_rel=[]
-                   temp_abs.append(i+1)
-                   temp_rel.append(i+1)
-                   temp_abs.append(j+1)
-                   temp_rel.append(j+1)
-                   temp_abs.append(corr_abs_raw[len(names)-j-1][i])      #calculates absolute correlation
-                   #temp_rel.append(corr_rel_raw[len(names)-j-1][i])      #calculates relative correlation
-                   #temp_abs.append(corr_abs_raw[i][len(names)-j-1])      #calculates absolute correlation
-                   temp_rel.append(corr_rel_raw[i][len(names)-j-1])      #calculates relative correlation
-                   temp2_abs.append(temp_abs)
-                   temp2_rel.append(temp_rel)
-            columns_corr_abs=['x-values','y-values','Coffees']
-            columns_corr_rel=['x-values','y-values','Percent']
-
-            df = pd.DataFrame(temp2_abs, columns=columns_corr_abs)
-            fig11 = px.scatter(df, x='x-values', y='y-values', size='Coffees', custom_data=['Coffees'], labels={"x-values":"", "y-values":""}, title="Absolute correlation", color='Coffees')
-            fig11.update_layout(title_font_size=24, showlegend=False, xaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names_inv))
-            #fig5.update_traces(hovertemplate="%{y} with %{x}:<br>%{customdata[0]} coffees")
-            fig11.update_traces(hovertemplate="%{y} drank %{customdata[0]} coffees with %{x}")
-            fig11.update_xaxes(side="top")
-            col3.plotly_chart(fig11, use_container_width=True)#              absolute correlation
-            #                                                  --------------------------------------------------
-            df = pd.DataFrame(temp2_rel, columns=columns_corr_rel)
-            fig12 = px.scatter(df, x='x-values', y='y-values', size='Percent', custom_data=['Percent'], labels={"x-values":"", "y-values":""}, title="Relative correlation", color='Percent')#, text='size')
-            fig12.update_layout(title_font_size=24, showlegend=False, xaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names_inv))
-            #fig6.update_traces(hovertemplate="%{x} with %{y}:<br>%{customdata[0]} %")
-            fig12.update_traces(hovertemplate="%{y} drank %{customdata[0]} % of<br>their coffees with %{x}")
-            fig12.update_xaxes(side="top")
-            col4.plotly_chart(fig12, use_container_width=True)
-
-       #-------------------------------------------------------------------------------------------------------------- percentages of breaks (line + bar charts)
-        if break_percentage or all_diagrams:
-            st.subheader("Percentages of breaks")
-            col5,col6 = st.columns([2,1])
-
-            percentages=get_perc_breaks(names, month_id_dly)
-            percentage_total=percentages[0]
-            percentage=[]
-            for i in range(len(percentages)-1):
-                percentage.append(percentages[i+1])
-
-            df = pd.DataFrame(percentage, columns=names, index=months_dly)
-            fig7 = px.line(df, title="Monthly percentages of breaks", labels={"variable":"", "index":"", "value":"Percentage"})
-            fig7.update_layout(title_font_size=24, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
-            fig7.update_traces(hovertemplate='%{x}<br>%{y} %')
-            col5.plotly_chart(fig7, use_container_width=True)
-
-            columns=['percentage']
-            df = pd.DataFrame(percentage_total, columns=columns, index=names)
-
-            fig8 = px.bar(df, x='percentage', y=names, title="Total percentages of breaks", labels={"y":"", "count":"Percentage", "variable":"drinkers"}, text='percentage', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
-            fig8.update_layout(title_font_size=24, showlegend=False)
-            fig8.update_traces(hovertemplate='%{y}: %{x} %')
-            col6.plotly_chart(fig8, use_container_width=True)
-
-        #-------------------------------------------------------------------------------------------------------------- social score (line chart + bar chart)
-        if soc_sc or all_diagrams:
-            st.subheader("Social Score")
-            col7,col8 = st.columns([2,1])
-
-            socialscore_total = get_social_score(names, month_id_dly)
-            total = socialscore_total[0]
-            socialscore=[]
-            #for i in range(len(socialscore_total[1])):
-            #    socialscore.append(socialscore_total[1][i])
-
-            df = pd.DataFrame(socialscore_total[1], columns=names, index=months_dly)                 #data frame for social score
-
-            fig2 = px.line(df, title="Monthly social scores", labels={"variable":"", "index":"", "value":"Social score / a.u."})      #plotting social score
-            fig2.update_layout(title_font_size=24, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
-            fig2.update_traces(hovertemplate='%{x}<br>%{y}')
-            fig2.update_yaxes(showticklabels=False)
-            col7.plotly_chart(fig2, use_container_width=True)
-
-            columns=['Social score']
-            df = pd.DataFrame(total, columns=columns, index=names)                #total social score
-
-            fig8 = px.bar(df, x='Social score', y=names, title="Total social score", labels={"y":"", "count":"Social score", "variable":"drinkers"}, text='Social score', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
-            fig8.update_layout(title_font_size=24, showlegend=False)
-            fig8.update_traces(hovertemplate='%{y}: %{x} %')
-            fig8.update_xaxes(showticklabels=False,range=[0,100])
-            col8.plotly_chart(fig8, use_container_width=True)          
-
-
-        #-------------------------------------------------------------------------------------------------------------- coffees per work day (line chart + bar chart)
-        if coffees_pwd or all_diagrams:
-            st.subheader("Coffees per work day")
-            col7,col8 = st.columns([2,1])
-
-            total_cpwd = get_coffees_per_work_day(names, month_id_all)
-            total = total_cpwd[0]
-            coffees_per_work_day = total_cpwd[1]
-
-            df = pd.DataFrame(coffees_per_work_day, columns = names, index = months_all)
-
-            fig9 = px.line(df, title="Monthly coffees per work day", labels={"variable":"", "index":"", "value":"Number of coffees"})      #plotting monthly coffees
-            fig9.update_layout(title_font_size=24, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
-            fig9.update_traces(hovertemplate='%{x}<br>%{y}')
-            col7.plotly_chart(fig9, use_container_width=True)
-
-            columns=['Number of coffees']
-            df = pd.DataFrame(total, columns=columns, index=names)                #total percentages
-
-            fig11 = px.bar(df, x='Number of coffees', y=names, title="Total coffees per work day", labels={"y":"", "count":"Number of coffees", "variable":"drinkers"}, text='Number of coffees', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
-            fig11.update_layout(title_font_size=24, showlegend=False)
-            fig11.update_traces(hovertemplate='%{y}: %{x}')
-            col8.plotly_chart(fig11, use_container_width=True)
-
-
-        #-------------------------------------------------------------------------------------------------------------- cumulated coffees monthly (line chart)
-        if coffees_cumulated or all_diagrams:
-            st.subheader("Cumulated coffees")
-
-            cumulated_coffees = get_cumulated_coffees(names, month_id_all)
-            df = pd.DataFrame(cumulated_coffees, columns=names, index=months_all)
-
-            fig10 = px.line(df, title="Number of coffees per month per person", labels={"variable":"", "index":"", "value":"Number of coffees"})
-            fig10.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
-            fig10.update_traces(hovertemplate='%{x}<br> %{y}')
-            st.plotly_chart(fig10, use_container_width=True)        
+        
+        
+      #else:
+      #-------------------------------------------------------------------------------------------------------------- monthly coffees, per person + total (line + bar chart)
+      if coffees_monthly or all_diagrams:
+          st.subheader("Coffees per month") 
+
+          monthly_coffees_all = get_monthly_coffees(names, month_id_all)
+          df = pd.DataFrame(monthly_coffees_all[0], columns=names, index=months_all)    #coffees per month per person
+
+          fig1 = px.line(df, title="Number of coffees per month per person", labels={"variable":"", "index":"", "value":"Number of coffees"})
+          fig1.update_traces(hovertemplate='%{y}')
+          fig1.update_layout(title_font_size=24, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+          st.plotly_chart(fig1, use_container_width=True)
+
+          temp1=[]
+          for i in range(len(months_all)):
+               temp=[]
+               temp.append(months_all[i])
+               temp.append(monthly_coffees_all[1][i])
+               temp1.append(temp)
+
+          columns=['months','total']
+          df = pd.DataFrame(temp1, columns=columns)              #total coffees per month)
+          fig2 = px.bar(df, y="total", x="months", title="Total number of coffees per month", labels={"months":"", "total":"Number of coffees"}, text_auto=True)
+          fig2.update_layout(title_font_size=24)
+          fig2.update_traces(hovertemplate='%{x}<br>%{y} coffees')
+          st.plotly_chart(fig2, use_container_width=True) 
+
+
+      #-------------------------------------------------------------------------------------------------------------- total coffees (pie chart)
+      if coffees_total or all_diagrams:
+          col1, col2 = st.columns([1,1])
+          col1.subheader("Total coffees")
+
+          total_coffees = get_total_coffees(names)
+          temp=[]
+          for i in range(len(total_coffees)):
+              temp1=[]
+              temp1.append(names[i])
+              temp1.append(total_coffees[i])
+              temp.append(temp1)
+
+          columns=["names","total"]
+          df = pd.DataFrame(temp, columns=columns, index=names)              #total coffees pie chart
+
+          #fig3 = px.pie(df, names = names, values = total_coffees)
+          fig3 = go.Figure(go.Pie(labels = names, values = total_coffees, sort=False, hole=.4))
+          fig3.update_layout(title_font_size=24)
+          col1.plotly_chart(fig3, use_container_width=True)
+
+
+      #-------------------------------------------------------------------------------------------------------------- monthly ratios (stacked bar chart)
+          col2.subheader("Monthly ratios")
+
+          monthly_ratios=get_monthly_ratio(names, month_id_all)
+
+          months_inv=[]
+          monthly_ratios_inv=[]
+          for i in range(len(months_all)):
+              months_inv.append(months_all[len(months_all)-i-1])
+              monthly_ratios_inv.append(monthly_ratios[len(monthly_ratios)-i-1])
+
+          df_stack=pd.DataFrame(monthly_ratios_inv, columns = names, index = months_inv)
+          fig4 = px.bar(df_stack, x=names, y = months_inv, barmode = 'relative', labels={"y":"", "value":"Percentage", "variable":"drinker"})#, text='value', text_auto=True)
+          fig4.update_layout(title_font_size=24, showlegend=False)
+          fig4.update_traces(hovertemplate='%{y}<br>%{x} %')
+          col2.plotly_chart(fig4, use_container_width=True)
+
+      #-------------------------------------------------------------------------------------------------------------- expectation values and MAD (scatter chart and bar chart)
+      if expectation_data or all_diagrams:
+          act_func=get_active_func()
+          st.subheader("Prediction Data (active functional: "+act_func+")")
+          col7,col8 = st.columns([1,1])
+
+          exp_values = get_expectation_values(names, month_id_all, func_selected)
+          stdev = get_stdev(names, month_id_all)
+
+          max_values=[]
+          for i in range(len(names)):
+              if exp_values[i] < 0:
+                  exp_values[i] = 0
+              max_values.append(exp_values[i]+stdev[i])
+
+          mad_total = get_mad(names, month_id_all)
+
+          columns=['Number of coffees']
+          df = pd.DataFrame(exp_values, columns=columns, index=names)                #expectation values with standard deviation
+          df["e"] = stdev
+
+          info = act_func
+          fig8 = px.scatter(df, x=names, y='Number of coffees', error_y='e', title="Expect. values  ± σ for "+months_all[len(months_all)-1], labels={"x":"", "y":"Number of coffees", "variable":"drinkers"}, text="Number of coffees")
+          fig8.update_layout(title_font_size=24, showlegend=False)
+          fig8.update_traces(marker = dict(symbol = 'line-ew-open'), hovertemplate='%{x}: %{y}', textposition='middle right')
+          fig8.update_yaxes(range=[0,max(max_values)+2])
+          col7.plotly_chart(fig8, use_container_width=True)
+
+          columns=['Functional','MAD']
+          df = pd.DataFrame(mad_total, columns=columns)
+
+          fig8 = px.bar(df, x='Functional', y='MAD', title="Mean absolute deviations", labels={"x":"Functional", "count":"MAD"}, text='MAD', text_auto=True).update_xaxes(categoryorder="total ascending")
+          fig8.update_layout(title_font_size=24, showlegend=False)
+          fig8.update_traces(hovertemplate='%{x}<br>MAD = %{y}')
+          col8.plotly_chart(fig8, use_container_width=True)
+
+
+          #-------------------------------------------------------------------------------------------------------------- coffee prize history (scatter + bar chart)
+          st.subheader("Prize history")
+          col1, col2 = st.columns([2,1])
+          prizes = get_prizes(names, month_id_dly, act_func)
+
+          tickval_num=[]
+          total_prizes=[]
+
+          prizes_search=["Kaffeemeister","Hotshot","Genosse"]
+          for i in range(len(names)):
+              tickval_num.append(i)
+              km=0
+              hs=0
+              gn=0
+              temp=[]
+              for j in range(3):
+                  temp=[]
+                  temp.append(names[i])
+                  temp.append(prizes_search[j])
+                  total=0
+                  for k in range(len(prizes)):
+                      if prizes[k][1] == i and prizes[k][2] == prizes_search[j]:
+                              total += 1
+                  temp.append(total)
+                  if j == 2:
+                      sum = (int(total_prizes[len(total_prizes)-2][2]+total_prizes[len(total_prizes)-1][2]+total))
+                      if temp[2] == 0:
+                          if total_prizes[len(total_prizes)-1][2] == 0:
+                              total_prizes[len(total_prizes)-2].append(sum)
+                          else:
+                              total_prizes[len(total_prizes)-1].append(sum)
+                      else:
+                          temp.append(sum)
+                  total_prizes.append(temp)
+
+
+          columns=['Month','Persons','Coffee prizes','sizes']
+          df = pd.DataFrame(prizes, columns=columns)
+
+          fig2 = px.scatter(df, x='Month', y='Persons', title="Coffee prize history ("+act_func+")", labels={"variable":"", "index":"", "value":""}, size='sizes', color='Coffee prizes', color_discrete_sequence=['gold','black','red'])      #plotting social score
+          fig2.update_layout(title_font_size=24, yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), hovermode="x unified", xaxis=dict(tickmode = 'array', tickvals = month_id_dly, ticktext = months_dly), legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+          fig2.update_traces(hovertemplate='%{y}')
+          col1.plotly_chart(fig2, use_container_width=True)
+
+
+          columns=['Persons','prize','Number of prizes','total']
+          df = pd.DataFrame(total_prizes, columns=columns)                #total number of prizes
+
+          fig8 = px.bar(df, x='Number of prizes', y='Persons', title="Total number of prizes", labels={"y":"", "count":"Social score", "variable":"drinkers"}, color="prize", color_discrete_sequence=['gold','black','red'], text='total', orientation='h').update_yaxes(categoryorder="total ascending")
+          fig8.update_layout(title_font_size=24, showlegend=False, hovermode="y unified")
+          fig8.update_traces(hovertemplate='%{x}')
+          fig8.update_xaxes(showticklabels=False)
+          col2.plotly_chart(fig8, use_container_width=True)
+
+
+      #-------------------------------------------------------------------------------------------------------------- weekly coffees and breaks (line chart)
+      if c_b_weekly or all_diagrams:
+          st.subheader("Weekly breaks, coffees and average break sizes")
+          columns=['Breaks','Coffees','Average break size']
+          weekly_data = get_weekly_coffees_breaks(names)
+
+          weeks=[]
+          weekly_br_c=[]
+          avg_br_size=[] 
+
+          for i in range(len(weekly_data)):
+              temp=[]
+              weeks.append(weekly_data[i][0])
+              temp.append(weekly_data[i][1])
+              temp.append(weekly_data[i][2])
+              #if weekly_data[i][3] == Null:
+              #    temp.append(float(0))
+              #else:
+              temp.append(float(weekly_data[i][3]))
+              weekly_br_c.append(temp)
+
+          df = pd.DataFrame(weekly_br_c, columns=columns, index=weeks)              #weekly coffees/breaks
+          fig3 = px.line(df, title="Weekly data", labels={"variable":"", "index":"", "value":""}, color_discrete_sequence=['#636EFA','#EF553B','grey'])
+          fig3.update_layout(title_font_size=24, hovermode="x unified", legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+          fig3.update_traces(hovertemplate='%{y}')
+          st.plotly_chart(fig3, use_container_width=True)
+
+
+      #-------------------------------------------------------------------------------------------------------------- absolute and relative correlations (bubble charts)
+      if correlation or all_diagrams:
+          st.subheader("Correlation diagrams")
+         # col3, col4 = st.columns([1,1])                        #setting up two columns for narrower charts        
+         # corr_tot=get_correlation(names)
+         # corr_abs_raw=corr_tot[0]
+         # corr_rel_raw=corr_tot[1]
+         # 
+         # temp1=[]
+         # temp2_abs=[]
+         # temp2_rel=[]
+         # tickval_num=[]
+         # names_inv=[]
+         # for i in range(len(names)):
+         #     tickval_num.append(i+1)
+         #     names_inv.append(names[len(names)-i-1])
+         #     for j in range(len(names)):
+         #        temp_abs=[]
+         #        temp_rel=[]
+         #        temp_abs.append(i+1)
+         #        temp_rel.append(i+1)
+         #        temp_abs.append(j+1)
+         #        temp_rel.append(j+1)
+         #        #temp_abs.append(corr_abs_raw[len(names)-j-1][i])      #calculates absolute correlation
+         #        #temp_rel.append(corr_rel_raw[len(names)-j-1][i])      #calculates relative correlation
+         #        temp_abs.append(corr_abs_raw[i][len(names)-j-1])      #calculates absolute correlation
+         #        temp_rel.append(corr_rel_raw[i][len(names)-j-1])      #calculates relative correlation
+         #        temp2_abs.append(temp_abs)
+         #        temp2_rel.append(temp_rel)
+         # columns_corr_abs=['x-values','y-values','Coffees']
+         # columns_corr_rel=['x-values','y-values','Percent']
+
+         # df = pd.DataFrame(temp2_abs, columns=columns_corr_abs)
+         # fig5 = px.scatter(df, x='x-values', y='y-values', size='Coffees', custom_data=['Coffees'], labels={"x-values":"", "y-values":""}, title="Absolute correlation", color='Coffees')
+         # fig5.update_layout(title_font_size=24, showlegend=False, xaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names_inv))
+         # #fig5.update_traces(hovertemplate="%{y} with %{x}:<br>%{customdata[0]} coffees")
+         # fig5.update_traces(hovertemplate="%{y} drank %{customdata[0]} coffees with %{x}")
+         # fig5.update_xaxes(side="top")
+         # col3.plotly_chart(fig5, use_container_width=True)#              absolute correlation
+         # #                                                  --------------------------------------------------
+         # df = pd.DataFrame(temp2_rel, columns=columns_corr_rel)
+         # fig6 = px.scatter(df, x='x-values', y='y-values', size='Percent', custom_data=['Percent'], labels={"x-values":"", "y-values":""}, title="Relative correlation", color='Percent')#, text='size')
+         # fig6.update_layout(title_font_size=24, showlegend=False, xaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names_inv))
+         # #fig6.update_traces(hovertemplate="%{x} with %{y}:<br>%{customdata[0]} %")
+         # fig6.update_traces(hovertemplate="%{y} drank %{customdata[0]} % of<br>their coffees with %{x}")
+         # fig6.update_xaxes(side="top")
+         # col4.plotly_chart(fig6, use_container_width=True)
+
+
+          #--------------------------------- time resolved correlation data ------------------------------------
+
+          timespan = st.slider("Timespan for correlation", min_value=datetime.date(2021,3,1), max_value=datetime.date.today(), value=(datetime.date(2021, 3, 1), datetime.date.today()), format="MM/YYYY")
+          month_start = str(timespan[0].year)
+          if timespan[0].month < 10:
+              month_start += "0"+str(timespan[0].month)
+          else:
+              month_start += str(timespan[0].month)
+          month_end = str(timespan[1].year)
+          if timespan[1].month < 10:
+              month_end += "0"+str(timespan[1].month)
+          else:
+              month_end += str(timespan[1].month)
+
+          corr_tot_time = get_corr_time(names, month_start, month_end)
+          corr_abs_raw=corr_tot_time[0]
+          corr_rel_raw=corr_tot_time[1]
+
+          col3, col4 = st.columns([1,1])                        #setting up two columns for narrower charts
+          temp1=[]
+          temp2_abs=[]
+          temp2_rel=[]
+          tickval_num=[]
+          names_inv=[]
+          for i in range(len(names)):
+              tickval_num.append(i+1)
+              names_inv.append(names[len(names)-i-1])
+              for j in range(len(names)):
+                 temp_abs=[]
+                 temp_rel=[]
+                 temp_abs.append(i+1)
+                 temp_rel.append(i+1)
+                 temp_abs.append(j+1)
+                 temp_rel.append(j+1)
+                 temp_abs.append(corr_abs_raw[len(names)-j-1][i])      #calculates absolute correlation
+                 #temp_rel.append(corr_rel_raw[len(names)-j-1][i])      #calculates relative correlation
+                 #temp_abs.append(corr_abs_raw[i][len(names)-j-1])      #calculates absolute correlation
+                 temp_rel.append(corr_rel_raw[i][len(names)-j-1])      #calculates relative correlation
+                 temp2_abs.append(temp_abs)
+                 temp2_rel.append(temp_rel)
+          columns_corr_abs=['x-values','y-values','Coffees']
+          columns_corr_rel=['x-values','y-values','Percent']
+
+          df = pd.DataFrame(temp2_abs, columns=columns_corr_abs)
+          fig11 = px.scatter(df, x='x-values', y='y-values', size='Coffees', custom_data=['Coffees'], labels={"x-values":"", "y-values":""}, title="Absolute correlation", color='Coffees')
+          fig11.update_layout(title_font_size=24, showlegend=False, xaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names_inv))
+          #fig5.update_traces(hovertemplate="%{y} with %{x}:<br>%{customdata[0]} coffees")
+          fig11.update_traces(hovertemplate="%{y} drank %{customdata[0]} coffees with %{x}")
+          fig11.update_xaxes(side="top")
+          col3.plotly_chart(fig11, use_container_width=True)#              absolute correlation
+          #                                                  --------------------------------------------------
+          df = pd.DataFrame(temp2_rel, columns=columns_corr_rel)
+          fig12 = px.scatter(df, x='x-values', y='y-values', size='Percent', custom_data=['Percent'], labels={"x-values":"", "y-values":""}, title="Relative correlation", color='Percent')#, text='size')
+          fig12.update_layout(title_font_size=24, showlegend=False, xaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names_inv))
+          #fig6.update_traces(hovertemplate="%{x} with %{y}:<br>%{customdata[0]} %")
+          fig12.update_traces(hovertemplate="%{y} drank %{customdata[0]} % of<br>their coffees with %{x}")
+          fig12.update_xaxes(side="top")
+          col4.plotly_chart(fig12, use_container_width=True)
+
+     #-------------------------------------------------------------------------------------------------------------- percentages of breaks (line + bar charts)
+      if break_percentage or all_diagrams:
+          st.subheader("Percentages of breaks")
+          col5,col6 = st.columns([2,1])
+
+          percentages=get_perc_breaks(names, month_id_dly)
+          percentage_total=percentages[0]
+          percentage=[]
+          for i in range(len(percentages)-1):
+              percentage.append(percentages[i+1])
+
+          df = pd.DataFrame(percentage, columns=names, index=months_dly)
+          fig7 = px.line(df, title="Monthly percentages of breaks", labels={"variable":"", "index":"", "value":"Percentage"})
+          fig7.update_layout(title_font_size=24, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+          fig7.update_traces(hovertemplate='%{x}<br>%{y} %')
+          col5.plotly_chart(fig7, use_container_width=True)
+
+          columns=['percentage']
+          df = pd.DataFrame(percentage_total, columns=columns, index=names)
+
+          fig8 = px.bar(df, x='percentage', y=names, title="Total percentages of breaks", labels={"y":"", "count":"Percentage", "variable":"drinkers"}, text='percentage', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
+          fig8.update_layout(title_font_size=24, showlegend=False)
+          fig8.update_traces(hovertemplate='%{y}: %{x} %')
+          col6.plotly_chart(fig8, use_container_width=True)
+
+      #-------------------------------------------------------------------------------------------------------------- social score (line chart + bar chart)
+      if soc_sc or all_diagrams:
+          st.subheader("Social Score")
+          col7,col8 = st.columns([2,1])
+
+          socialscore_total = get_social_score(names, month_id_dly)
+          total = socialscore_total[0]
+          socialscore=[]
+          #for i in range(len(socialscore_total[1])):
+          #    socialscore.append(socialscore_total[1][i])
+
+          df = pd.DataFrame(socialscore_total[1], columns=names, index=months_dly)                 #data frame for social score
+
+          fig2 = px.line(df, title="Monthly social scores", labels={"variable":"", "index":"", "value":"Social score / a.u."})      #plotting social score
+          fig2.update_layout(title_font_size=24, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+          fig2.update_traces(hovertemplate='%{x}<br>%{y}')
+          fig2.update_yaxes(showticklabels=False)
+          col7.plotly_chart(fig2, use_container_width=True)
+
+          columns=['Social score']
+          df = pd.DataFrame(total, columns=columns, index=names)                #total social score
+
+          fig8 = px.bar(df, x='Social score', y=names, title="Total social score", labels={"y":"", "count":"Social score", "variable":"drinkers"}, text='Social score', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
+          fig8.update_layout(title_font_size=24, showlegend=False)
+          fig8.update_traces(hovertemplate='%{y}: %{x} %')
+          fig8.update_xaxes(showticklabels=False,range=[0,100])
+          col8.plotly_chart(fig8, use_container_width=True)          
+
+
+      #-------------------------------------------------------------------------------------------------------------- coffees per work day (line chart + bar chart)
+      if coffees_pwd or all_diagrams:
+          st.subheader("Coffees per work day")
+          col7,col8 = st.columns([2,1])
+
+          total_cpwd = get_coffees_per_work_day(names, month_id_all)
+          total = total_cpwd[0]
+          coffees_per_work_day = total_cpwd[1]
+
+          df = pd.DataFrame(coffees_per_work_day, columns = names, index = months_all)
+
+          fig9 = px.line(df, title="Monthly coffees per work day", labels={"variable":"", "index":"", "value":"Number of coffees"})      #plotting monthly coffees
+          fig9.update_layout(title_font_size=24, legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+          fig9.update_traces(hovertemplate='%{x}<br>%{y}')
+          col7.plotly_chart(fig9, use_container_width=True)
+
+          columns=['Number of coffees']
+          df = pd.DataFrame(total, columns=columns, index=names)                #total percentages
+
+          fig11 = px.bar(df, x='Number of coffees', y=names, title="Total coffees per work day", labels={"y":"", "count":"Number of coffees", "variable":"drinkers"}, text='Number of coffees', text_auto=True, orientation='h').update_yaxes(categoryorder="total ascending")
+          fig11.update_layout(title_font_size=24, showlegend=False)
+          fig11.update_traces(hovertemplate='%{y}: %{x}')
+          col8.plotly_chart(fig11, use_container_width=True)
+
+
+      #-------------------------------------------------------------------------------------------------------------- cumulated coffees monthly (line chart)
+      if coffees_cumulated or all_diagrams:
+          st.subheader("Cumulated coffees")
+
+          cumulated_coffees = get_cumulated_coffees(names, month_id_all)
+          df = pd.DataFrame(cumulated_coffees, columns=names, index=months_all)
+
+          fig10 = px.line(df, title="Number of coffees per month per person", labels={"variable":"", "index":"", "value":"Number of coffees"})
+          fig10.update_layout(legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
+          fig10.update_traces(hovertemplate='%{x}<br> %{y}')
+          st.plotly_chart(fig10, use_container_width=True)        
 
 #------- footer ----------------
 footer="""<style>
