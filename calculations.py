@@ -18,7 +18,7 @@ def get_monthly_coffees(names, month_id):
 	cursor = db.cursor(buffered=True)
 	cursor.execute("select * from monthly_coffees")
 	tmp=cursor.fetchall()
-	
+	st.write(names)
 	monthly_coffees_all=[]
 	monthly_coffees=[]
 	total_monthly_coffees=[]
