@@ -169,7 +169,7 @@ else:
 	elif st.session_state.admin == "1":
 
 	  st.markdown("Please enter the names and number of coffees for the break.")
-	  col1,col2,col3,col4,col5,col6,col7,col8, col9 = st.columns([1,1,1,1,1,1,1,1])
+	  col1,col2,col3,col4,col5,col6,col7,col8, col9 = st.columns([1,1,1,1,1,1,1,1,1])
 	  p1_name = col7.text_input("Person 1")
 	  p2_name = col8.text_input("Person 2")
 	  p3_name = col9.text_input("Person 3")
