@@ -169,25 +169,26 @@ else:
 	elif st.session_state.admin == "1":
 
 	  st.markdown("Please enter the names and number of coffees for the break.")
-	  col1,col2,col3,col4,col5,col6,col7,col8 = st.columns([1,1,1,1,1,1,1,1])
-	  p1_name = col6.text_input("Person 1")
-	  p2_name = col7.text_input("Person 2")
-	  p3_name = col8.text_input("Person 3")
-	  col1,col2,col3,col4,col5,col6,col7,col8 = st.columns([1,1,1,1,1,1,1,1])
+	  col1,col2,col3,col4,col5,col6,col7,col8, col9 = st.columns([1,1,1,1,1,1,1,1])
+	  p1_name = col7.text_input("Person 1")
+	  p2_name = col8.text_input("Person 2")
+	  p3_name = col9.text_input("Person 3")
+	  col1,col2,col3,col4,col5,col6,col7,col8, col9 = st.columns([1,1,1,1,1,1,1,1,1])
 	  tk = col1.text_input("TK")
 	  pb = col2.text_input("PB")
 	  db = col3.text_input("DB")
 	  flg = col4.text_input("FLG")
 	  shk = col5.text_input("SHK")
-	  p1_coffees = col6.text_input("Coffees 1")
-	  p2_coffees = col7.text_input("Coffees 2")
-	  p3_coffees = col8.text_input("Coffees 3")
-	  col1,col2,col3,col4,col5,col6,col7,col8 = st.columns([1,1,1,1,1,1,1,1])
+	  sb = col6.text_input("SB")
+	  p1_coffees = col7.text_input("Coffees 1")
+	  p2_coffees = col8.text_input("Coffees 2")
+	  p3_coffees = col9.text_input("Coffees 3")
+	  col1,col2,col3,col4,col5,col6,col7,col8, col9 = st.columns([1,1,1,1,1,1,1,1,1])
 	  date_day = col1.text_input("Day", placeholder = datetime.date.today().day)
 	  date_month = col2.text_input("Month", placeholder = datetime.date.today().month)
 	  date_year = col3.text_input("Year", placeholder = datetime.date.today().year)
-	  persons=['TK','PB','DB','FLG','SHK',p1_name,p2_name,p3_name]
-	  coffees=[tk,pb,db,flg,shk,p1_coffees,p2_coffees,p3_coffees]
+	  persons=['TK','PB','DB','FLG','SHK','SB',p1_name,p2_name,p3_name]
+	  coffees=[tk,pb,db,flg,shk,sb,p1_coffees,p2_coffees,p3_coffees]
 	  date_br=[date_day,date_month,date_year]
 	  col1,col2 = st.columns([2,6])
 	  col1.button("Submit break", on_click=submit_break, args=(persons,coffees,date_br))
