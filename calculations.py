@@ -90,7 +90,7 @@ def get_expectation_values(names, month_id, func_selected):
         
     cursor.execute("select * from exp_values where month = "+max(month_id))
     tmp=cursor.fetchall()
-
+    st.write(tmp)
     exp_values=[]
     for i in range(len(tmp[0])-2):
         exp_values.append(float(tmp[0][i+2]))
