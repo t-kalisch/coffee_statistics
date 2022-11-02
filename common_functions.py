@@ -141,3 +141,16 @@ def months_between(start_date, end_date):                   #method to get month
             #counter += 1
     #return counter
 
+
+#----------------------- manually updating database ----------------------------
+def update_database():
+	ssh = paramiko.SSHClient()
+	ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+	ssh.connect(**st.secrets["ssh-server"])
+	
+	
+	stdin, stdout, stderr = ssh.exec_command("cd mysql_scripts; ./simple_update.sh")
+	lines = stdout.readlines()
+	ssh.close()
+
+
