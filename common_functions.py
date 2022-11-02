@@ -153,4 +153,14 @@ def update_database():
 	lines = stdout.readlines()
 	ssh.close()
 
+	db = init_connection()
+	cursor = db.cursor(buffered=True)
+	cursor.execute("alter table exp_values add SK varchar(4)")
+        cursor.execute("update exp_values set SK = '0.0'")
+        cursor.execute("alter table exp_values_dev add SK varchar(5)")
+	cursor.execute("update exp_values_dev set SK = '0.0'")
+        cursor.execute("alter table exp_values_stdev add SK varchar(4)")
+        cursor.execute("update exp_values_stdev set SK = '0.0'")
+	db.commit()
+	db.close()
 
