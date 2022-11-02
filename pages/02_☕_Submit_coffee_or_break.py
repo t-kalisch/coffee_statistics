@@ -22,8 +22,6 @@ def submit_break(persons,coffees,date_br):					# submitting break into database
 			persons_comp.append(persons[i])
 			coffees_comp.append(coffees[i])
 			valid_break = True
-	st.write(persons_comp)
-	st.write(coffees_comp)
 	if valid_break == False:
 		st.error("No valid break")
 	else:
@@ -60,12 +58,12 @@ def submit_break(persons,coffees,date_br):					# submitting break into database
 			cursor.execute("select count(*) from members where name = '"+persons_comp[i]+"'")
 			tmp = cursor.fetchone()
 			if tmp[0] == 0:
-				st.write(persons_comp[i])
 				cursor.execute("insert into members (name,admin) values ('"+str(persons_comp[i].upper())+"',0)")                                             #adding person to members table
 				cursor.execute("alter table holidays add "+persons_comp[i].upper()+" int")                                                    #adding person to holidays table
 				cursor.execute("create table if not exists mbr_"+persons_comp[i].upper()+" (id_ext char(10), n_coffees int, primary key(id_ext), CONSTRAINT fk_member_"+persons_comp[i].upper()+"_break_ID_ext FOREIGN KEY(id_ext) REFERENCES breaks(id_ext) ON DELETE CASCADE)")     #creating a table for each individual person
 				db.commit()
 				update_database(datetime.datetime.today().month)
+				st.success(persons_comp[i].upper()+" was successfully included into the database.")
 			if i == 0:
 				persons_str += persons_comp[i].upper()
 				coffees_str += coffees_comp[i]
@@ -140,7 +138,7 @@ def add_coffee_to_break(id_ext, name, user):
 			cursor.execute("insert into mbr_"+name.upper()+" (id_ext, n_coffees) values (%s, %s)", (id_ext, 1))
 			db.commit()
 			update_database(datetime.datetime.today().month)
-			
+			st.success(persons_comp[i].upper()+" was successfully included into the database.")
 			cursor.execute("select size from break_sizes where id_ext = '"+id_ext+"'")
 			tmp1 = cursor.fetchall()
 			cursor.execute("update break_sizes set size = "+str(int(tmp1[0][0])+1)+" where id_ext = '"+id_ext+"'")
