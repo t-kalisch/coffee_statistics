@@ -61,9 +61,9 @@ def submit_break(persons,coffees,date_br):					# submitting break into database
 			tmp = cursor.fetchone()
 			if tmp[0] == 0:
 				st.write(persons_comp[i])
-				cursor.execute("insert into members (name,admin) values ('"+str(persons[i].upper())+"',0)")                                             #adding person to members table
-				cursor.execute("alter table holidays add "+persons[i].upper()+" int")                                                    #adding person to holidays table
-				cursor.execute("create table if not exists mbr_"+persons[i].upper()+" (id_ext char(10), n_coffees int, primary key(id_ext), CONSTRAINT fk_member_"+persons[i].upper()+"_break_ID_ext FOREIGN KEY(id_ext) REFERENCES breaks(id_ext) ON DELETE CASCADE)")     #creating a table for each individual person
+				cursor.execute("insert into members (name,admin) values ('"+str(persons_comp[i].upper())+"',0)")                                             #adding person to members table
+				cursor.execute("alter table holidays add "+persons_comp[i].upper()+" int")                                                    #adding person to holidays table
+				cursor.execute("create table if not exists mbr_"+persons_comp[i].upper()+" (id_ext char(10), n_coffees int, primary key(id_ext), CONSTRAINT fk_member_"+persons[i].upper()+"_break_ID_ext FOREIGN KEY(id_ext) REFERENCES breaks(id_ext) ON DELETE CASCADE)")     #creating a table for each individual person
 				db.commit()
 				update_database(datetime.datetime.today().month)
 			if i == 0:
