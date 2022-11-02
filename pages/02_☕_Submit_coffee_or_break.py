@@ -62,7 +62,7 @@ def submit_break(persons,coffees,date_br):					# submitting break into database
 				cursor.execute("alter table holidays add "+persons_comp[i].upper()+" int")                                                    #adding person to holidays table
 				cursor.execute("create table if not exists mbr_"+persons_comp[i].upper()+" (id_ext char(10), n_coffees int, primary key(id_ext), CONSTRAINT fk_member_"+persons_comp[i].upper()+"_break_ID_ext FOREIGN KEY(id_ext) REFERENCES breaks(id_ext) ON DELETE CASCADE)")     #creating a table for each individual person
 				cursor.execute("alter table exp_values add "+persons_comp[i]+" varchar(4)")
- 				cursor.execute("update exp_values set "+persons_comp[i]+" = '0.0'")
+				cursor.execute("update exp_values set "+persons_comp[i]+" = '0.0'")
 				cursor.execute("alter table exp_values_dev add "+persons_comp[i]+" varchar(5)")
 				cursor.execute("update exp_values_dev set "+persons_comp[i]+" = '0.0'")
 				cursor.execute("alter table exp_values_stdev add "+persons_comp[i]+" varchar(4)")
