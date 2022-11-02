@@ -138,14 +138,8 @@ def add_coffee_to_break(id_ext, name, user):
 			cursor.execute("alter table holidays add "+name.upper()+" varchar(6)")                                                    #adding person to holidays table
 			cursor.execute("create table if not exists mbr_"+name.upper()+" (id_ext char(10), n_coffees int, primary key(id_ext), CONSTRAINT fk_member_"+name.upper()+"_break_ID_ext FOREIGN KEY(id_ext) REFERENCES breaks(id_ext) ON DELETE CASCADE)")     #creating a table for each individual person
 			cursor.execute("insert into mbr_"+name.upper()+" (id_ext, n_coffees) values (%s, %s)", (id_ext, 1))
-			
-			ssh = paramiko.SSHClient()
-			ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-			ssh.connect(**st.secrets["ssh-server"])
-
-			stdin, stdout, stderr = ssh.exec_command("cd mysql_scripts; ./simple_update.sh")
-			lines = stdout.readlines()
-			ssh.close()
+			db.commit()
+			update_database(datetime.datetime.today().month)
 			
 			cursor.execute("select size from break_sizes where id_ext = '"+id_ext+"'")
 			tmp1 = cursor.fetchall()
