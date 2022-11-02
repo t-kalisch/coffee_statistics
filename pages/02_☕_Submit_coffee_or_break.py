@@ -56,9 +56,11 @@ def submit_break(persons,coffees,date_br):					# submitting break into database
 		cursor.execute("insert into breaks (id_ext, day, month, year) values (%s, %s, %s, %s)", (id_ext, date_br[0], date_br[1], date_br[2]))
 		cursor.execute("insert into break_sizes (id_ext, size) values (%s, %s)", (id_ext, len(persons_comp)))
 		for i in range(len(persons_comp)):
+			
 			cursor.execute("select count(*) from members where name = '"+persons_comp[i]+"'")
 			tmp = cursor.fetchone()
 			if tmp[0] == 0:
+				st.write(persons_comp[i])
 				cursor.execute("insert into members (name,admin) values ('"+str(persons[i].upper())+"',0)")                                             #adding person to members table
 				cursor.execute("alter table holidays add "+persons[i].upper()+" int")                                                    #adding person to holidays table
 				cursor.execute("create table if not exists mbr_"+persons[i].upper()+" (id_ext char(10), n_coffees int, primary key(id_ext), CONSTRAINT fk_member_"+persons[i].upper()+"_break_ID_ext FOREIGN KEY(id_ext) REFERENCES breaks(id_ext) ON DELETE CASCADE)")     #creating a table for each individual person
