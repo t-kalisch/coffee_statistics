@@ -188,7 +188,9 @@ else:
 	  date_month = col2.text_input("Month", placeholder = datetime.date.today().month)
 	  date_year = col3.text_input("Year", placeholder = datetime.date.today().year)
 	  persons=['TK','PB','DB','FLG','SHK','SB',p1_name,p2_name,p3_name]
+	  st.write(persons)
 	  coffees=[tk,pb,db,flg,shk,sb,p1_coffees,p2_coffees,p3_coffees]
+	  st.write(coffees)
 	  date_br=[date_day,date_month,date_year]
 	  col1,col2 = st.columns([2,6])
 	  col1.button("Submit break", on_click=submit_break, args=(persons,coffees,date_br))
