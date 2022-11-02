@@ -22,10 +22,10 @@ def submit_break(persons,coffees,date_br):					# submitting break into database
 			persons_comp.append(persons[i])
 			coffees_comp.append(coffees[i])
 			valid_break = True
-	if valid_break == False:
-		st.error("No valid break")
 	st.write(persons_comp)
 	st.write(coffees_comp)
+	if valid_break == False:
+		st.error("No valid break")
 	else:
 		if date_br[0] == "" and date_br[1] == "" and date_br[2] == "":
 			date_br[0] = datetime.date.today().day
