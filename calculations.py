@@ -453,8 +453,8 @@ def get_work_days(names, month_id):
     for i in range(len(month_id)):
         temp=[]
         for j in range(len(names)):
-            print(tmp[i][j+3])
-            print(tmp[i][2])
+            st.write(tmp[i][j+3])
+            st.write(tmp[i][2])
             if tmp[i][j+3] == None:
                 temp.append(tmp[i][2])
             else:
