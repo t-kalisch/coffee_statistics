@@ -458,7 +458,7 @@ def get_work_days(names, month_id):
             if tmp[i][j+3] == None:
                 temp.append(tmp[i][2])
             else:
-                temp.append(tmp[i][2]-tmp[i][j+3])
+                temp.append(tmp[i][2]-int(tmp[i][j+3]))
         workdays.append(temp)
     db.close()
     return workdays
