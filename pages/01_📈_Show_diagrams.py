@@ -314,7 +314,7 @@ else:
           weeks=[]
           weekly_br_c=[]
           avg_br_size=[] 
-
+          st.write(weekly_data)
           for i in range(len(weekly_data)):
               temp=[]
               weeks.append(weekly_data[i][0])
@@ -323,7 +323,6 @@ else:
               #if weekly_data[i][3] == Null:
               #    temp.append(float(0))
               #else:
-              st.write(float(weekly_data[i][3]))
               temp.append(float(weekly_data[i][3]))
               weekly_br_c.append(temp)
 
