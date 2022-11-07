@@ -139,7 +139,7 @@ def add_coffee_to_break(id_ext, name, user):
 					st.success("Added a coffee for "+name.upper()+" into break "+id_ext+".")
 		if user_exists == False:
 			cursor.execute("insert into members (name,admin) values ('"+name.upper()+"',0)")                                             #adding person to members table
-			cursor.execute("alter table holidays add "+name.upper()+" varchar(6)")                                                    #adding person to holidays table
+			cursor.execute("alter table holidays add "+name.upper()+" int")                                                    #adding person to holidays table
 			cursor.execute("create table if not exists mbr_"+name.upper()+" (id_ext char(10), n_coffees int, primary key(id_ext), CONSTRAINT fk_member_"+name.upper()+"_break_ID_ext FOREIGN KEY(id_ext) REFERENCES breaks(id_ext) ON DELETE CASCADE)")     #creating a table for each individual person
 			cursor.execute("insert into mbr_"+name.upper()+" (id_ext, n_coffees) values (%s, %s)", (id_ext, 1))
 			db.commit()
