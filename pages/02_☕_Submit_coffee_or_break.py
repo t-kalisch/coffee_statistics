@@ -42,9 +42,11 @@ def submit_break(persons,coffees,date_br):					# submitting break into database
 			id_ext += "0"
 		id_ext += str(int(date_br[0]))
 		
-		cursor.execute("SELECT count(id_ext) FROM breaks WHERE id_ext like '"+id_ext+"%'")    #searching for breaks of the same day as enterd break
-		ids=cursor.fetchall()	
-		if ids[0][0] == 0:
+		cursor.execute("SELECT id_ext FROM breaks WHERE id_ext like '"+id_ext+"%'")    #searching for breaks of the same day as enterd break
+		ids=cursor.fetchall()
+		st.write(ids)
+		return
+		if len(ids) == 0:
 			id_ext += "01"
 		else:
 			if ids[0][0] < 9:
