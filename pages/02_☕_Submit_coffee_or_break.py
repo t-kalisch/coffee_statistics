@@ -45,6 +45,7 @@ def submit_break(persons,coffees,date_br):					# submitting break into database
 		cursor.execute("SELECT id_ext FROM breaks WHERE id_ext like '"+id_ext+"%'")    #searching for breaks of the same day as enterd break
 		ids=cursor.fetchall()
 		st.write(ids)
+		st.write(len(ids)
 		return
 		if len(ids) == 0:
 			id_ext += "01"
