@@ -99,8 +99,9 @@ def add_coffee_to_break(id_ext, name, user):
 	if name == "":
 		name = user
 	cursor.execute("select persons, coffees from drinkers where id_ext = '"+id_ext+"'")
-	st.write(list(cursor.fetchall()[0]))
+	#st.write(list(cursor.fetchall()[0]))
 	drinker_data=list(cursor.fetchall()[0])
+	st.write(drinker_data)
 	if drinker_data == []:
 		st.warning("Invalid extended ID")
 		return
