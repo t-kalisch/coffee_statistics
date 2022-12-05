@@ -323,6 +323,7 @@ else:
               #if weekly_data[i][3] == Null:
               #    temp.append(float(0))
               #else:
+              st.write(weekly_data)
               temp.append(float(weekly_data[i][3]))
               weekly_br_c.append(temp)
 
