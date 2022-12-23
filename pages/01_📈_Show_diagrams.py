@@ -254,7 +254,7 @@ else:
           st.subheader("Prize history")
           col1, col2 = st.columns([2,1])
           prizes = get_prizes(names, month_id_dly, act_func)
-
+          st.write(prizes)
           tickval_num=[]
           total_prizes=[]
 
@@ -284,7 +284,7 @@ else:
                       else:
                           temp.append(sum)
                   total_prizes.append(temp)
-          st.write(total_prizes)
+          
 
           columns=['Month','Persons','Coffee prizes','sizes']
           df = pd.DataFrame(prizes, columns=columns)
