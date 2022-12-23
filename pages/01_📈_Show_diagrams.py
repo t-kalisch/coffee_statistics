@@ -254,12 +254,14 @@ else:
           st.subheader("Prize history")
           col1, col2 = st.columns([2,1])
           prizes = get_prizes(names, month_id_dly, act_func)
-          #tmp = 0
-          #for i in range(len(prizes)):
-          #    if i % 3 == 0:
-          #      tmp += 1
-          #    prizes[i][0]=str(tmp)
-          #st.write(prizes)
+          month_ids = []
+          tmp = 0
+          for i in range(len(prizes)):
+              if i % 3 == 0:
+                 month_ids.append(prizes[i][0])
+                tmp += 1
+              prizes[i][0]=str(tmp)
+          st.write(prizes)
           
           tickval_num=[]
           total_prizes=[]
