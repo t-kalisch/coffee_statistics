@@ -254,8 +254,11 @@ else:
           st.subheader("Prize history")
           col1, col2 = st.columns([2,1])
           prizes = get_prizes(names, month_id_dly, act_func)
+          tmp = 0
           for i in range(len(prizes)):
-              prizes[i][0]=str(i+1)
+              if i mod 3 = 0:
+                tmp += 1
+              prizes[i][0]=str(tmp)
           st.write(prizes)
           
           tickval_num=[]
