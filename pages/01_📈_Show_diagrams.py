@@ -284,7 +284,7 @@ else:
                       else:
                           temp.append(sum)
                   total_prizes.append(temp)
-
+          st.write(total_prizes)
 
           columns=['Month','Persons','Coffee prizes','sizes']
           df = pd.DataFrame(prizes, columns=columns)
