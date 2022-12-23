@@ -259,7 +259,7 @@ else:
           for i in range(len(prizes)):
               if i % 3 == 0:
                  month_ids.append(prizes[i][0])
-                tmp += 1
+                 tmp += 1
               prizes[i][0]=str(tmp)
           st.write(prizes)
           
