@@ -261,7 +261,6 @@ else:
                   tmp += 1
                   month_numbers.append(tmp)
               prizes[i][0]=str(tmp)
-          st.write(prizes)
           
           tickval_num=[]
           total_prizes=[]
