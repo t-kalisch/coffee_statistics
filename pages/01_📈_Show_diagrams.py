@@ -398,7 +398,7 @@ else:
 
 
           #--------------------------------- time resolved correlation data ------------------------------------
-
+          scale = "portland"
           timespan = st.slider("Timespan for correlation", min_value=datetime.date(2021,3,1), max_value=datetime.date.today(), value=(datetime.date(2021, 3, 1), datetime.date.today()), format="MM/YYYY")
           month_start = str(timespan[0].year)
           if timespan[0].month < 10:
@@ -441,7 +441,7 @@ else:
           columns_corr_rel=['x-values','y-values','Percent']
 
           df = pd.DataFrame(temp2_abs, columns=columns_corr_abs)
-          fig11 = px.scatter(df, x='x-values', y='y-values', size='Coffees', custom_data=['Coffees'], labels={"x-values":"", "y-values":""}, title="Absolute correlation", color='Coffees', color_continuous_scale="portland")
+          fig11 = px.scatter(df, x='x-values', y='y-values', size='Coffees', custom_data=['Coffees'], labels={"x-values":"", "y-values":""}, title="Absolute correlation", color='Coffees', color_continuous_scale=scale)
           fig11.update_layout(title_font_size=24, showlegend=False, xaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names_inv))
           #fig5.update_traces(hovertemplate="%{y} with %{x}:<br>%{customdata[0]} coffees")
           fig11.update_traces(hovertemplate="%{y} drank %{customdata[0]} coffees with %{x}")
@@ -449,7 +449,7 @@ else:
           col3.plotly_chart(fig11, use_container_width=True)#              absolute correlation
           #                                                  --------------------------------------------------
           df = pd.DataFrame(temp2_rel, columns=columns_corr_rel)
-          fig12 = px.scatter(df, x='x-values', y='y-values', size='Percent', custom_data=['Percent'], labels={"x-values":"", "y-values":""}, title="Relative correlation", color='Percent')#, text='size')
+          fig12 = px.scatter(df, x='x-values', y='y-values', size='Percent', custom_data=['Percent'], labels={"x-values":"", "y-values":""}, title="Relative correlation", color='Percent', color_continuous_scale=scale)#, text='size')
           fig12.update_layout(title_font_size=24, showlegend=False, xaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names_inv))
           #fig6.update_traces(hovertemplate="%{x} with %{y}:<br>%{customdata[0]} %")
           fig12.update_traces(hovertemplate="%{y} drank %{customdata[0]} % of<br>their coffees with %{x}")
