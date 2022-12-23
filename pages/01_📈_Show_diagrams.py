@@ -254,7 +254,10 @@ else:
           st.subheader("Prize history")
           col1, col2 = st.columns([2,1])
           prizes = get_prizes(names, month_id_dly, act_func)
+          for i in range(len(prizes)):
+              prizes[i][0]=i+1
           st.write(prizes)
+          
           tickval_num=[]
           total_prizes=[]
 
@@ -289,7 +292,7 @@ else:
           columns=['Month','Persons','Coffee prizes','sizes']
           df = pd.DataFrame(prizes, columns=columns)
 
-          fig2 = px.scatter(df, x='Month', y='Persons', title="Coffee prize history ("+act_func+")", labels={"variable":"", "index":"", "value":""}, size='sizes', color='Coffee prizes', color_discrete_sequence=['gold','black','red'])      #plotting social score
+          fig2 = px.scatter(df, x='Month', y='Persons', title="Coffee prize history ("+act_func+")", labels={"variable":"", "index":"", "value":""}, size='sizes', color='Coffee prizes', color_discrete_sequence=['gold','black','red']) 
           fig2.update_layout(title_font_size=24, yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), hovermode="x unified", xaxis=dict(tickmode = 'array', tickvals = month_id_dly, ticktext = months_dly), legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5))
           fig2.update_traces(hovertemplate='%{y}')
           col1.plotly_chart(fig2, use_container_width=True)
