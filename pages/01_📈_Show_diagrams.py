@@ -256,7 +256,7 @@ else:
           prizes = get_prizes(names, month_id_dly, act_func)
           tmp = 0
           for i in range(len(prizes)):
-              if i % 3 = 0:
+              if i % 3 == 0:
                 tmp += 1
               prizes[i][0]=str(tmp)
           st.write(prizes)
