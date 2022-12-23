@@ -342,13 +342,15 @@ else:
 
       #-------------------------------------------------------------------------------------------------------------- absolute and relative correlations (bubble charts)
       if correlation or all_diagrams:
-          st.subheader("Correlation diagrams")
+          #st.subheader("Correlation diagrams")
           
           
-          colorscales = px.colors.named_colorscales()
-          st.write(colorscales)
+          #colorscales = px.colors.named_colorscales()
+          #st.write(colorscales)
           
-          scale = st.selectbox("select color scheme",colorscales)
+          #scale = st.selectbox("select color scheme",colorscales)
+          
+          
          # col3, col4 = st.columns([1,1])                        #setting up two columns for narrower charts        
          # corr_tot=get_correlation(names)
          # corr_abs_raw=corr_tot[0]
@@ -439,7 +441,7 @@ else:
           columns_corr_rel=['x-values','y-values','Percent']
 
           df = pd.DataFrame(temp2_abs, columns=columns_corr_abs)
-          fig11 = px.scatter(df, x='x-values', y='y-values', size='Coffees', custom_data=['Coffees'], labels={"x-values":"", "y-values":""}, title="Absolute correlation", color='Coffees', color_continuous_scale=scale)
+          fig11 = px.scatter(df, x='x-values', y='y-values', size='Coffees', custom_data=['Coffees'], labels={"x-values":"", "y-values":""}, title="Absolute correlation", color='Coffees', color_continuous_scale="portland")
           fig11.update_layout(title_font_size=24, showlegend=False, xaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names), yaxis=dict(tickmode = 'array', tickvals = tickval_num, ticktext = names_inv))
           #fig5.update_traces(hovertemplate="%{y} with %{x}:<br>%{customdata[0]} coffees")
           fig11.update_traces(hovertemplate="%{y} drank %{customdata[0]} coffees with %{x}")
