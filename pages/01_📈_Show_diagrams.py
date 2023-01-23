@@ -208,7 +208,7 @@ else:
               monthly_ratios_inv.append(monthly_ratios[len(monthly_ratios)-i-1])
 
           df_stack=pd.DataFrame(monthly_ratios_inv, columns = names, index = months_inv)
-          fig4 = px.bar(df_stack, x=names, y = months_inv, barmode = 'relative', title="Total percentages of breaks", labels={"y":"", "value":"Percentage", "variable":"drinker"})#, text='value', text_auto=True)
+          fig4 = px.bar(df_stack, x=names, y = months_inv, barmode = 'relative', title=" ", labels={"y":"", "value":"Percentage", "variable":"drinker"})#, text='value', text_auto=True)
           fig4.update_layout(title_font_size=24, showlegend=False)
           fig4.update_traces(hovertemplate='%{y}<br>%{x} %')
           col2.plotly_chart(fig4, use_container_width=True)
