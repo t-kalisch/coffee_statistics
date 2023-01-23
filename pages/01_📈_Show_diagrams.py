@@ -191,8 +191,8 @@ else:
           df = pd.DataFrame(temp, columns=columns, index=names)              #total coffees pie chart
 
           #fig3 = px.pie(df, names = names, values = total_coffees)
-          fig3 = go.Figure(go.Pie(labels = names, title="Total percentage of coffees", values = total_coffees, sort=False, hole=.4))
-          fig3.update_layout(title_font_size=24)
+          fig3 = go.Figure(go.Pie(labels = names, values = total_coffees, sort=False, hole=.4))
+          fig3.update_layout(title="Total percentage of coffees", title_font_size=24)
           col1.plotly_chart(fig3, use_container_width=True)
 
 
