@@ -191,7 +191,7 @@ else:
           df = pd.DataFrame(temp, columns=columns, index=names)              #total coffees pie chart
 
           #fig3 = px.pie(df, names = names, values = total_coffees)
-          fig3 = go.Figure(go.Pie(labels = names, values = total_coffees, sort=False, hole=.4))
+          fig3 = go.Figure(go.Pie(labels = names, title="Total percentage of coffees", values = total_coffees, sort=False, hole=.4))
           fig3.update_layout(title_font_size=24)
           col1.plotly_chart(fig3, use_container_width=True)
 
@@ -208,7 +208,7 @@ else:
               monthly_ratios_inv.append(monthly_ratios[len(monthly_ratios)-i-1])
 
           df_stack=pd.DataFrame(monthly_ratios_inv, columns = names, index = months_inv)
-          fig4 = px.bar(df_stack, x=names, y = months_inv, barmode = 'relative', title=" ", labels={"y":"", "value":"Percentage", "variable":"drinker"})#, text='value', text_auto=True)
+          fig4 = px.bar(df_stack, x=names, y = months_inv, barmode = 'relative', title="Monthly percentage of coffees", labels={"y":"", "value":"Percentage", "variable":"drinker"})#, text='value', text_auto=True)
           fig4.update_layout(title_font_size=24, showlegend=False)
           fig4.update_traces(hovertemplate='%{y}<br>%{x} %')
           col2.plotly_chart(fig4, use_container_width=True)
