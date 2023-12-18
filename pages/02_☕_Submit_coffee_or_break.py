@@ -207,7 +207,7 @@ else:
 	  col3.markdown("Last 10 breaks")
 	  col3.dataframe(df, width=600, height=400)
 
-	
+st.write(last_breaks)	
 	
 #------- footer ----------------
 footer="""<style>
