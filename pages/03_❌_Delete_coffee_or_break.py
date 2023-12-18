@@ -114,12 +114,12 @@ else:
 	  df=pd.DataFrame(last_breaks,columns=['Extended ID','Date','Drinkers','Coffees'])
 	  col3.markdown("Last 10 breaks")
 	  col3.dataframe(df, width=600, height=400)
-	  delete = col1.button("Delete break", on_click=clear_one_break, args=(del_id,""))
+	  #delete = col1.button("Delete break", on_click=clear_one_break, args=(del_id,""))
 	  delete = col1.button("Delete break")		#inactive button
 	  col1.write("-" * 34)
 	  del_person = col1.text_input("Delete for person", placeholder="Username")
 	  #col1.button("Delete coffee from break", on_click=delete_one_coffee_check, args=(del_id,del_person))
-	  col1.button("Delete coffee from break", key=test2)	#inactive button
+	  col1.button("Delete coffee from break")	#inactive button
 
 
 #------- footer ----------------
