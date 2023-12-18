@@ -90,14 +90,16 @@ else:
           if st.session_state.admin == "1":
               update = st.button("Update", help="Update database", on_click=update_database)
 
-      names = get_members()
-      st.write(names)
-      month_info=get_months(datetime.date(2021,3,8))
-      st.write(month_info)
+      #names = get_members()
+      names = ["TK","PB","NV","DB","FLG","SHK","TB","TT","RS","VB","MR","KKM","SB","SK","AK","GP","DM"]           #last values before closing server
+      #month_info=get_months(datetime.date(2021,3,8))    #start of daily records
+      month_info = [["Mar '21","Apr '21","May '21","Jun '21","Jul '21","Aug '21","Sep '21","Oct '21","Nov '21","Dec '21","Jan '22","Feb '22","Mar '22","Apr '22","May '22","Jun '22","Jul '22","Aug '22","Sep '22","Oct '22","Nov '22","Dec '22","Jan '23","Feb '23","Mar '23","Apr '23","May '23","Jun '23","Jul '23","Aug '23","Sep '23","Oct '23","Nov '23","Dec '23"],
+                    ["202103","202104","202105","202106","202107","202108","202109","202110","202111","202112","202201","202202","202203","202204","202205","202206","202207","202208","202209","202210","202211","202212","202301","202302","202303","202304","202305","202306","202307","202308","202309","202310","202311","202312"]]           #last values before closing server
       months_dly=month_info[0]
       month_id_dly=month_info[1]
-      month_info=get_months(datetime.date(2020,11,1))
-      st.write(month_info)
+      #month_info=get_months(datetime.date(2020,11,1))    #start of monthly records
+      month_info = [["Nov'20","Dec'20","Jan'21","Feb'21","Mar'21","Apr'21","May'21","Jun'21","Jul'21","Aug'21","Sep'21","Oct'21","Nov'21","Dec'21","Jan'22","Feb'22","Mar'22","Apr'22","May'22","Jun'22","Jul'22","Aug'22","Sep'22","Oct'22","Nov'22","Dec'22","Jan'23","Feb'23","Mar'23","Apr'23","May'23","Jun'23","Jul'23","Aug'23","Sep'23","Oct'23","Nov'23","Dec'23"],
+                    ["202011","202012","202101","202102","202103","202104","202105","202106","202107","202108","202109","202110","202111","202112","202201","202202","202203","202204","202205","202206","202207","202208","202209","202210","202211","202212","202301","202302","202303","202304","202305","202306","202307","202308","202309","202310","202311","202312"]]           #last values before closing server
       months_all=month_info[0]
       month_id_all=month_info[1]
 
@@ -159,6 +161,7 @@ else:
           st.subheader("Coffees per month") 
 
           monthly_coffees_all = get_monthly_coffees(names, month_id_all)
+          st.write(monthly_coffees_all)
           df = pd.DataFrame(monthly_coffees_all[0], columns=names, index=months_all)    #coffees per month per person
 
           fig1 = px.line(df, title="Number of coffees per month per person", labels={"variable":"", "index":"", "value":"Number of coffees"})
@@ -187,6 +190,7 @@ else:
           col1.subheader("Total coffees")
 
           total_coffees = get_total_coffees(names)
+          st.write(tota_coffees)
           temp=[]
           for i in range(len(total_coffees)):
               temp1=[]
@@ -207,6 +211,7 @@ else:
           col2.subheader("Monthly ratios")
 
           monthly_ratios=get_monthly_ratio(names, month_id_all)
+          st.write(monthly_ratios)
 
           months_inv=[]
           monthly_ratios_inv=[]
