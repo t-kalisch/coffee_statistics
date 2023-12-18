@@ -195,7 +195,7 @@ else:
 	  date_br=[date_day,date_month,date_year]
 	  col1,col2 = st.columns([2,6])
 	  #col1.button("Submit break", on_click=submit_break, args=(persons,coffees,date_br))
-          col1.button("Submit break")		#inactive button
+		col1.button("Submit break")		#inactive button
 	  st.write("-" * 34)
 	  st.write("Enter an extended ID and Name to add a coffee to a break.")
 	  #last_breaks=get_last_breaks(10)
@@ -213,7 +213,7 @@ else:
 	  id_ext = col1.text_input("Extended ID", placeholder=last_breaks[len(last_breaks)-1][0])
 	  coffee_name = col2.text_input("Username", placeholder="User")
 	  #col1.button("Add coffee", on_click=add_coffee_to_break_check, args=(id_ext, coffee_name, st.session_state.user_name))
-          col1.button("Add coffee")		#inactive button
+		col1.button("Add coffee")		#inactive button
 	  df=pd.DataFrame(last_breaks,columns=['Extended ID','Date','Drinkers','Coffees'])
 	  col3.markdown("Last 10 breaks")
 	  col3.dataframe(df, width=600, height=400)
