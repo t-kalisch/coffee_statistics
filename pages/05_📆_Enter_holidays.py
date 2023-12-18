@@ -218,7 +218,7 @@ else:
     else:
         st.warning("You do not have the permissions to submit holidays. Please contact a system administrator for further information.")
     
-st.write(all_holidays)
+
 	#------- footer ----------------
 footer="""<style>
 .footer {
