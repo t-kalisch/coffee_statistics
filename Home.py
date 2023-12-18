@@ -22,8 +22,24 @@ def get_manager():
 cookie_manager = get_manager()
 cookie_manager.get_all()
 
-user_data=get_user_data()
-
+#user_data=get_user_data()
+user_data = [["TK","akstr!admin2",1],            #values before closing server
+		 ["PB","akstr!admin",1],
+		 ["NV","niklasv123",0],
+		 ["DB","ClW8YSxD",0],
+		 ["FLG","baddragon",0],
+		 ["SHK","cumcocoon",0],
+		 ["TB","czLwp2BP",0],
+		 ["TT","19SZs4lL",0],
+		 ["RS","N5SgG5N+",0],
+		 ["VB","s*3wq5fI",0],
+		 ["MR","g1iUKkVk",0],
+		 ["KKM","j4h6cYVC",0],
+		 ["SB","3GTo6yGk",0],
+		 ["SK","GttoY3Jk",0],
+		 ["AK","xErIbJA8",0],
+		 ["GP","xy8m9bef5f5xm",0],
+		 ["DM","pimmel",0]]
 
 if 'logged_in' not in st.session_state:
     st.session_state.logged_in=cookie_manager.get(cookie="logged_in")
