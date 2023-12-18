@@ -10,7 +10,8 @@ st.set_page_config(page_title="Coffee list",page_icon="coffee",layout="wide")
 def submit_break(persons,coffees,date_br):					# submitting break into database
 	db = init_connection()
 	cursor = db.cursor(buffered=True)
-	names = get_members()
+	#names = get_members()
+	names = ["TK","PB","NV","DB","FLG","SHK","TB","TT","RS","VB","MR","KKM","SB","SK","AK","GP","DM"]           #last values before closing server
 	
 	persons_comp=[]
 	coffees_comp=[]
@@ -95,7 +96,8 @@ def add_coffee_to_break_check(id_ext, coffee_name, logged_in_user):
 def add_coffee_to_break(id_ext, name, user):
 	db = init_connection()
 	cursor = db.cursor(buffered=True)
-	names = get_members()
+	#names = get_members()
+	names = ["TK","PB","NV","DB","FLG","SHK","TB","TT","RS","VB","MR","KKM","SB","SK","AK","GP","DM"]           #last values before closing server
 	if name == "":
 		name = user
 	cursor.execute("select persons, coffees from drinkers where id_ext = '"+id_ext+"'")
@@ -196,6 +198,7 @@ else:
 	  st.write("-" * 34)
 	  st.write("Enter an extended ID and Name to add a coffee to a break.")
 	  last_breaks=get_last_breaks(10)
+	  st.write(last_breaks)
 	  col1, col2, col3 = st.columns([1,1,3])
 	  id_ext = col1.text_input("Extended ID", placeholder=last_breaks[len(last_breaks)-1][0])
 	  coffee_name = col2.text_input("Username", placeholder="User")
