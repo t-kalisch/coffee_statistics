@@ -61,11 +61,9 @@ else:
   else:
       #all_func = get_functionals()
       all_func = ["BS3LYP","BS3LYPp","dynamic","dynamicp","KKBK21","KKBK21-G2","KKBK21-G2I","PBTK","PJGL21","polypony","TKPBW95","TKPBW95p"]            #last values before closing server
-      act_func = get_active_func()
-      st.write(act_func)
       with st.sidebar:
           #act_func = get_active_func()
-          #act_func = 
+          act_func = "dynamicp"             #last values before closing server
           if st.session_state.admin == "1":
               for i in range(len(all_func)):
                   if all_func[i] == act_func:
