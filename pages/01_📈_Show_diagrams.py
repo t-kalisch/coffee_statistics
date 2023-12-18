@@ -311,6 +311,7 @@ else:
           exp_values = get_expectation_values(names, month_id_all, func_selected)
           st.write(exp_values)
           stdev = get_stdev(names, month_id_all)
+          st.write(stdev)
 
           max_values=[]
           for i in range(len(names)):
@@ -319,7 +320,7 @@ else:
               max_values.append(exp_values[i]+stdev[i])
 
           mad_total = get_mad(names, month_id_all)
-
+          st.write(mad_total)
           columns=['Number of coffees']
           df = pd.DataFrame(exp_values, columns=columns, index=names)                #expectation values with standard deviation
           df["e"] = stdev
@@ -344,6 +345,7 @@ else:
           st.subheader("Prize history")
           col1, col2 = st.columns([2,1])
           prizes = get_prizes(names, month_id_dly, act_func)
+          st.write(prizes)
           month_numbers = []
           tmp = 0
           for i in range(len(prizes)):
