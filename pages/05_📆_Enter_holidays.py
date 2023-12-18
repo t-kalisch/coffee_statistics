@@ -99,7 +99,7 @@ else:
         st.write("-" * 34)   
         st.subheader("All holidays")
         #all_holidays = get_all_holidays(datetime.datetime.now())
-	all_holidays = [[202011,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],			#last values before closing server
+        all_holidays = [[202011,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],			#last values before closing server
 			[202012,20,3,6,0,3,6,6,0,0,0,0,0,0,0,0,0,0,0],
 			[202101,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 			[202102,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -160,7 +160,7 @@ else:
         st.write("-" * 34)   
         st.subheader("All holidays")
         #all_holidays = get_all_holidays(datetime.datetime.now())
-	all_holidays = [[202011,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],			#last values before closing server
+        all_holidays = [[202011,21,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],			#last values before closing server
 			[202012,20,3,6,0,3,6,6,0,0,0,0,0,0,0,0,0,0,0],
 			[202101,19,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 			[202102,20,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
