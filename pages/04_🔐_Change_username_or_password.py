@@ -79,26 +79,25 @@ else:
         col1,col2 = st.columns([0.5,0.5])
         admin_pw = col1.text_input("Please enter your password to confirm", type = 'password', placeholder = "Password")
         #confirm = col1.button("Confirm")
-        confirm = False
-        confirm_dummy = col1.button("Confirm")
-        if confirm:
-            if status == -1:
-                st.error("Wrong username entered")
-            else:
-                done= "False"
-                for i in range(len(user_data)):
-                    if st.session_state.user_name == user_data[i][0] and admin_pw == user_data[i][1]:
-                        done = change_profile_data(change_user, username_new, pw_new, user_status)
-                if done == "Done":
-                    st.success("The username/password/status have been changed")
-                elif done == "False":
-                    st.warning("Incorrect password")
-                elif done == "Exists":
-                    st.error("The entered username already exists, please choose another!")
-                elif done == "Same":
-                    st.error("The new username cannot be the same as the old one!")
-                elif done == "Empty":
-                    st.warning("All input fields are empty, therefore nothing has been changed.")
+        confirm_dummy = col1.button("Confirm")		#inactive button
+        #if confirm:					#deactivated button press
+        #    if status == -1:
+        #        st.error("Wrong username entered")
+        #    else:
+        #        done= "False"
+        #        for i in range(len(user_data)):
+        #            if st.session_state.user_name == user_data[i][0] and admin_pw == user_data[i][1]:
+        #                done = change_profile_data(change_user, username_new, pw_new, user_status)
+        #        if done == "Done":
+        #            st.success("The username/password/status have been changed")
+        #        elif done == "False":
+        #            st.warning("Incorrect password")
+        #        elif done == "Exists":
+        #            st.error("The entered username already exists, please choose another!")
+        #        elif done == "Same":
+        #            st.error("The new username cannot be the same as the old one!")
+        #        elif done == "Empty":
+        #            st.warning("All input fields are empty, therefore nothing has been changed.")
 
     elif st.session_state.admin == "0":
         st.subheader("**:adult:** Change username")
@@ -122,20 +121,19 @@ else:
         pw_new = col2.text_input("Choose a new password", type="password", placeholder = "New password")
         conf_pw = col2.text_input("Repeat the new password", type="password", placeholder = "Repeat password")
         #pw_change = col2.button("Save new password")
-        pw_change = False
         pw_change_dummy = col2.button("Save new password")
         if pw_new != conf_pw:
             st.error("The entered new passwords differ from each other")
-        if pw_change:
-            if pw_new == "" or conf_pw == "":
-                st.error("You cannot enter an empty password")
-            else:
-                done=False
-            for i in range(len(user_data)):
-                if st.session_state.user_name == user_data[i][0] and curr_pw == user_data[i][1]:
-                    done = change_profile_data(st.session_state.user_name, "", pw_new, st.session_state.admin)
-                if done == False:
-                    st.warning("Incorrect password")
+        #if pw_change:
+        #    if pw_new == "" or conf_pw == "":
+        #        st.error("You cannot enter an empty password")
+        #    else:
+        #        done=False
+        #    for i in range(len(user_data)):
+        #        if st.session_state.user_name == user_data[i][0] and curr_pw == user_data[i][1]:
+        #            done = change_profile_data(st.session_state.user_name, "", pw_new, st.session_state.admin)
+        #        if done == False:
+        #            st.warning("Incorrect password")
 
     else:
         st.warning("You do not have the permission to change a username and/or password. Please contact a system administrator for further information.")
