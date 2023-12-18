@@ -310,6 +310,7 @@ else:
           col7,col8 = st.columns([1,1])
 
           exp_values = get_expectation_values(names, month_id_all, func_selected)
+          st.write(exp_values)
           stdev = get_stdev(names, month_id_all)
 
           max_values=[]
