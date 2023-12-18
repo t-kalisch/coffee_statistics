@@ -91,10 +91,13 @@ else:
               update = st.button("Update", help="Update database", on_click=update_database)
 
       names = get_members()
+      st.write(names)
       month_info=get_months(datetime.date(2021,3,8))
+      st.write(month_info)
       months_dly=month_info[0]
       month_id_dly=month_info[1]
       month_info=get_months(datetime.date(2020,11,1))
+      st.write(month_info)
       months_all=month_info[0]
       month_id_all=month_info[1]
 
