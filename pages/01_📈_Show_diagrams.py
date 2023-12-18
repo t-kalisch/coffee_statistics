@@ -41,7 +41,7 @@ if 'logged_in' not in st.session_state or 'user_name' not in st.session_state or
 else:
   
   simple_data=get_simple_data()
-
+  print(simple_data)
   col1,col2,col3,col4 = st.columns([1,1,1,1])
   col1.subheader(str(simple_data[0][0])+" drinkers")
   col1.subheader(str(simple_data[1][0])+" active drinkers")
@@ -58,8 +58,10 @@ else:
 
   else:
       all_func = get_functionals()
+      print(all_func)
       with st.sidebar:
           act_func = get_active_func()
+          print(act_func)
           if st.session_state.admin == "1":
               for i in range(len(all_func)):
                   if all_func[i] == act_func:
