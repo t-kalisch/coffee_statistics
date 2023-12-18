@@ -61,8 +61,8 @@ else:
         col1,col2 = st.columns([0.5,0.5])
         admin_pw = col1.text_input("Please enter your password to confirm", type = 'password', placeholder = "Password")
         #confirm = col1.button("Confirm")
-	confirm = False
-	confirm_dummy = col1.button("Confirm")
+        confirm = False
+        confirm_dummy = col1.button("Confirm")
         if confirm:
             if status == -1:
                 st.error("Wrong username entered")
@@ -91,8 +91,8 @@ else:
         col2.write("-" * 34)
         new_user = col2.text_input("Choose a new username", placeholder = "Username")
         #user_change = col2.button("Save new username")
-	user_change = False
-	user_change_dummy = col2.button("Save new username")
+        user_change = False
+        user_change_dummy = col2.button("Save new username")
 
         st.write("-" * 34)
         st.subheader("**:closed_lock_with_key:** Change password")
@@ -104,8 +104,8 @@ else:
         pw_new = col2.text_input("Choose a new password", type="password", placeholder = "New password")
         conf_pw = col2.text_input("Repeat the new password", type="password", placeholder = "Repeat password")
         #pw_change = col2.button("Save new password")
-	pw_change = False
-	pw_change_dummy = col2.button("Save new password")
+        pw_change = False
+        pw_change_dummy = col2.button("Save new password")
         if pw_new != conf_pw:
             st.error("The entered new passwords differ from each other")
         if pw_change:
