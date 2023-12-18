@@ -197,8 +197,17 @@ else:
 	  col1.button("Submit break", on_click=submit_break, args=(persons,coffees,date_br))
 	  st.write("-" * 34)
 	  st.write("Enter an extended ID and Name to add a coffee to a break.")
-	  last_breaks=get_last_breaks(10)
-	  st.write(last_breaks)
+	  #last_breaks=get_last_breaks(10)
+	  last_breaks = [["2023120402","4.12.2023","TK-PB-FLG","1-1-2"],				#last values before closing server
+			 ["2023120501","5.12.2023","TK-PB-FLG","1-1-2"],
+			 ["2023120502","5.12.2023","TK-PB-FLG-GP","1-1-1-1"],
+			 ["2023120503","5.12.2023","TK-PB","1-1"],
+			 ["2023120601","6.12.2023","TK-PB-FLG","1-1-2"],
+			 ["2023120701","7.12.2023","TK-PB-FLG","1-1-1"],
+			 ["2023120702","7.12.2023","TK-PB-FLG-GP","1-1-2-1"],
+			 ["2023120801","8.12.2023","TK-PB","1-1"],
+			 ["2023121101","11.12.2023","FLG-GP","2-1"],
+			 ["2023121301","13.12.2023","TK-PB-FLG","1-1-2"]]
 	  col1, col2, col3 = st.columns([1,1,3])
 	  id_ext = col1.text_input("Extended ID", placeholder=last_breaks[len(last_breaks)-1][0])
 	  coffee_name = col2.text_input("Username", placeholder="User")
@@ -207,7 +216,6 @@ else:
 	  col3.markdown("Last 10 breaks")
 	  col3.dataframe(df, width=600, height=400)
 
-st.write(last_breaks)	
 	
 #------- footer ----------------
 footer="""<style>
