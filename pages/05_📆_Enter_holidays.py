@@ -99,8 +99,10 @@ else:
         st.write("-" * 34)   
         st.subheader("All holidays")
         all_holidays = get_all_holidays(datetime.datetime.now())
+	st.write(all_holidays)
         #print(all_holidays)
-        names=get_members()
+        #names=get_members()
+	names = ["TK","PB","NV","DB","FLG","SHK","TB","TT","RS","VB","MR","KKM","SB","SK","AK","GP","DM"]           #last values before closing server
         columns=["ID","Tot. work days"]
         for i in range(len(names)):
             columns.append(names[i])
@@ -119,9 +121,11 @@ else:
         st.write("-" * 34)   
         st.subheader("All holidays")
         all_holidays = get_all_holidays(datetime.datetime.now())
+	
         #print(all_holidays)
         holidays_person=[]
-        names=get_members()
+        #names=get_members()
+	names = ["TK","PB","NV","DB","FLG","SHK","TB","TT","RS","VB","MR","KKM","SB","SK","AK","GP","DM"]           #last values before closing server
         columns=["Month","Total work days"]
         for i in range(len(names)):
             if names[i] == st.session_state.user_name:
