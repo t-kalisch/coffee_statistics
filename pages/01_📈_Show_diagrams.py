@@ -304,14 +304,15 @@ else:
 
       #-------------------------------------------------------------------------------------------------------------- expectation values and MAD (scatter chart and bar chart)
       if expectation_data or all_diagrams:
-          act_func=get_active_func()
+          #act_func=get_active_func()
+          act_func = "dynamicp"             #last values before closing server
           st.subheader("Prediction Data (active functional: "+act_func+")")
           col7,col8 = st.columns([1,1])
 
-          exp_values = get_expectation_values(names, month_id_all, func_selected)
-          st.write(exp_values)
-          stdev = get_stdev(names, month_id_all)
-          st.write(stdev)
+          #exp_values = get_expectation_values(names, month_id_all, func_selected)
+          exp_values = [11,11.6,0,0,25,0,0,0.2,0,0,0.1,0,0.2,0,1.5,3.1,2]             #last values before closing server
+          #stdev = get_stdev(names, month_id_all)
+          stdev = [6,7.2,4.9,15.5,10.8,7.3,3.3,0.6,1.1,0.3,0.7,0.6,2.1,1.6,0.5,1.7,0.9]             #last values before closing server
 
           max_values=[]
           for i in range(len(names)):
@@ -319,8 +320,8 @@ else:
                   exp_values[i] = 0
               max_values.append(exp_values[i]+stdev[i])
 
-          mad_total = get_mad(names, month_id_all)
-          st.write(mad_total)
+          #mad_total = get_mad(names, month_id_all)
+          mad_total = [["TKPBW95",4.71],["TKPBW95p",5.29],["dynamic",4.71],["KKBK21",4.89],["KKBK21-G2",4.76],["KKBK21-G2I",6.05],["BS3LYP",4.74],["BS3LYPp",5.21],["PBTK",5.77],["PJGL21",4.94],["dynamicp",4.59],["polypony",6.24]]             #last values before closing server
           columns=['Number of coffees']
           df = pd.DataFrame(exp_values, columns=columns, index=names)                #expectation values with standard deviation
           df["e"] = stdev
@@ -344,8 +345,41 @@ else:
           #-------------------------------------------------------------------------------------------------------------- coffee prize history (scatter + bar chart)
           st.subheader("Prize history")
           col1, col2 = st.columns([2,1])
-          prizes = get_prizes(names, month_id_dly, act_func)
-          st.write(prizes)
+          #prizes = get_prizes(names, month_id_dly, act_func)
+          prizes = [["202103",4,"Kaffeemeister",40],["202103",2,"Hotshot",25],["202103",4,"Genosse",10],             #last values before closing server
+                    ["202104",3,"Kaffeemeister",40],["202104",1,"Hotshot",25],["202104",4,"Genosse",10],
+                    ["202105",3,"Kaffeemeister",40],["202105",1,"Hotshot",25],["202105",3,"Genosse",10],
+                    ["202106",2,"Kaffeemeister",40],["202106",4,"Hotshot",25],["202106",0,"Genosse",10],
+                    ["202107",2,"Kaffeemeister",40],["202107",4,"Hotshot",25],["202107",1,"Genosse",10],
+                    ["202108",3,"Kaffeemeister",40],["202108",5,"Hotshot",25],["202108",0,"Genosse",10],
+                    ["202109",4,"Kaffeemeister",40],["202109",5,"Hotshot",25],["202109",4,"Genosse",10],
+                    ["202110",0,"Kaffeemeister",40],["202110",0,"Hotshot",25],["202110",0,"Genosse",10],
+                    ["202111",0,"Kaffeemeister",40],["202111",3,"Hotshot",25],["202111",0,"Genosse",10],
+                    ["202112",0,"Kaffeemeister",40],["202112",1,"Hotshot",25],["202112",4,"Genosse",10],
+                    ["202201",1,"Kaffeemeister",40],["202201",5,"Hotshot",25],["202201",0,"Genosse",10],
+                    ["202202",4,"Kaffeemeister",40],["202202",5,"Hotshot",25],["202202",0,"Genosse",10],
+                    ["202203",4,"Kaffeemeister",40],["202203",2,"Hotshot",25],["202203",1,"Genosse",10],
+                    ["202204",4,"Kaffeemeister",40],["202204",5,"Hotshot",25],["202204",0,"Genosse",10],
+                    ["202205",4,"Kaffeemeister",40],["202205",7,"Hotshot",25],["202205",1,"Genosse",10],
+                    ["202206",4,"Kaffeemeister",40],["202206",8,"Hotshot",25],["202206",4,"Genosse",10],
+                    ["202207",5,"Kaffeemeister",40],["202207",8,"Hotshot",25],["202207",5,"Genosse",10],
+                    ["202208",4,"Kaffeemeister",40],["202208",0,"Hotshot",25],["202208",0,"Genosse",10],
+                    ["202209",1,"Kaffeemeister",40],["202209",0,"Hotshot",25],["202209",1,"Genosse",10],
+                    ["202210",0,"Kaffeemeister",40],["202210",6,"Hotshot",25],["202210",4,"Genosse",10],
+                    ["202211",0,"Kaffeemeister",40],["202211",4,"Hotshot",25],["202211",0,"Genosse",10],
+                    ["202212",4,"Kaffeemeister",40],["202212",6,"Hotshot",25],["202212",0,"Genosse",10],
+                    ["202301",1,"Kaffeemeister",40],["202301",10,"Hotshot",25],["202301",0,"Genosse",10],
+                    ["202302",1,"Kaffeemeister",40],["202302",5,"Hotshot",25],["202302",0,"Genosse",10],
+                    ["202303",4,"Kaffeemeister",40],["202303",4,"Hotshot",25],["202303",4,"Genosse",10],
+                    ["202304",3,"Kaffeemeister",40],["202304",10,"Hotshot",25],["202304",0,"Genosse",10],
+                    ["202305",4,"Kaffeemeister",40],["202305",8,"Hotshot",25],["202305",4,"Genosse",10],
+                    ["202306",0,"Kaffeemeister",40],["202306",3,"Hotshot",25],["202306",4,"Genosse",10],
+                    ["202307",4,"Kaffeemeister",40],["202307",4,"Hotshot",25],["202307",4,"Genosse",10],
+                    ["202308",4,"Kaffeemeister",40],["202308",14,"Hotshot",25],["202308",4,"Genosse",10],
+                    ["202309",4,"Kaffeemeister",40],["202309",14,"Hotshot",25],["202309",0,"Genosse",10],
+                    ["202310",0,"Kaffeemeister",40],["202310",6,"Hotshot",25],["202310",0,"Genosse",10],
+                    ["202311",4,"Kaffeemeister",40],["202311",14,"Hotshot",25],["202311",4,"Genosse",10]]
+        
           month_numbers = []
           tmp = 0
           for i in range(len(prizes)):
@@ -409,7 +443,8 @@ else:
           st.subheader("Weekly breaks, coffees and average break sizes")
           columns=['Breaks','Coffees','Average break size']
           weekly_data = get_weekly_coffees_breaks(names)
-
+          st.write(weekly_data)
+        
           weeks=[]
           weekly_br_c=[]
           avg_br_size=[] 
