@@ -98,7 +98,17 @@ else:
 
 	elif st.session_state.admin == "1":
 	  st.markdown("Please enter the extended ID of the break you want to delete.")
-	  last_breaks=get_last_breaks(10)
+	  #last_breaks=get_last_breaks(10)
+	  last_breaks = [["2023120402","4.12.2023","TK-PB-FLG","1-1-2"],				#last values before closing server
+			 ["2023120501","5.12.2023","TK-PB-FLG","1-1-2"],
+			 ["2023120502","5.12.2023","TK-PB-FLG-GP","1-1-1-1"],
+			 ["2023120503","5.12.2023","TK-PB","1-1"],
+			 ["2023120601","6.12.2023","TK-PB-FLG","1-1-2"],
+			 ["2023120701","7.12.2023","TK-PB-FLG","1-1-1"],
+			 ["2023120702","7.12.2023","TK-PB-FLG-GP","1-1-2-1"],
+			 ["2023120801","8.12.2023","TK-PB","1-1"],
+			 ["2023121101","11.12.2023","FLG-GP","2-1"],
+			 ["2023121301","13.12.2023","TK-PB-FLG","1-1-2"]]
 	  col1,col2,col3 = st.columns([1,0.5,3])
 	  del_id = col1.text_input("Extended ID of break", placeholder=last_breaks[len(last_breaks)-1][0])
 	  df=pd.DataFrame(last_breaks,columns=['Extended ID','Date','Drinkers','Coffees'])
