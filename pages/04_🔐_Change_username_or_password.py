@@ -32,7 +32,7 @@ if 'logged_in' not in st.session_state or 'user_name' not in st.session_state or
 else:
 
     #user_data = get_user_data()
-    user_data = [["TK","akstr!admin2",1],
+    user_data = [["TK","akstr!admin2",1],            #values before closing server
 		 ["PB","akstr!admin",1],
 		 ["NV","niklasv123",0],
 		 ["DB","ClW8YSxD",0],
