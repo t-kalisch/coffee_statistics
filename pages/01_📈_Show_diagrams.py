@@ -43,7 +43,7 @@ if 'logged_in' not in st.session_state or 'user_name' not in st.session_state or
 else:
   
   #simple_data=get_simple_data()
-  simple_data = [[17],[6],[37],[1600],[4860],[148],[18]]
+  simple_data = [[17],[6],[37],[1600],[4860],[148],[18]]            #last values before closing server
   col1,col2,col3,col4 = st.columns([1,1,1,1])
   col1.subheader(str(simple_data[0][0])+" drinkers")
   col1.subheader(str(simple_data[1][0])+" active drinkers")
@@ -59,11 +59,13 @@ else:
 
 
   else:
-      all_func = get_functionals()
-      st.write(all_func)
+      #all_func = get_functionals()
+      all_func = ["BS3LYP","BS3LYPp","dynamic","dynamicp","KKBK21","KKBK21-G2","KKBK21-G2I","PBTK","PJGL21","polypony","TKPBW95","TKPBW95p"]            #last values before closing server
+      act_func = get_active_func()
+      st.write(act_func)
       with st.sidebar:
-          act_func = get_active_func()
-          st.write(act_func)
+          #act_func = get_active_func()
+          #act_func = 
           if st.session_state.admin == "1":
               for i in range(len(all_func)):
                   if all_func[i] == act_func:
