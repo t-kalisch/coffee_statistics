@@ -6,22 +6,6 @@ from datetime import date
 from calculations import *
 import plotly.graph_objects as go
 
-from contextlib import contextmanager, redirect_stdout
-from io import StringIO
-def st_capture(output_func):
-    with StringIO() as stdout, redirect_stdout(stdout):
-        old_write = stdout.write
-
-        def new_write(string):
-            ret = old_write(string)
-            output_func(stdout.getvalue())
-            return ret
-        
-        stdout.write = new_write
-        yield
-
-
-output = st.empty()
 
 
   #------------------------ getting functionals from database ------------------
@@ -58,8 +42,8 @@ if 'logged_in' not in st.session_state or 'user_name' not in st.session_state or
     st.warning("Warning! Your session was terminated due to inactivity. Please return to home to restart it and regain access to all features.")
 else:
   
-  simple_data=get_simple_data()
-  st.write(simple_data)
+  #simple_data=get_simple_data()
+  simple_data = [[17],[6],[37],[1600],[4860],[148],[18]]
   col1,col2,col3,col4 = st.columns([1,1,1,1])
   col1.subheader(str(simple_data[0][0])+" drinkers")
   col1.subheader(str(simple_data[1][0])+" active drinkers")
@@ -76,12 +60,10 @@ else:
 
   else:
       all_func = get_functionals()
-      with st_capture(output.code):
-        print(all_func)
+      st.write(all_func)
       with st.sidebar:
           act_func = get_active_func()
-          with st_capture(output.code):
-            print(act_func)
+          st.write(act_func)
           if st.session_state.admin == "1":
               for i in range(len(all_func)):
                   if all_func[i] == act_func:
