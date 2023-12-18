@@ -552,6 +552,7 @@ else:
           col5,col6 = st.columns([2,1])
 
           percentages=get_perc_breaks(names, month_id_dly)
+          st.write(percentages)
           percentage_total=percentages[0]
           percentage=[]
           for i in range(len(percentages)-1):
@@ -577,6 +578,7 @@ else:
           col7,col8 = st.columns([2,1])
 
           socialscore_total = get_social_score(names, month_id_dly)
+          st.write(socialscore_total)
           total = socialscore_total[0]
           socialscore=[]
           #for i in range(len(socialscore_total[1])):
@@ -670,6 +672,7 @@ else:
           st.subheader("Cumulated coffees")
 
           cumulated_coffees = get_cumulated_coffees(names, month_id_all)
+          st.write(cumulated_coffees)
           df = pd.DataFrame(cumulated_coffees, columns=names, index=months_all)
 
           fig10 = px.line(df, title="Number of coffees per month per person", labels={"variable":"", "index":"", "value":"Number of coffees"})
