@@ -99,7 +99,7 @@ else:
         st.write("-" * 34)   
         st.subheader("All holidays")
         all_holidays = get_all_holidays(datetime.datetime.now())
-	st.write(all_holidays)
+	
         #print(all_holidays)
         #names=get_members()
 	names = ["TK","PB","NV","DB","FLG","SHK","TB","TT","RS","VB","MR","KKM","SB","SK","AK","GP","DM"]           #last values before closing server
@@ -142,7 +142,7 @@ else:
     else:
         st.warning("You do not have the permissions to submit holidays. Please contact a system administrator for further information.")
     
-
+st.write(all_holidays)
 	#------- footer ----------------
 footer="""<style>
 .footer {
