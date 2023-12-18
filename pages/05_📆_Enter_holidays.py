@@ -87,14 +87,18 @@ else:
         holidays = col4.text_input("Number of holidays", placeholder=0)
         if person_hol == "":
             if month == "" and year == "":
-                sub_hol = st.button("Submit holidays", help="Submit holidays for yourself", on_click=submit_holidays, args=(st.session_state.user_name, datetime.date.today().month, datetime.date.today().year, holidays))
+                #sub_hol = st.button("Submit holidays", help="Submit holidays for yourself", on_click=submit_holidays, args=(st.session_state.user_name, datetime.date.today().month, datetime.date.today().year, holidays))
+                sub_hol = st.button("Submit holidays")	#inactive button
             else:
-                sub_hol = st.button("Submit holidays", help="Submit holidays for yourself", on_click=submit_holidays, args=(st.session_state.user_name, month, year, holidays))
+                #sub_hol = st.button("Submit holidays", help="Submit holidays for yourself", on_click=submit_holidays, args=(st.session_state.user_name, month, year, holidays))
+                sub_hol = st.button("Submit holidays")	#inactive button
         else:
             if month == "" and year == "":
-                sub_hol = st.button("Submit holidays", help="Submit holidays for "+person_hol, on_click=submit_holidays, args=(person_hol,datetime.date.today().month,datetime.date.today().year,holidays))
+                #sub_hol = st.button("Submit holidays", help="Submit holidays for "+person_hol, on_click=submit_holidays, args=(person_hol,datetime.date.today().month,datetime.date.today().year,holidays))
+                sub_hol = st.button("Submit holidays")	#inactive button
             else:
-                sub_hol = st.button("Submit holidays", help="Submit holidays for "+person_hol, on_click=submit_holidays, args=(person_hol,month,year,holidays))
+                #sub_hol = st.button("Submit holidays", help="Submit holidays for "+person_hol, on_click=submit_holidays, args=(person_hol,month,year,holidays))
+                sub_hol = st.button("Submit holidays")	#inactive button
 
         st.write("-" * 34)   
         st.subheader("All holidays")
@@ -154,7 +158,9 @@ else:
         month = col1.text_input("Month", placeholder=datetime.date.today().month)
         year = col2.text_input("Year", placeholder=datetime.date.today().year)
         holidays = col3.text_input("Number of holidays", placeholder=0)
-        sub_hol = col1.button("Submit", help="Submit holidays")
+        #sub_hol = col1.button("Submit", help="Submit holidays")
+        sub_hol = False
+        sub_hol_dumme = col1.button("Submit")	#inactive button
         if sub_hol:
             submit_holidays(st.session_state.user_name, month, year, holidays)
         st.write("-" * 34)   
