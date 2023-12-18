@@ -606,6 +606,7 @@ else:
           col7,col8 = st.columns([2,1])
 
           total_cpwd = get_coffees_per_work_day(names, month_id_all)
+          st.write(total_cpwd)
           total = total_cpwd[0]
           coffees_per_work_day = total_cpwd[1]
 
