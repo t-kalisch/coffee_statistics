@@ -119,7 +119,7 @@ else:
 	  col1.write("-" * 34)
 	  del_person = col1.text_input("Delete for person", placeholder="Username")
 	  #col1.button("Delete coffee from break", on_click=delete_one_coffee_check, args=(del_id,del_person))
-	  col1.button("Delete coffee from break")	#inactive button
+	  col1.button("Delete coffee from break", key=test2)	#inactive button
 
 
 #------- footer ----------------
