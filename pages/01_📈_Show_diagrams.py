@@ -59,7 +59,7 @@ if 'logged_in' not in st.session_state or 'user_name' not in st.session_state or
 else:
   
   simple_data=get_simple_data()
-  sp.write(simple_data)
+  st.write(simple_data)
   col1,col2,col3,col4 = st.columns([1,1,1,1])
   col1.subheader(str(simple_data[0][0])+" drinkers")
   col1.subheader(str(simple_data[1][0])+" active drinkers")
