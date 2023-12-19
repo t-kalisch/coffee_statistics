@@ -378,7 +378,8 @@ else:
                     ["202308",4,"Kaffeemeister",40],["202308",14,"Hotshot",25],["202308",4,"Genosse",10],
                     ["202309",4,"Kaffeemeister",40],["202309",14,"Hotshot",25],["202309",0,"Genosse",10],
                     ["202310",0,"Kaffeemeister",40],["202310",6,"Hotshot",25],["202310",0,"Genosse",10],
-                    ["202311",4,"Kaffeemeister",40],["202311",14,"Hotshot",25],["202311",4,"Genosse",10]]
+                    ["202311",4,"Kaffeemeister",40],["202311",14,"Hotshot",25],["202311",4,"Genosse",10],
+                    ["202312",4,"Kaffeemeister",40],["202312",1,"Hotshot",25],["202312",4,"Genosse",10]]
         
           month_numbers = []
           tmp = 0
